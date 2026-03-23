@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MONシリーズ — 読む力を、問いで鍛える</title>
+  <meta name="description" content="EIGOモン・SAKUモン。撮影するだけでAIが問題を生成し、あなたの読解力を本物の実力に変える学習アプリシリーズ。" />
+  <meta property="og:title" content="MONシリーズ — 読む力を、問いで鍛える" />
+  <meta property="og:description" content="EIGOモン・SAKUモン。撮影するだけでAIが問題を生成し、読解力を本物の実力に変えます。" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --eigo: #2563eb;
+      --eigo-light: #3b82f6;
+      --eigo-pale: #eff6ff;
+      --saku: #7c3aed;
+      --saku-light: #8b5cf6;
+      --saku-pale: #f5f3ff;
+      --ink: #0f172a;
+      --ink-mid: #475569;
+      --ink-light: #94a3b8;
+      --paper: #f8fafc;
+      --white: #ffffff;
+      --gold: #ca8a04;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--ink);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 40%, rgba(37,99,235,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 80% 60%, rgba(124,58,237,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .08em;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .3; }
+    }
+
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .logo-block {
+      width: 28px; height: 36px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .logo-block.e { background: var(--eigo); }
+    .logo-block.s { background: var(--saku); }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 7vw, 62px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+
+    .hero h1 .grad-e {
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h1 .grad-s {
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255,255,255,.55);
+      max-width: 520px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .hero-apps {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .18s, box-shadow .18s;
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-eigo {
+      background: var(--eigo);
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(37,99,235,.4);
+    }
+    .btn-eigo:hover { box-shadow: 0 12px 40px rgba(37,99,235,.55); }
+
+    .btn-saku {
+      background: var(--saku);
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(124,58,237,.4);
+    }
+    .btn-saku:hover { box-shadow: 0 12px 40px rgba(124,58,237,.55); }
+
+    /* ── APPS SECTION ── */
+    .apps-section {
+      padding: 80px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 48px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .apps-grid { grid-template-columns: 1fr; }
+    }
+
+    .app-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color .2s, background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .app-card.eigo::before { background: linear-gradient(90deg, var(--eigo), var(--eigo-light)); }
+    .app-card.saku::before { background: linear-gradient(90deg, var(--saku), var(--saku-light)); }
+
+    .app-card:hover {
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+    }
+
+    .app-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .app-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .app-icon.eigo { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+    .app-icon.saku { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+
+    .app-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+
+    .app-name.eigo { color: #93c5fd; }
+    .app-name.saku { color: #c4b5fd; }
+
+    .app-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,.45);
+      margin-top: 2px;
+    }
+
+    .app-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,.65);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .app-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    .app-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,.6);
+    }
+
+    .app-features li::before {
+      content: '✓';
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .app-card.eigo .app-features li::before { color: #60a5fa; }
+    .app-card.saku .app-features li::before { color: #a78bfa; }
+
+    .app-cta {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity .15s, transform .15s;
+    }
+
+    .app-cta:hover { opacity: .88; transform: translateY(-1px); }
+
+    .app-cta.eigo { background: var(--eigo); color: #fff; }
+    .app-cta.saku { background: var(--saku); color: #fff; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 80px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 560px) {
+      .how-steps { grid-template-columns: 1fr; }
+    }
+
+    .how-step {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px;
+      padding: 28px 20px;
+    }
+
+    .how-step-num {
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: rgba(255,255,255,.3);
+      margin-bottom: 12px;
+    }
+
+    .how-step-icon { font-size: 32px; margin-bottom: 12px; }
+
+    .how-step-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .how-step-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,.45);
+      line-height: 1.7;
+    }
+
+    /* ── MONパス ── */
+    .pass-section {
+      padding: 80px 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .pass-card {
+      background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(124,58,237,.15));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      padding: 40px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pass-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .pass-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ca8a04, #f59e0b);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .pass-title {
+      font-size: clamp(26px, 5vw, 38px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: 12px;
+    }
+
+    .pass-title .mon { color: #fbbf24; }
+
+    .pass-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,.6);
+      line-height: 1.8;
+      max-width: 480px;
+      margin: 0 auto 28px;
+    }
+
+    .pass-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .pass-price-num {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: #fbbf24;
+    }
+
+    .pass-price-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,.4);
+    }
+
+    .pass-apps {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .pass-app-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-e { background: var(--eigo-light); }
+    .dot-s { background: var(--saku-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,.25);
+    }
+
+    footer a { color: rgba(255,255,255,.35); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,.6); }
+
+    /* ── SECTION HEADING ── */
+    .section-heading {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,.45);
+      line-height: 1.7;
+    }
+
+    /* divider */
+    .divider {
+      width: 40px; height: 2px;
+      background: rgba(255,255,255,.12);
+      margin: 0 auto 40px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span></span>
+      AI × 読解力トレーニング
+    </div>
+
+    <div class="hero-logo">
+      <div class="logo-mark">
+        <div class="logo-block e">E</div>
+        <div class="logo-block s">S</div>
+      </div>
+      <div class="logo-text">MONシリーズ</div>
+    </div>
+
+    <h1>
+      読む力を、<br />
+      <span class="grad-e">英語</span>でも<span class="grad-s">日本語</span>でも<br />
+      問いで鍛える。
+    </h1>
+
+    <p class="hero-sub">
+      本のページを撮影するだけ。<br />
+      AIが最難関レベルの問題を自動生成し、<br />
+      あなたの読解力を本物の実力に変えます。
+    </p>
+
+    <div class="hero-apps">
+      <a href="https://eigomon.vercel.app" target="_blank" rel="noopener" class="btn btn-eigo">
+        🇺🇸 EIGOモンを開く
+      </a>
+      <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener" class="btn btn-saku">
+        📚 SAKUモンを開く
+      </a>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section class="apps-section">
+    <p class="section-label">2つのアプリ</p>
+
+    <div class="apps-grid">
+
+      <!-- EIGOモン -->
+      <div class="app-card eigo">
+        <div class="app-card-header">
+          <div class="app-icon eigo">E</div>
+          <div>
+            <div class="app-name eigo">EIGOモン</div>
+            <div class="app-tagline">読んだ英語を、試す。</div>
+          </div>
+        </div>
+        <p class="app-desc">
+          洋書・英字新聞・教材を撮影するだけで、AIがTOEIC・英検・大学入試レベルの問題を自動生成。読んだ内容が本当の英語力に変わります。
+        </p>
+        <ul class="app-features">
+          <li>6つの試験モード（TOEIC / 英検 / 大学入試など）</li>
+          <li>選択・抜き出し・記述の5問を自動生成</li>
+          <li>AI記述採点＋詳細フィードバック</li>
+          <li>間違えた語彙を間隔反復で自動スケジュール</li>
+          <li>スコア推移グラフ・AI弱点診断</li>
+        </ul>
+        <a href="https://eigomon.vercel.app" target="_blank" rel="noopener" class="app-cta eigo">
+          EIGOモンで始める →
+        </a>
+      </div>
+
+      <!-- SAKUモン -->
+      <div class="app-card saku">
+        <div class="app-card-header">
+          <div class="app-icon saku">S</div>
+          <div>
+            <div class="app-name saku">SAKUモン</div>
+            <div class="app-tagline">読んで、問う。知識を、実力に。</div>
+          </div>
+        </div>
+        <p class="app-desc">
+          読んでいる本のページを撮影するだけで、AIが東大・京大レベルの現代文問題を生成。著者の論理を深く理解する読書体験に変わります。
+        </p>
+        <ul class="app-features">
+          <li>どんな本でも5問を自動生成</li>
+          <li>最難関大学入試プロトコルで出題</li>
+          <li>記述解答をULE（論理評価）で採点</li>
+          <li>本棚で読んだ教材を一元管理</li>
+          <li>AIによる次の1冊のレコメンド</li>
+        </ul>
+        <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener" class="app-cta saku">
+          SAKUモンで始める →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="divider"></div>
+    <p class="section-label">使い方</p>
+    <h2 class="section-heading">3ステップで始められる</h2>
+    <p class="section-sub">スマホさえあれば今すぐ使えます。アプリのインストール不要。</p>
+
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">STEP 01</div>
+        <div class="how-step-icon">📷</div>
+        <div class="how-step-title">テキストを撮影</div>
+        <div class="how-step-desc">洋書・英字新聞・参考書・文庫本など何でもOK。ページを撮影するだけ。</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">STEP 02</div>
+        <div class="how-step-icon">🧠</div>
+        <div class="how-step-title">AIが問題を生成</div>
+        <div class="how-step-desc">最難関レベルの選択・抜き出し・記述問題を自動作成。数秒で完成。</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">STEP 03</div>
+        <div class="how-step-icon">📈</div>
+        <div class="how-step-title">採点＆フィードバック</div>
+        <div class="how-step-desc">AIが論理構造を分析して採点。弱点の根本原因まで教えてくれます。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONパス -->
+  <section class="pass-section">
+    <div class="pass-card">
+      <div class="pass-badge">✦ MONパス</div>
+      <h2 class="pass-title">
+        1つのサブスクで<br /><span class="mon">両方</span>使い放題
+      </h2>
+      <p class="pass-desc">
+        MONパスに加入すると、EIGOモンとSAKUモンの両方が無制限で使えます。英語も日本語も、読む力を一気に伸ばしましょう。
+      </p>
+      <div class="pass-price">
+        <div class="pass-price-num">¥980</div>
+        <div class="pass-price-sub">/ 月〜</div>
+      </div>
+      <div style="font-size: 12px; color: rgba(255,255,255,.35); margin-bottom: 4px;">年払い ¥7,800（約33%お得）</div>
+      <div style="font-size: 12px; color: rgba(255,255,255,.3); margin-bottom: 20px;">まず3回は無料でお試しいただけます</div>
+      <div class="pass-apps">
+        <div class="pass-app-tag">
+          <div class="dot dot-e"></div>
+          EIGOモン 無制限
+        </div>
+        <div class="pass-app-tag">
+          <div class="dot dot-s"></div>
+          SAKUモン 無制限
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div style="margin-bottom: 12px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://eigomon.vercel.app" target="_blank" rel="noopener">EIGOモン</a>
+      <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener">SAKUモン</a>
+      <a href="https://eigomon.vercel.app/terms" target="_blank" rel="noopener">利用規約</a>
+      <a href="https://eigomon.vercel.app/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>
+    </div>
+    <div>© 2026 MONシリーズ. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
