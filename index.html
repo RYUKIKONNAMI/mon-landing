@@ -44,7 +44,6 @@
 
     .rule { border: none; border-top: 1px solid rgba(255,255,255,.06); margin: 0; }
 
-    /* カード上部ライン */
     .border-t-eigo { border-top: 1px solid rgba(59,130,246,.4); }
     .border-t-saku  { border-top: 1px solid rgba(139,92,246,.4); }
   </style>
@@ -86,7 +85,7 @@
       ただ読んで終わらせない、知的インフラ。
     </p>
 
-    <!-- モバイルで最重要CTA -->
+    <!-- CTA -->
     <div class="w-full max-w-xs mb-4">
       <a href="#monpass"
          class="flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl font-black text-[15px] tracking-tight
@@ -120,7 +119,6 @@
 
       <!-- EIGOモン -->
       <div class="border-t-eigo bg-white/[.025] border border-white/[.06] rounded-2xl p-8 flex flex-col gap-6 hover:bg-white/[.04] transition-colors duration-300">
-
         <div>
           <div class="flex items-center gap-2.5 mb-4">
             <div class="w-9 h-9 rounded-lg bg-blue-600/80 flex items-center justify-center text-xs font-black">E</div>
@@ -135,15 +133,18 @@
         </div>
 
         <div class="space-y-2.5 flex-1">
-          {[
-            'OCRで即スキャン → 30秒で5問生成',
-            '6モード対応（TOEIC / 英検 / ニュース読解）',
-            'AI記述採点で論理の穴を可視化',
-            '間違えた語彙を間隔反復で定着',
-          ].map(f => `
           <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
-            <span class="text-blue-500/70 mt-0.5 flex-shrink-0">—</span>${f}
-          </div>`).join('')}
+            <span class="text-blue-500/70 mt-0.5 flex-shrink-0">—</span>OCRで即スキャン → 30秒で5問生成
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-blue-500/70 mt-0.5 flex-shrink-0">—</span>6モード対応（TOEIC / 英検 / ニュース読解）
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-blue-500/70 mt-0.5 flex-shrink-0">—</span>AI記述採点で論理の穴を可視化
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-blue-500/70 mt-0.5 flex-shrink-0">—</span>間違えた語彙を間隔反復で定着
+          </div>
         </div>
 
         <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
@@ -154,7 +155,6 @@
 
       <!-- SAKUモン -->
       <div class="border-t-saku bg-white/[.025] border border-white/[.06] rounded-2xl p-8 flex flex-col gap-6 hover:bg-white/[.04] transition-colors duration-300">
-
         <div>
           <div class="flex items-center gap-2.5 mb-4">
             <div class="w-9 h-9 rounded-lg bg-violet-600/80 flex items-center justify-center text-xs font-black">S</div>
@@ -169,15 +169,18 @@
         </div>
 
         <div class="space-y-2.5 flex-1">
-          {[
-            'どんな本でも即問題化（新書・論文・文庫）',
-            '東大・京大レベルの論理問題を生成',
-            'ULE採点で思考の構造的ズレを指摘',
-            'AIが次の1冊をパーソナルレコメンド',
-          ].map(f => `
           <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
-            <span class="text-violet-500/70 mt-0.5 flex-shrink-0">—</span>${f}
-          </div>`).join('')}
+            <span class="text-violet-500/70 mt-0.5 flex-shrink-0">—</span>どんな本でも即問題化（新書・論文・文庫）
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-violet-500/70 mt-0.5 flex-shrink-0">—</span>東大・京大レベルの論理問題を生成
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-violet-500/70 mt-0.5 flex-shrink-0">—</span>ULE採点で思考の構造的ズレを指摘
+          </div>
+          <div class="flex items-start gap-2.5 text-[12px] text-white/40 font-light">
+            <span class="text-violet-500/70 mt-0.5 flex-shrink-0">—</span>AIが次の1冊をパーソナルレコメンド
+          </div>
         </div>
 
         <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
@@ -197,17 +200,24 @@
     <h2 class="text-[clamp(1.6rem,4vw,2.2rem)] font-black tracking-tight mb-2">3ステップで始まる</h2>
     <p class="text-[13px] text-white/35 font-light mb-12">ブラウザだけで動く。インストール不要。</p>
     <div class="grid grid-cols-3 gap-3">
-      {[
-        { n:'01', icon:'📷', t:'スキャン', d:'紙面・スクリーン何でも。撮影するだけ。' },
-        { n:'02', icon:'🧠', t:'AI生成',  d:'最難関レベルの5問を数秒で自動作成。' },
-        { n:'03', icon:'⚡', t:'採点',    d:'論理構造まで分解して弱点を指摘。' },
-      ].map(s=>`
       <div class="bg-white/[.02] border border-white/[.05] rounded-xl p-4 text-left">
-        <div class="text-[9px] tracking-widest text-white/20 mb-3">STEP ${s.n}</div>
-        <div class="text-xl mb-2">${s.icon}</div>
-        <div class="text-[13px] font-bold mb-1">${s.t}</div>
-        <div class="text-[11px] text-white/35 leading-relaxed font-light">${s.d}</div>
-      </div>`).join('')}
+        <div class="text-[9px] tracking-widest text-white/20 mb-3">STEP 01</div>
+        <div class="text-xl mb-2">📷</div>
+        <div class="text-[13px] font-bold mb-1">スキャン</div>
+        <div class="text-[11px] text-white/35 leading-relaxed font-light">紙面・スクリーン何でも。撮影するだけ。</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.05] rounded-xl p-4 text-left">
+        <div class="text-[9px] tracking-widest text-white/20 mb-3">STEP 02</div>
+        <div class="text-xl mb-2">🧠</div>
+        <div class="text-[13px] font-bold mb-1">AI生成</div>
+        <div class="text-[11px] text-white/35 leading-relaxed font-light">最難関レベルの5問を数秒で自動作成。</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.05] rounded-xl p-4 text-left">
+        <div class="text-[9px] tracking-widest text-white/20 mb-3">STEP 03</div>
+        <div class="text-xl mb-2">⚡</div>
+        <div class="text-[13px] font-bold mb-1">採点</div>
+        <div class="text-[11px] text-white/35 leading-relaxed font-light">論理構造まで分解して弱点を指摘。</div>
+      </div>
     </div>
   </section>
 
@@ -219,7 +229,6 @@
     <p class="text-center text-[10px] tracking-[.25em] uppercase text-white/20 mb-16">統合プラン</p>
 
     <div class="relative rounded-3xl overflow-hidden">
-      <!-- border glow -->
       <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/20 via-transparent to-violet-600/20 pointer-events-none"></div>
       <div class="relative bg-slate-900/80 border border-white/[.09] rounded-3xl p-8 backdrop-blur-sm">
 
@@ -237,7 +246,7 @@
           </p>
         </div>
 
-        <!-- 学割 — モバイルで最上位 -->
+        <!-- 学割 -->
         <div class="relative mb-3">
           <div class="absolute -top-3 inset-x-0 flex justify-center">
             <div class="bg-amber-400 text-slate-900 text-[10px] font-black tracking-widest uppercase px-3 py-0.5 rounded-full">
@@ -274,15 +283,18 @@
 
         <!-- 含まれるもの -->
         <div class="space-y-2">
-          {[
-            { dot:'bg-blue-500', t:'EIGOモン Pro — 無制限' },
-            { dot:'bg-violet-500', t:'SAKUモン Pro — 無制限' },
-            { dot:'bg-emerald-500', t:'まず3回、無料でお試し' },
-          ].map(i=>`
           <div class="flex items-center gap-2.5 text-[12px] text-white/35 font-light">
-            <div class="w-1.5 h-1.5 rounded-full ${i.dot} flex-shrink-0"></div>
-            ${i.t}
-          </div>`).join('')}
+            <div class="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></div>
+            EIGOモン Pro — 無制限
+          </div>
+          <div class="flex items-center gap-2.5 text-[12px] text-white/35 font-light">
+            <div class="w-1.5 h-1.5 rounded-full bg-violet-500 flex-shrink-0"></div>
+            SAKUモン Pro — 無制限
+          </div>
+          <div class="flex items-center gap-2.5 text-[12px] text-white/35 font-light">
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></div>
+            まず3回、無料でお試し
+          </div>
         </div>
 
       </div>
