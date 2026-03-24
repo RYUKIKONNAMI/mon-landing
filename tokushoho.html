@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>特定商取引法に基づく表記 — MONシリーズ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; vertical-align: top; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+    th { width: 36%; min-width: 120px; color: rgba(255,255,255,.35); font-weight: 500; font-size: 12px; padding-right: 20px; white-space: nowrap; }
+    td { color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.85; }
+    h2 { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.5); letter-spacing: .12em; text-transform: uppercase; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    h2:first-of-type { margin-top: 0; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: .06em; }
+    .badge-e { background: rgba(59,130,246,.15); color: #93c5fd; border: 1px solid rgba(59,130,246,.25); }
+    .badge-s { background: rgba(139,92,246,.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,.25); }
+    .badge-m { background: rgba(251,191,36,.12); color: #fcd34d; border: 1px solid rgba(251,191,36,.2); }
+  </style>
+</head>
+<body class="bg-slate-950 text-white min-h-screen">
+
+  <div class="max-w-2xl mx-auto px-5 py-16">
+
+    <!-- ヘッダー -->
+    <div class="mb-12">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors flex items-center gap-1.5 mb-8">← TOPへ戻る</a>
+      <div class="text-[10px] tracking-[.2em] uppercase text-white/25 mb-3">Legal</div>
+      <h1 class="text-[22px] font-black tracking-tight text-white mb-2">特定商取引法に基づく表記</h1>
+      <p class="text-[12px] text-white/30">MONシリーズ（EIGOモン・SAKUモン・MONパス）</p>
+    </div>
+
+    <!-- 事業者情報 -->
+    <h2>事業者情報</h2>
+    <table>
+      <tr><th>販売業者名</th><td>近並 琉暉</td></tr>
+      <tr><th>所在地</th><td>請求があった場合、遅滞なく開示いたします。</td></tr>
+      <tr><th>連絡先</th><td>
+        メール：<a href="mailto:support@eigomon.vercel.app" class="text-blue-400 underline underline-offset-2">support@eigomon.vercel.app</a><br />
+        <span class="text-white/30 text-[11px]">※ お問い合わせはメールにてお願いします。</span>
+      </td></tr>
+      <tr><th>運営責任者</th><td>近並 琉暉</td></tr>
+    </table>
+
+    <!-- EIGOモン -->
+    <h2><span class="badge badge-e">📖 EIGOモン</span>&ensp;英語読解AIトレーニング</h2>
+    <table>
+      <tr><th>サービス内容</th><td>英語テキストをスキャン・入力し、AIが読解問題を自動生成。TOEIC・英検・大学入試形式に対応したAI採点・フィードバック機能を提供するWebアプリ。</td></tr>
+      <tr><th>販売URL</th><td><a href="https://eigomon.vercel.app" class="text-blue-400 underline underline-offset-2" target="_blank">https://eigomon.vercel.app</a></td></tr>
+      <tr><th>無料体験</th><td>新規登録後、問題生成を3回まで無料で利用できます（クレジットカード不要）。</td></tr>
+      <tr><th>料金（税込）</th><td>
+        <div class="space-y-1.5">
+          <div>月額プラン：<strong class="text-white">¥980 / 月</strong></div>
+          <div>年額プラン：<strong class="text-white">¥7,800 / 年</strong>（月換算 ¥650）</div>
+          <div>学割プラン：<strong class="text-white">¥480 / 月</strong>（.ac.jp メールアドレス限定）</div>
+          <div class="text-white/35 text-[11px] pt-1">※ 追加クレジット購入も可能（アプリ内表示の金額に準じます）。</div>
+        </div>
+      </td></tr>
+      <tr><th>支払方法</th><td>クレジットカード（Stripe 決済）</td></tr>
+      <tr><th>支払時期</th><td>
+        月額プラン：登録月より毎月自動更新・即時課金<br />
+        年額プラン：登録日より毎年自動更新・即時課金
+      </td></tr>
+      <tr><th>提供時期</th><td>決済完了後、即時利用可能</td></tr>
+      <tr><th>キャンセル・返金</th><td>
+        サブスクリプションはマイページまたは Stripe カスタマーポータルよりいつでも解約できます。<br />
+        解約後も契約期間終了日まで引き続き利用可能です。<br />
+        デジタルコンテンツの性質上、原則として返金には対応しておりません。<br />
+        ただし、システム障害等により利用できなかった場合は個別に対応いたします。
+      </td></tr>
+      <tr><th>動作環境</th><td>最新バージョンの Chrome / Safari / Edge を推奨。インターネット接続環境が必要です。</td></tr>
+    </table>
+
+    <!-- SAKUモン -->
+    <h2><span class="badge badge-s">📗 SAKUモン</span>&ensp;日本語読解AIトレーニング</h2>
+    <table>
+      <tr><th>サービス内容</th><td>日本語テキスト（書籍・記事等）をスキャン・入力し、AIが読解・記述問題を自動生成。AI採点・フィードバック機能を提供するWebアプリ。</td></tr>
+      <tr><th>販売URL</th><td><a href="https://sakumon-olive.vercel.app" class="text-violet-400 underline underline-offset-2" target="_blank">https://sakumon-olive.vercel.app</a></td></tr>
+      <tr><th>無料体験</th><td>新規登録後、問題生成を3回まで無料で利用できます（クレジットカード不要）。</td></tr>
+      <tr><th>料金（税込）</th><td>
+        <div class="space-y-1.5">
+          <div>月額プラン：<strong class="text-white">¥980 / 月</strong></div>
+          <div>年額プラン：<strong class="text-white">¥7,800 / 年</strong>（月換算 ¥650）</div>
+          <div>学割プラン：<strong class="text-white">¥480 / 月</strong>（.ac.jp メールアドレス限定）</div>
+          <div class="text-white/35 text-[11px] pt-1">※ 追加クレジット購入も可能（アプリ内表示の金額に準じます）。</div>
+        </div>
+      </td></tr>
+      <tr><th>支払方法</th><td>クレジットカード（Stripe 決済）</td></tr>
+      <tr><th>支払時期</th><td>
+        月額プラン：登録月より毎月自動更新・即時課金<br />
+        年額プラン：登録日より毎年自動更新・即時課金
+      </td></tr>
+      <tr><th>提供時期</th><td>決済完了後、即時利用可能</td></tr>
+      <tr><th>キャンセル・返金</th><td>
+        サブスクリプションはマイページまたは Stripe カスタマーポータルよりいつでも解約できます。<br />
+        解約後も契約期間終了日まで引き続き利用可能です。<br />
+        デジタルコンテンツの性質上、原則として返金には対応しておりません。<br />
+        ただし、システム障害等により利用できなかった場合は個別に対応いたします。
+      </td></tr>
+      <tr><th>動作環境</th><td>最新バージョンの Chrome / Safari / Edge を推奨。インターネット接続環境が必要です。</td></tr>
+    </table>
+
+    <!-- MONパス -->
+    <h2><span class="badge badge-m">✦ MONパス</span>&ensp;共通サブスクリプション</h2>
+    <table>
+      <tr><th>サービス内容</th><td>EIGOモン・SAKUモン両方のProプランを一括で利用できる共通ライセンス。両アプリの問題生成・AI採点機能を無制限で利用可能。</td></tr>
+      <tr><th>無料体験</th><td>各アプリ単体の無料枠（各3回）は引き続き利用可能です。MONパス自体の無料期間はありません。</td></tr>
+      <tr><th>料金（税込）</th><td>
+        <div class="space-y-1.5">
+          <div>一般プラン：<strong class="text-white">¥1,480 / 月</strong>（各単体プランより約 20% お得）</div>
+          <div>学割プラン：<strong class="text-white">¥680 / 月</strong>（.ac.jp メールアドレス限定）</div>
+        </div>
+      </td></tr>
+      <tr><th>支払方法</th><td>クレジットカード（Stripe 決済）</td></tr>
+      <tr><th>支払時期</th><td>登録月より毎月自動更新・即時課金</td></tr>
+      <tr><th>提供時期</th><td>決済完了後、EIGOモン・SAKUモン両アプリで即時利用可能</td></tr>
+      <tr><th>キャンセル・返金</th><td>
+        EIGOモン・SAKUモン いずれかのマイページまたは Stripe カスタマーポータルよりいつでも解約できます。<br />
+        解約後も契約期間終了日まで両アプリを引き続き利用可能です。<br />
+        デジタルコンテンツの性質上、原則として返金には対応しておりません。
+      </td></tr>
+    </table>
+
+    <!-- その他 -->
+    <h2>その他</h2>
+    <table>
+      <tr><th>個人情報の取扱い</th><td>
+        ご登録いただいたメールアドレス等の個人情報は、サービス提供・お問い合わせ対応のみに使用し、第三者への提供は行いません。<br />
+        詳細は <a href="https://eigomon.vercel.app/privacy" class="text-blue-400 underline underline-offset-2" target="_blank">プライバシーポリシー</a> をご覧ください。
+      </td></tr>
+      <tr><th>準拠法・管轄</th><td>本表記は日本法に準拠します。紛争が生じた場合は、販売業者の所在地を管轄する裁判所を専属合意管轄とします。</td></tr>
+      <tr><th>表記更新日</th><td>2025年3月</td></tr>
+    </table>
+
+    <!-- フッター -->
+    <div class="mt-16 pt-8 border-t border-white/[.07] text-center text-[11px] text-white/20">
+      © 2025 MONシリーズ &nbsp;·&nbsp;
+      <a href="/" class="hover:text-white/40 transition-colors">TOP</a> &nbsp;·&nbsp;
+      <a href="https://eigomon.vercel.app/privacy" target="_blank" class="hover:text-white/40 transition-colors">プライバシーポリシー</a> &nbsp;·&nbsp;
+      <a href="https://eigomon.vercel.app/terms" target="_blank" class="hover:text-white/40 transition-colors">利用規約</a>
+    </div>
+
+  </div>
+</body>
+</html>
