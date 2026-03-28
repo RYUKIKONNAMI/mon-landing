@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/eigomon",    "destination": "/eigomon.html" },
+    { "source": "/sakumon",    "destination": "/sakumon.html" },
+    { "source": "/tokushoho",  "destination": "/tokushoho.html" },
+    { "source": "/try",        "destination": "/try.html" },
+    { "source": "/((?!.*\\.html$).*)", "destination": "/index.html" }
+  ]
 }

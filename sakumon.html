@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAKUモン — 読んで終わらせない、日本語の知性。</title>
+  <meta name="description" content="新書・ビジネス書をスキャンして即問題化。AIが論理構造を分解し「わかった気」から「説明できる」へ。読書を血肉化する知的パートナー。" />
+  <meta property="og:title" content="SAKUモン — 読んで終わらせない、日本語の知性。" />
+  <meta property="og:description" content="読んだ本を問題化。AIが著者の論理を分解し、理解の穴を可視化する日本語読解AIトレーニングアプリ。" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+            serif: ['Georgia','Hiragino Mincho ProN','Yu Mincho','serif'],
+            mono: ['SF Mono','Fira Code','monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .grad-s {
+      background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-s-soft {
+      background: linear-gradient(135deg, #ddd6fe 0%, #a78bfa 50%, #8b5cf6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-gold {
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+
+    @keyframes shimmer-violet {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-s {
+      background: linear-gradient(90deg, #8b5cf6 0%, #c4b5fd 30%, #8b5cf6 60%, #a78bfa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-violet 3s linear infinite;
+    }
+
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
+
+    .feature-card {
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(139,92,246,.1);
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white font-sans selection:bg-violet-900/50">
+
+  <!-- Ambient glows -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -right-32 w-[700px] h-[700px] bg-violet-900/[.18] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -left-48 w-[500px] h-[500px] bg-violet-800/[.10] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-900/[.08] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+
+  <!-- ════ NAV ════ -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+      <span class="text-white/[.08]">|</span>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-9 rounded bg-violet-600 flex items-center justify-center text-[11px] font-black shadow-[0_4px_16px_rgba(139,92,246,.4)]">S</div>
+        <span class="text-[13px] font-black tracking-tight text-white/80">SAKUモン</span>
+      </div>
+    </div>
+    <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white
+              bg-violet-600 px-4 py-2 rounded-full hover:bg-violet-500 transition-colors tracking-tight
+              shadow-[0_4px_16px_rgba(139,92,246,.35)]">
+      無料で試す →
+    </a>
+  </nav>
+
+
+  <!-- ════ HERO ════ -->
+  <section class="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-24">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[10px] tracking-[.22em] uppercase text-white/25 mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-violet-400 pulse"></span>
+      AI 日本語読解トレーニング &nbsp;·&nbsp; 深まりの栞
+    </div>
+
+    <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
+       class="fade-up-1 inline-flex items-center gap-3 mb-10 px-6 py-3 rounded-full border border-violet-400/40 bg-violet-400/10 backdrop-blur-sm hover:bg-violet-400/18 hover:border-violet-400/70 transition-all duration-200">
+      <span class="text-violet-400 text-[16px]">✦</span>
+      <span class="text-[15px] sm:text-[17px] font-black tracking-[.04em] text-white">体験無料</span>
+      <span class="text-white/40 text-[12px] font-light">— クレジットカード不要</span>
+    </a>
+
+    <h1 class="fade-up-2 text-[clamp(2.4rem,8.5vw,4.8rem)] font-black tracking-[-0.055em] leading-[1.05] mb-8 max-w-3xl">
+      読んで終わらせない、<br class="hidden sm:block" />
+      <span class="grad-s-soft">日本語の知性。</span>
+    </h1>
+
+    <p class="fade-up-2 text-[14px] sm:text-[15px] text-white/38 max-w-sm leading-[2] mb-14 font-light">
+      新書・ビジネス書のページをスキャンするだけ。<br />
+      AIが著者の論理を分解し、理解の穴を問いかける。<br />
+      「読んだ気」で終わる時代に、<br />
+      終止符を打つ知的パートナー。
+    </p>
+
+    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center">
+      <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white
+                bg-violet-600 shadow-[0_8px_32px_rgba(139,92,246,.4)]
+                hover:bg-violet-500 hover:shadow-[0_12px_40px_rgba(139,92,246,.55)] hover:-translate-y-0.5 transition-all duration-200">
+        SAKUモンを無料で始める
+        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">3回無料</span>
+      </a>
+      <a href="/#monpass"
+         class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium
+                hover:bg-white/[.05] hover:text-white/70 transition-all">
+        MONパスも見る ✦
+      </a>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/15">
+      <div class="text-[9px] tracking-[.25em] uppercase">Scroll</div>
+      <div class="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"></div>
+    </div>
+  </section>
+
+
+  <!-- ════ STAT BAR ════ -->
+  <div class="relative z-10 border-y border-white/[.06] bg-white/[.015] backdrop-blur-sm">
+    <div class="max-w-3xl mx-auto px-5 py-6 grid grid-cols-4 text-center">
+      <div class="py-2">
+        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight grad-s">即問題化</div>
+        <div class="text-[10px] text-white/25 mt-1 tracking-wide">スキャン後すぐ</div>
+      </div>
+      <div class="py-2 stat-divider">
+        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight text-white/80">5問</div>
+        <div class="text-[10px] text-white/25 mt-1 tracking-wide">毎セッション生成</div>
+      </div>
+      <div class="py-2 stat-divider">
+        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight text-violet-300/80">記述</div>
+        <div class="text-[10px] text-white/25 mt-1 tracking-wide">AI自動採点対応</div>
+      </div>
+      <div class="py-2 stat-divider">
+        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight grad-gold">推薦</div>
+        <div class="text-[10px] text-white/25 mt-1 tracking-wide">AIによる次の1冊</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════ FEATURES ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-4xl mx-auto">
+
+    <div class="text-center mb-16">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">できること</p>
+      <h2 class="text-[clamp(1.7rem,4.5vw,2.6rem)] font-black tracking-tight leading-tight">
+        読む知を、<span class="grad-s">使える知</span>へ。
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">📖</div>
+        <h3 class="text-[14px] font-bold mb-2">どんな本でも即問題化</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          新書・ビジネス書・小説・論文。ページをスキャンするだけで、AIが核心を突いた問題を生成する。
+        </p>
+      </div>
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">🔍</div>
+        <h3 class="text-[14px] font-bold mb-2">論理構造の可視化</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          著者の主張・根拠・論証の流れをAIが分解。なんとなく読んでいた部分の「なぜ」が見えるようになる。
+        </p>
+      </div>
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">✍️</div>
+        <h3 class="text-[14px] font-bold mb-2">AI記述採点</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          自分の言葉で答える記述問題をAIが採点。「説明できる」レベルの理解を徹底的に鍛える。
+        </p>
+      </div>
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">📚</div>
+        <h3 class="text-[14px] font-bold mb-2">パーソナル読書推薦</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          読んだ本の履歴と理解度からAIが「次に読むべき1冊」を提案。知の連鎖が続いていく。
+        </p>
+      </div>
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">📊</div>
+        <h3 class="text-[14px] font-bold mb-2">理解度スコア分析</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          セッションごとにスコアを蓄積。自分の読解力の成長と弱点ジャンルが一目でわかる。
+        </p>
+      </div>
+
+      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-2xl mb-4">⚡</div>
+        <h3 class="text-[14px] font-bold mb-2">スキマ時間で完結</h3>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          通勤・休憩・就寝前の5分で1セッション。インプットしたその場で即アウトプットする習慣を作る。
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ HOW IT WORKS ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto text-center">
+
+    <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い方</p>
+    <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight mb-2">読んだら、すぐ問題へ。</h2>
+    <p class="text-[13px] text-white/30 font-light mb-14">ブラウザで動く。インストール不要。今すぐ始められる。</p>
+
+    <div class="grid grid-cols-3 gap-3 sm:gap-5">
+      <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
+        <div class="text-[8px] tracking-[.3em] text-violet-400/30 font-mono">STEP 01</div>
+        <div class="text-2xl">📷</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">スキャン</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">読んだページを撮影するだけ。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
+        <div class="text-[8px] tracking-[.3em] text-violet-400/30 font-mono">STEP 02</div>
+        <div class="text-2xl">🧠</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">即問題化</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">AIが論理を分解し問題を生成。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
+        <div class="text-[8px] tracking-[.3em] text-violet-400/30 font-mono">STEP 03</div>
+        <div class="text-2xl">✍️</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">回答・採点</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">記述採点で「説明できる」を確かめる。</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ WHO IT'S FOR ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな人に</p>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">
+        本を読む、<span class="grad-s">すべての人へ。</span>
+      </h2>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+        <div class="text-xl mb-2">💼</div>
+        <div class="text-[11px] text-white/50 font-light leading-snug">ビジネス書を<br/>読む社会人</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+        <div class="text-xl mb-2">🎓</div>
+        <div class="text-[11px] text-white/50 font-light leading-snug">論述・小論文を<br/>鍛えたい学生</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+        <div class="text-xl mb-2">📗</div>
+        <div class="text-[11px] text-white/50 font-light leading-snug">読書量はあるが<br/>定着しない人</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+        <div class="text-xl mb-2">🔬</div>
+        <div class="text-[11px] text-white/50 font-light leading-snug">論文・専門書を<br/>読み込む研究者</div>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ PRICING ════ -->
+  <section class="relative z-10 px-5 py-28 max-w-lg mx-auto">
+
+    <div class="text-center mb-14">
+      <div class="inline-flex items-center gap-2 text-[10px] tracking-[.25em] uppercase font-bold text-violet-400/70 mb-6">
+        <span class="w-4 h-px bg-violet-400/30"></span>
+        プラン
+        <span class="w-4 h-px bg-violet-400/30"></span>
+      </div>
+      <h2 class="text-[clamp(1.9rem,5.5vw,2.8rem)] font-black tracking-tight leading-tight mb-4">
+        まずは無料で、<br />
+        <span class="shimmer-s">血肉化の感覚</span>を。
+      </h2>
+      <p class="text-[13px] text-white/35 font-light leading-relaxed max-w-xs mx-auto">
+        3回まで無料。その後はサブスクリプションで<br />無制限にご利用いただけます。
+      </p>
+    </div>
+
+    <div class="relative rounded-3xl overflow-hidden">
+      <div class="absolute -inset-px rounded-3xl bg-gradient-to-br from-violet-500/30 via-purple-500/15 to-violet-600/20 pointer-events-none"></div>
+      <div class="relative bg-slate-900/90 border border-transparent rounded-3xl p-8 backdrop-blur-md">
+
+        <!-- Free -->
+        <div class="bg-white/[.04] border border-white/[.08] rounded-2xl p-6 mb-4">
+          <div class="flex items-baseline gap-2 mb-1">
+            <span class="text-[36px] font-black tracking-tight leading-none text-white/80">無料</span>
+          </div>
+          <p class="text-[11px] text-white/30 mb-5 font-light">3回のトレーニングをお試しいただけます</p>
+          <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
+             class="flex items-center justify-center w-full py-3.5 rounded-xl bg-violet-600/20 border border-violet-500/25 text-[13px] font-bold text-violet-300
+                    hover:bg-violet-600/30 hover:border-violet-400/40 transition-all duration-200">
+            無料で始める →
+          </a>
+        </div>
+
+        <!-- MONパス -->
+        <div class="relative mb-4">
+          <div class="absolute -top-3.5 inset-x-0 flex justify-center z-10">
+            <div class="bg-amber-400 text-slate-900 text-[9px] font-black tracking-[.18em] uppercase px-4 py-1 rounded-full shadow-[0_4px_16px_rgba(251,191,36,.4)]">
+              お得 &nbsp;·&nbsp; EIGOモンも使える
+            </div>
+          </div>
+          <div class="bg-gradient-to-br from-amber-950/60 to-yellow-950/40 border-2 border-amber-400/40 rounded-2xl pt-9 pb-7 px-6 text-center">
+            <div class="text-[11px] text-amber-300/50 mb-2 font-light">MONパス（学割）</div>
+            <div class="flex items-baseline justify-center gap-1.5 mb-1">
+              <span class="text-[42px] font-black tracking-tight text-amber-300 leading-none">¥680</span>
+              <div class="text-left">
+                <div class="text-[12px] text-white/30">/ 月</div>
+                <div class="text-[9px] text-amber-400/50 font-mono">tax incl.</div>
+              </div>
+            </div>
+            <p class="text-[11px] text-amber-200/45 mb-6 font-light">SAKUモン + EIGOモン 両方 Pro が使い放題</p>
+            <a href="https://sakumon-olive.vercel.app/billing" target="_blank" rel="noopener"
+               class="flex items-center justify-center w-full py-4 rounded-xl font-black text-[14px] tracking-tight text-slate-900
+                      bg-amber-400 shadow-[0_6px_24px_rgba(251,191,36,.4)]
+                      hover:bg-amber-300 hover:shadow-[0_10px_32px_rgba(251,191,36,.55)] hover:-translate-y-0.5 transition-all duration-200">
+              MONパスで始める &nbsp;→
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 justify-center text-[11px] text-white/25 font-light">
+          <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse"></div>
+          クレジットカード不要 · いつでもキャンセル可
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ FINAL CTA ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-sm mx-auto text-center">
+    <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">今すぐ始める</p>
+    <h2 class="text-[clamp(1.6rem,5vw,2.2rem)] font-black tracking-tight leading-tight mb-3">
+      次のページから、<br /><span class="grad-s">血肉にしよう。</span>
+    </h2>
+    <p class="text-[13px] text-white/30 font-light leading-relaxed mb-10">
+      3回無料。クレジットカード不要。<br />アカウント登録だけで今すぐ始められます。
+    </p>
+    <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
+       class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px]
+              bg-violet-600 text-white
+              hover:bg-violet-500 hover:-translate-y-0.5 transition-all duration-200
+              shadow-[0_8px_32px_rgba(139,92,246,.35)]">
+      <div class="w-5 h-5 rounded bg-white/20 flex items-center justify-center text-[9px] font-black">S</div>
+      SAKUモンを無料で試す
+    </a>
+  </section>
+
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-10">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-8 rounded bg-violet-600 flex items-center justify-center text-[10px] font-black">S</div>
+          <span class="text-[12px] font-bold text-white/40 tracking-tight">SAKUモン</span>
+          <span class="text-white/15 text-[11px]">by MONシリーズ</span>
+        </div>
+        <nav class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-white/20">
+          <a href="/" class="hover:text-white/50 transition-colors">MONシリーズ TOP</a>
+          <a href="/eigomon.html" class="hover:text-white/50 transition-colors">EIGOモン</a>
+          <a href="https://eigomon.vercel.app/terms" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">利用規約</a>
+          <a href="https://eigomon.vercel.app/privacy" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+          <a href="/tokushoho.html" class="hover:text-white/50 transition-colors">特定商取引法</a>
+        </nav>
+      </div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-5 border-t border-white/[.04]">
+        <p class="text-[10px] text-white/15">© 2026 MONシリーズ. All rights reserved.</p>
+        <p class="text-[9px] text-white/12 font-mono tracking-wide">Powered by Gemini Flash &amp; Google Cloud Vision</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
