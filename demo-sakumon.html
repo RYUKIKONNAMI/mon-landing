@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAKUモン — ログイン不要デモ | 学問のすすめ</title>
+  <meta name="description" content="アカウント不要で体験。福沢諭吉「学問のすすめ」を題材にしたAI理解度チェック。ULEプロトコルによる本番同一の採点を無料で試せます。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+            serif: ['Georgia','Hiragino Mincho ProN','Yu Mincho','serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .grad-s {
+      background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .rank-S { color: #fbbf24; font-weight: 800; }
+    .rank-A { color: #34d399; font-weight: 800; }
+    .rank-B { color: #60a5fa; font-weight: 800; }
+    .rank-C { color: #f87171; font-weight: 800; }
+    .mcq-correct { border-color: #34d399 !important; background: rgba(52,211,153,0.1) !important; }
+    .mcq-wrong   { border-color: #f87171 !important; background: rgba(248,113,113,0.1) !important; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fade-up .5s ease both; }
+    .passage-text { line-height: 2.2; font-size: 0.98rem; }
+    .scoring-section { display: none; }
+    .scoring-section.visible { display: block; animation: fade-up .5s ease both; }
+    textarea { resize: vertical; }
+    .btn-score {
+      background: linear-gradient(135deg, #10b981, #059669);
+      transition: opacity .2s, transform .1s;
+    }
+    .btn-score:hover { opacity: .88; }
+    .btn-score:active { transform: scale(.98); }
+    .btn-score:disabled { opacity: .5; cursor: not-allowed; }
+    .progress-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #10b981, #3b82f6);
+      border-radius: 2px;
+      transition: width .3s ease;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen">
+
+<!-- Header -->
+<header class="border-b border-zinc-800 bg-zinc-950/80 sticky top-0 z-30 backdrop-blur">
+  <div class="max-w-3xl mx-auto px-5 h-14 flex items-center justify-between">
+    <a href="/sakumon" class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      SAKUモン LP
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 pulse inline-block"></span>
+      <span class="text-xs text-zinc-400 font-mono">ULE採点モード — デモ</span>
+    </div>
+    <a href="https://sakumon.vercel.app" target="_blank" rel="noopener"
+       class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-full transition-colors">
+      無料で始める
+    </a>
+  </div>
+</header>
+
+<!-- Progress -->
+<div class="max-w-3xl mx-auto px-5 pt-4">
+  <div class="flex items-center justify-between text-xs text-zinc-500 mb-1">
+    <span id="progress-label">問1 / 5</span>
+    <span id="progress-score">0 / 56 pts</span>
+  </div>
+  <div class="w-full bg-zinc-800 rounded-full h-1">
+    <div class="progress-bar" id="progress-bar" style="width: 20%"></div>
+  </div>
+</div>
+
+<!-- Intro banner -->
+<div class="max-w-3xl mx-auto px-5 pt-6">
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="text-2xl">📚</div>
+      <div>
+        <p class="text-xs text-emerald-400 font-mono mb-1">著作権切れ文献 / 青空文庫</p>
+        <h1 class="text-base font-bold text-zinc-100 mb-1">福沢諭吉 — 『学問のすすめ』初編（1872）</h1>
+        <p class="text-xs text-zinc-500">このデモはアカウント不要で体験できます。記述問題はULEプロトコルによりリアルタイムでAIが採点します（本番と同一プロンプト使用）。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Passage -->
+<div class="max-w-3xl mx-auto px-5 pt-6">
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6">
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-1 h-5 bg-emerald-500 rounded-full"></div>
+      <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider">本文テキスト</span>
+    </div>
+    <div class="passage-text text-zinc-200 font-serif leading-relaxed" id="passage">
+      <p class="mb-4">天は人の上に人を造らず人の下に人を造らずと言えり。されば天より人を生ずるには、万人は万人みな同じ位にして、生まれながら貴賤上下の差別なく、万物の霊たる身と心との働きをもって天地の間にあるよろずの物を資り、もって衣食住の用を達し、自由自在、互いに人の妨げをなさずしておのおの安楽にこの世を渡らしめ給うの趣意なり。</p>
+      <p class="mb-4">されども今、広くこの人間世界を見渡すに、かしこき人あり、おろかなる人あり、貧しきもあり、富めるもあり、貴人もあり、下人もありて、その有様雲と泥との相違あるに似たるはなんぞや。その次第はなはだ明らかなり。実語教に、人学ばざれば智なし、智なき者は愚人なりとあり。されば賢人と愚人との別は学ぶと学ばざるとによりてできるものなり。賢人とは読書人のことにて愚人とは無学文盲の者をいうなり。ただ学問を勤めて物事をよく知る者は貴人となり富人となり、無学なる者は貧人となり下人となるなり。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Questions -->
+<div class="max-w-3xl mx-auto px-5 pt-6 pb-20 space-y-6" id="questions-container">
+
+  <!-- Q1 MCQ -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q1">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-emerald-900/60 text-emerald-300 text-xs font-mono px-2 py-0.5 rounded">問1</span>
+      <span class="text-xs text-zinc-500">選択問題</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">福沢諭吉が冒頭で「天は人の上に人を造らず人の下に人を造らず」を引用した意図として最も適切なものはどれか。</p>
+    <div class="space-y-2" id="q1-choices">
+      <button onclick="checkMCQ(1,'a')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="a">
+        (A) 人間はすべて同じ能力と知識を持って生まれてくるという事実を示すため
+      </button>
+      <button onclick="checkMCQ(1,'b')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="b">
+        (B) 天が人間に身分の区別なく平等な地位を与えているという前提を示すため
+      </button>
+      <button onclick="checkMCQ(1,'c')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="c">
+        (C) 権力者も民衆も同等の政治的権利を持つべきだと主張するため
+      </button>
+      <button onclick="checkMCQ(1,'d')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="d">
+        (D) 学問によって人間は神や天に近い存在になれると主張するため
+      </button>
+    </div>
+    <div id="q1-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q2 MCQ -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q2">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-emerald-900/60 text-emerald-300 text-xs font-mono px-2 py-0.5 rounded">問2</span>
+      <span class="text-xs text-zinc-500">選択問題</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">「その有様雲と泥との相違あるに似たる」とは何の差異を描写しているか。</p>
+    <div class="space-y-2" id="q2-choices">
+      <button onclick="checkMCQ(2,'a')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="a">
+        (A) 賢人と愚人の知識量・読書量の差
+      </button>
+      <button onclick="checkMCQ(2,'b')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="b">
+        (B) 努力する者と怠ける者の勤勉さの差
+      </button>
+      <button onclick="checkMCQ(2,'c')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="c">
+        (C) 現実に見られる人間社会の貧富・貴賤の格差
+      </button>
+      <button onclick="checkMCQ(2,'d')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="d">
+        (D) 都市部と農村部の生活水準の差
+      </button>
+    </div>
+    <div id="q2-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q3 Short extraction -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q3">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-emerald-900/60 text-emerald-300 text-xs font-mono px-2 py-0.5 rounded">問3</span>
+      <span class="text-xs text-zinc-500">抜き出し問題</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">本文中で福沢が「賢人と愚人の別」が生まれる根本的な原因として述べていることを、本文から<strong class="text-emerald-300">30字以内</strong>で抜き出しなさい。</p>
+    <div class="bg-zinc-800 rounded-xl p-4 mb-4">
+      <input type="text" id="q3-answer" maxlength="60" placeholder="本文中の言葉で答えてください..."
+        class="w-full bg-transparent text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none" />
+    </div>
+    <div class="flex justify-end">
+      <button id="q3-btn" onclick="checkExtraction()"
+        class="bg-zinc-700 hover:bg-zinc-600 text-zinc-200 text-sm font-medium px-4 py-1.5 rounded-full transition-colors">
+        答えを確認する
+      </button>
+    </div>
+    <div id="q3-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q4 Written -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q4">
+    <div class="flex items-center gap-2 mb-1">
+      <span class="bg-teal-900/60 text-teal-300 text-xs font-mono px-2 py-0.5 rounded">問4</span>
+      <span class="text-xs text-zinc-500">記述問題 — AI採点</span>
+      <span class="text-xs text-zinc-600 ml-auto">20点満点</span>
+    </div>
+    <p class="text-xs text-zinc-500 mb-4 font-mono">論理構造の分析</p>
+    <p class="text-sm text-zinc-200 mb-2 leading-relaxed">福沢諭吉は冒頭で「天は人の上に人を造らず」という<strong class="text-teal-300">平等論</strong>を示しながら、なぜ直後に人間社会の格差を描写するのか。この論理展開の構造を<strong class="text-teal-300">200字以内</strong>で説明せよ。</p>
+    <p class="text-xs text-zinc-600 mb-4">※「天賦の平等」と「現実の格差」という二項対立と、それを繋ぐ論理が説明されているか評価されます。</p>
+    <textarea id="q4-answer" rows="5" maxlength="600"
+      placeholder="（例）「福沢は〜を前提として示した上で、〜という逆説を提示することで...」"
+      class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors"></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-xs text-zinc-600" id="q4-charcount">0 / 600字</span>
+      <button id="q4-btn" onclick="scoreWritten(4)"
+        class="btn-score text-white text-sm font-medium px-5 py-2 rounded-full">
+        AI採点する
+      </button>
+    </div>
+    <div id="q4-scoring-result" class="scoring-section mt-5"></div>
+  </div>
+
+  <!-- Q5 Written -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q5">
+    <div class="flex items-center gap-2 mb-1">
+      <span class="bg-teal-900/60 text-teal-300 text-xs font-mono px-2 py-0.5 rounded">問5</span>
+      <span class="text-xs text-zinc-500">記述問題 — AI採点</span>
+      <span class="text-xs text-zinc-600 ml-auto">30点満点</span>
+    </div>
+    <p class="text-xs text-zinc-500 mb-4 font-mono">暗黙の学問観の抽出</p>
+    <p class="text-sm text-zinc-200 mb-2 leading-relaxed">「ただ学問を勤めて物事をよく知る者は貴人となり富人となり、無学なる者は貧人となり下人となるなり」という主張において、筆者が暗黙のうちに前提としている<strong class="text-teal-300">「学問観」</strong>を、本文全体の論理から推論し<strong class="text-teal-300">300字以内</strong>で論述せよ。</p>
+    <p class="text-xs text-zinc-600 mb-4">※単なる内容の要約は不可。学問の機能・役割を本文論理から抽象化してください。</p>
+    <textarea id="q5-answer" rows="6" maxlength="800"
+      placeholder="（例）「福沢が前提とする学問観は、学問を単なる知識蓄積ではなく〜として捉えるものである...」"
+      class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500 transition-colors"></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-xs text-zinc-600" id="q5-charcount">0 / 800字</span>
+      <button id="q5-btn" onclick="scoreWritten(5)"
+        class="btn-score text-white text-sm font-medium px-5 py-2 rounded-full">
+        AI採点する
+      </button>
+    </div>
+    <div id="q5-scoring-result" class="scoring-section mt-5"></div>
+  </div>
+
+</div>
+
+<!-- CTA Footer -->
+<div class="border-t border-zinc-800 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-5 py-10 text-center">
+    <p class="text-zinc-400 text-sm mb-2">読んだ本の理解度を、スコアで可視化する。</p>
+    <p class="text-zinc-300 text-base font-medium mb-6">手元にある本で、いつでも理解度チェック。</p>
+    <a href="https://sakumon.vercel.app" target="_blank" rel="noopener"
+       class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-8 py-3 rounded-full transition-colors text-sm">
+      SAKUモンを無料で始める →
+    </a>
+    <p class="text-xs text-zinc-600 mt-4">クレジットカード不要 · 初月無料</p>
+  </div>
+</div>
+
+<script>
+const SOURCE_TEXT = `天は人の上に人を造らず人の下に人を造らずと言えり。されば天より人を生ずるには、万人は万人みな同じ位にして、生まれながら貴賤上下の差別なく、万物の霊たる身と心との働きをもって天地の間にあるよろずの物を資り、もって衣食住の用を達し、自由自在、互いに人の妨げをなさずしておのおの安楽にこの世を渡らしめ給うの趣意なり。されども今、広くこの人間世界を見渡すに、かしこき人あり、おろかなる人あり、貧しきもあり、富めるもあり、貴人もあり、下人もありて、その有様雲と泥との相違あるに似たるはなんぞや。その次第はなはだ明らかなり。実語教に、人学ばざれば智なし、智なき者は愚人なりとあり。されば賢人と愚人との別は学ぶと学ばざるとによりてできるものなり。賢人とは読書人のことにて愚人とは無学文盲の者をいうなり。ただ学問を勤めて物事をよく知る者は貴人となり富人となり、無学なる者は貧人となり下人となるなり。`
+
+const MCQ_ANSWERS = { 1: 'b', 2: 'c' }
+const MCQ_EXPLANATIONS = {
+  1: {
+    b: '正解です。本文冒頭の論旨は「天より人を生ずるには、万人は万人みな同じ位にして、生まれながら貴賤上下の差別なく」と続くことから、天賦の身分的平等という前提を打ち立てることが目的です。',
+    wrong: '不正解です。冒頭の引用は「生まれながら貴賤上下の差別なく」という天賦の平等を前提として示すためのものです。能力の同一性や政治的権利の主張ではありません。',
+  },
+  2: {
+    c: '正解です。「かしこき人あり、おろかなる人あり、貧しきもあり、富めるもあり、貴人もあり、下人もあり」という人間社会に現実に存在する多様な格差を描写しています。',
+    wrong: '不正解です。「雲と泥との相違」は、賢愚・貧富・貴賤という現実の社会的格差全体を指しています。知識量の差や勤勉さの差といった特定の側面のみではありません。',
+  }
+}
+
+const WRITTEN_QUESTIONS = {
+  4: {
+    id: 4,
+    question: '福沢諭吉は冒頭で「天は人の上に人を造らず」という平等論を示しながら、なぜ直後に人間社会の格差を描写するのか。この論理展開の構造を200字以内で説明せよ。',
+    modelAnswer: '福沢は、天賦の人権としての平等を前提として示した上で、それにもかかわらず現実には格差が存在するという逆説的事実を提示する。この矛盾を解決する鍵として「学問」を位置づけることで、「生まれではなく学びによって人の差が生まれる」という論旨を導く。すなわち平等の前提を破らずに格差の原因を説明する修辞的戦略として機能している。',
+    scoringCriteria: '「天賦の平等」と「現実の格差」という対比構造が示され、学問の有無がその橋渡しとなる論理が説明されているか。',
+    scoring: { maxScore: 20, axes: ['Connectivity', 'Abstraction Level', 'Contrast Integrity', 'Contextual Loyalty', 'Information Density'] }
+  },
+  5: {
+    id: 5,
+    question: '「ただ学問を勤めて物事をよく知る者は貴人となり富人となり、無学なる者は貧人となり下人となるなり」という主張において、筆者が暗黙のうちに前提としている「学問観」を、本文全体の論理から推論し300字以内で論述せよ。',
+    modelAnswer: '福沢が前提とする学問観は、学問を単なる知識の蓄積ではなく、天賦の平等という潜在的可能性を現実の地位へと変換する「翻訳装置」として捉えるものである。天は平等に人を生んだが、その平等を現実のものとするかどうかは学問にかかっている——この論理において、学問は「機会の平等」を「結果の格差」へ転換する正当な媒介として機能する。つまり格差を自然状態として肯定するのではなく、格差の責任を個人の学習努力に帰着させる近代的自己責任論の萌芽がここに読み取れる。',
+    scoringCriteria: '単なる内容の要約ではなく、学問の機能（社会的上昇の媒介、天賦の平等の実現手段）を本文論理から抽象化できているか。自己責任論・近代的個人主義との接続など上位概念への翻訳ができているか。',
+    scoring: { maxScore: 30, axes: ['Connectivity', 'Abstraction Level', 'Contrast Integrity', 'Contextual Loyalty', 'Information Density'] }
+  }
+}
+
+let scores = { mcq: 0, q3: false, written: { 4: null, 5: null } }
+let mcqDone = {}
+
+function updateProgress() {
+  const mcqCount = Object.keys(mcqDone).length
+  const q3Done = scores.q3 ? 1 : 0
+  const writtenCount = [4,5].filter(i => scores.written[i] !== null).length
+  const total = mcqCount + q3Done + writtenCount
+  const pct = (total / 5) * 100
+  document.getElementById('progress-bar').style.width = pct + '%'
+  document.getElementById('progress-label').textContent = `問${Math.min(total+1,5)} / 5`
+
+  let pts = scores.mcq + (scores.q3 ? 3 : 0)
+  ;[4,5].forEach(i => { if (scores.written[i]) pts += scores.written[i] })
+  document.getElementById('progress-score').textContent = pts + ' / 56 pts'
+}
+
+function checkMCQ(qNum, selected) {
+  if (mcqDone[qNum]) return
+  mcqDone[qNum] = true
+  const correct = MCQ_ANSWERS[qNum]
+  const btns = document.querySelectorAll(`#q${qNum}-choices .mcq-btn`)
+  btns.forEach(btn => {
+    btn.disabled = true
+    const val = btn.getAttribute('data-val')
+    if (val === correct) btn.classList.add('mcq-correct')
+    else if (val === selected && selected !== correct) btn.classList.add('mcq-wrong')
+  })
+
+  const resultEl = document.getElementById(`q${qNum}-result`)
+  resultEl.classList.remove('hidden')
+  const expl = MCQ_EXPLANATIONS[qNum]
+  if (selected === correct) {
+    resultEl.innerHTML = `<div class="text-emerald-400 font-medium mb-1">✓ 正解</div><p class="text-zinc-400">${expl[correct]}</p>`
+    scores.mcq += 3
+  } else {
+    resultEl.innerHTML = `<div class="text-red-400 font-medium mb-1">✗ 不正解</div><p class="text-zinc-400">${expl.wrong}</p><p class="text-zinc-500 mt-1 text-xs">正解：(${correct.toUpperCase()})</p>`
+  }
+  updateProgress()
+}
+
+function checkExtraction() {
+  if (scores.q3) return
+  const answer = document.getElementById('q3-answer').value.trim()
+  const resultEl = document.getElementById('q3-result')
+  resultEl.classList.remove('hidden')
+  document.getElementById('q3-btn').disabled = true
+
+  const modelText = '学ぶと学ばざるとによりてできるもの'
+  const keywords = ['学ぶ', '学ばざる']
+  const hasKeywords = keywords.every(k => answer.includes(k))
+
+  if (hasKeywords) {
+    scores.q3 = true
+    scores.mcq += 3
+    resultEl.innerHTML = `<div class="text-emerald-400 font-medium mb-1">✓ 正解（近似）</div>
+      <p class="text-zinc-400">正答例：「<span class="text-emerald-300">学ぶと学ばざるとによりてできるものなり</span>」</p>
+      <p class="text-zinc-500 text-xs mt-1">本文中にそのまま答えが書かれている「本文抜き出し問題」でした。</p>`
+  } else {
+    resultEl.innerHTML = `<div class="text-amber-400 font-medium mb-1">△ 惜しい / 再確認</div>
+      <p class="text-zinc-400">正答例：「<span class="text-emerald-300">学ぶと学ばざるとによりてできるものなり</span>」</p>
+      <p class="text-zinc-500 text-xs mt-1">第2段落の「されば賢人と愚人との別は〜」以降をご確認ください。</p>`
+    document.getElementById('q3-btn').disabled = false
+  }
+  updateProgress()
+}
+
+async function scoreWritten(qNum) {
+  const answer = document.getElementById(`q${qNum}-answer`).value.trim()
+  if (!answer || answer.length < 10) {
+    alert('回答を入力してください（10字以上）')
+    return
+  }
+
+  const btn = document.getElementById(`q${qNum}-btn`)
+  const resultEl = document.getElementById(`q${qNum}-scoring-result`)
+
+  btn.disabled = true
+  btn.textContent = '採点中...'
+  resultEl.innerHTML = `
+    <div class="flex items-center gap-3 py-4">
+      <div class="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+      <span class="text-sm text-zinc-400">Universal Logic Evaluator が解析中...</span>
+    </div>`
+  resultEl.classList.add('visible')
+
+  try {
+    const res = await fetch('/api/score-demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode: 'sakumon',
+        question: WRITTEN_QUESTIONS[qNum],
+        userAnswer: answer,
+        sourceText: SOURCE_TEXT
+      })
+    })
+
+    if (!res.ok) throw new Error('採点APIエラー: ' + res.status)
+    const data = await res.json()
+    if (data.error) throw new Error(data.error)
+
+    const scoreNum = parseInt((data.score || '0').replace(/[^0-9]/g, '')) || 0
+    scores.written[qNum] = scoreNum
+    updateProgress()
+
+    const rankClass = `rank-${data.rank || 'C'}`
+    const maxScore = qNum === 4 ? 20 : 30
+
+    resultEl.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center gap-4 pb-4 border-b border-zinc-800">
+          <div class="text-3xl font-black ${rankClass}">${data.rank || '—'}</div>
+          <div>
+            <div class="text-2xl font-bold text-zinc-100">${data.score || '—'}</div>
+            <div class="text-xs text-zinc-500">ULE 評価スコア</div>
+          </div>
+          <div class="ml-auto text-xs text-zinc-500 text-right">
+            <div class="font-mono">S: 合格圏</div>
+            <div class="font-mono">A: 要微調整</div>
+            <div class="font-mono">B: 論理再構築が必要</div>
+            <div class="font-mono">C: 読解不能</div>
+          </div>
+        </div>
+
+        ${data.positive ? `
+        <div>
+          <div class="text-xs font-mono text-emerald-400 mb-1">■ 論理構造の検診 — 正の評価</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.positive}</p>
+        </div>` : ''}
+
+        ${data.negativeLogic ? `
+        <div>
+          <div class="text-xs font-mono text-red-400 mb-1">■ 論理のズレ</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.negativeLogic}</p>
+        </div>` : ''}
+
+        ${data.negativeConcept ? `
+        <div>
+          <div class="text-xs font-mono text-amber-400 mb-1">■ 概念の不備</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.negativeConcept}</p>
+        </div>` : ''}
+
+        ${data.whyWrong ? `
+        <div class="bg-zinc-800/60 rounded-xl p-4">
+          <div class="text-xs font-mono text-zinc-400 mb-1">■ 思考のアップグレード — なぜ間違えたか</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.whyWrong}</p>
+        </div>` : ''}
+
+        ${data.rewriteGuide ? `
+        <div>
+          <div class="text-xs font-mono text-teal-400 mb-1">■ リライトの指針</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.rewriteGuide}</p>
+        </div>` : ''}
+
+        ${data.idealAnswer ? `
+        <div class="bg-emerald-950/30 border border-emerald-800/30 rounded-xl p-4">
+          <div class="text-xs font-mono text-emerald-400 mb-2">■ 究極の合格解答例</div>
+          <p class="text-sm text-zinc-200 leading-relaxed">${data.idealAnswer}</p>
+        </div>` : ''}
+      </div>`
+
+    btn.textContent = '再採点する'
+    btn.disabled = false
+
+  } catch (err) {
+    resultEl.innerHTML = `<div class="text-red-400 text-sm py-2">エラー: ${err.message}</div>`
+    btn.textContent = 'AI採点する'
+    btn.disabled = false
+  }
+}
+
+// Character count
+;[4,5].forEach(qNum => {
+  const ta = document.getElementById(`q${qNum}-answer`)
+  const counter = document.getElementById(`q${qNum}-charcount`)
+  ta.addEventListener('input', () => {
+    counter.textContent = ta.value.length + ' / ' + ta.maxLength + '字'
+  })
+})
+</script>
+
+</body>
+</html>

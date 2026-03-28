@@ -1,9 +1,11 @@
 {
   "rewrites": [
-    { "source": "/eigomon",    "destination": "/eigomon.html" },
-    { "source": "/sakumon",    "destination": "/sakumon.html" },
-    { "source": "/tokushoho",  "destination": "/tokushoho.html" },
-    { "source": "/try",        "destination": "/try.html" },
+    { "source": "/eigomon",         "destination": "/eigomon.html" },
+    { "source": "/sakumon",         "destination": "/sakumon.html" },
+    { "source": "/tokushoho",       "destination": "/tokushoho.html" },
+    { "source": "/try",             "destination": "/try.html" },
+    { "source": "/demo-eigomon",    "destination": "/demo-eigomon.html" },
+    { "source": "/demo-sakumon",    "destination": "/demo-sakumon.html" },
     { "source": "/((?!.*\\.html$).*)", "destination": "/index.html" }
   ]
 }

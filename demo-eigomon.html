@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EIGOモン — ログイン不要デモ | Mill "On Liberty"</title>
+  <meta name="description" content="アカウント不要で体験。John Stuart Mill「自由論」を題材にしたAI読解演習。標準読解モードを無料で試せます。" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+            serif: ['Georgia','Hiragino Mincho ProN','Yu Mincho','serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .grad-e {
+      background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .rank-S { color: #fbbf24; font-weight: 800; }
+    .rank-A { color: #34d399; font-weight: 800; }
+    .rank-B { color: #60a5fa; font-weight: 800; }
+    .rank-C { color: #f87171; font-weight: 800; }
+    .mcq-correct { border-color: #34d399 !important; background: rgba(52,211,153,0.1) !important; }
+    .mcq-wrong   { border-color: #f87171 !important; background: rgba(248,113,113,0.1) !important; }
+    .mcq-show    { border-color: #60a5fa !important; background: rgba(96,165,250,0.08) !important; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fade-up .5s ease both; }
+    .passage-text { line-height: 2; font-size: 0.97rem; }
+    .scoring-section { display: none; }
+    .scoring-section.visible { display: block; animation: fade-up .5s ease both; }
+    textarea { resize: vertical; }
+    .btn-score {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      transition: opacity .2s, transform .1s;
+    }
+    .btn-score:hover { opacity: .88; }
+    .btn-score:active { transform: scale(.98); }
+    .btn-score:disabled { opacity: .5; cursor: not-allowed; }
+    .progress-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #6366f1);
+      border-radius: 2px;
+      transition: width .3s ease;
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen">
+
+<!-- Header -->
+<header class="border-b border-zinc-800 bg-zinc-950/80 sticky top-0 z-30 backdrop-blur">
+  <div class="max-w-3xl mx-auto px-5 h-14 flex items-center justify-between">
+    <a href="/eigomon" class="text-sm text-zinc-400 hover:text-zinc-200 transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      EIGOモン LP
+    </a>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-blue-400 pulse inline-block"></span>
+      <span class="text-xs text-zinc-400 font-mono">標準読解モード — デモ</span>
+    </div>
+    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+       class="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-full transition-colors">
+      無料で始める
+    </a>
+  </div>
+</header>
+
+<!-- Progress -->
+<div class="max-w-3xl mx-auto px-5 pt-4">
+  <div class="flex items-center justify-between text-xs text-zinc-500 mb-1">
+    <span id="progress-label">問1 / 5</span>
+    <span id="progress-score">0 / 20 pts</span>
+  </div>
+  <div class="w-full bg-zinc-800 rounded-full h-1">
+    <div class="progress-bar" id="progress-bar" style="width: 20%"></div>
+  </div>
+</div>
+
+<!-- Intro banner -->
+<div class="max-w-3xl mx-auto px-5 pt-6">
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5">
+    <div class="flex items-start gap-3">
+      <div class="text-2xl">📖</div>
+      <div>
+        <p class="text-xs text-blue-400 font-mono mb-1">著作権切れ文献 / Public Domain</p>
+        <h1 class="text-base font-bold text-zinc-100 mb-1">John Stuart Mill — <em>On Liberty</em> (1859), Chapter I</h1>
+        <p class="text-xs text-zinc-500">このデモはアカウント不要で体験できます。記述問題はリアルタイムでAIが採点します（本番と同一プロンプト使用）。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Passage -->
+<div class="max-w-3xl mx-auto px-5 pt-6">
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-6">
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-1 h-5 bg-blue-500 rounded-full"></div>
+      <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider">英文テキスト</span>
+    </div>
+    <div class="passage-text text-zinc-200 font-serif leading-relaxed" id="passage">
+      <p class="mb-4">The subject of this Essay is not the so-called Liberty of the Will, so unfortunately opposed in the old controversy of Philosophical Necessity; but Civil, or Social Liberty: the nature and limits of the power which can be legitimately exercised by society over the individual. A question seldom stated, and hardly ever discussed, in general terms, but which profoundly influences the practical controversies of the age by its latent presence, and is likely soon to make itself recognised as the vital question of the future. It is so far from being new, that, in a certain sense, it has divided mankind, almost from the remotest ages; but in the stage of progress into which the more civilised portions of the species have now entered, it presents itself under new conditions, and requires a different and more fundamental treatment.</p>
+      <p class="mb-4">The struggle between Liberty and Authority is the most conspicuous feature in the portions of history with which we are earliest familiar, particularly in that of Greece, Rome, and England. But in old times this contest was between subjects and government. By liberty, was meant protection against the tyranny of the political rulers. The rulers were conceived (except in some of the popular governments of Greece) as in a necessarily antagonistic position to the people whom they ruled. They consisted of a governing One, or a governing tribe or caste, who derived their authority from inheritance or conquest, who, at all events, did not hold it at the pleasure of the governed, and whose supremacy men did not venture, or perhaps did not desire, to contest, whatever precautions might be taken against its oppressive exercise. Their power was felt to be necessary, but also to be highly dangerous; as the weapon of a powerful enemy: and precautions were accordingly taken to limit the power of the rulers.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Questions -->
+<div class="max-w-3xl mx-auto px-5 pt-6 pb-20 space-y-6" id="questions-container">
+
+  <!-- Q1 MCQ -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q1">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-blue-900/60 text-blue-300 text-xs font-mono px-2 py-0.5 rounded">問1</span>
+      <span class="text-xs text-zinc-500">選択問題</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">What is the primary subject of this essay, as stated in the opening paragraph?</p>
+    <div class="space-y-2" id="q1-choices">
+      <button onclick="checkMCQ(1,'a')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="a">
+        (A) The philosophical concept of Free Will and Philosophical Necessity
+      </button>
+      <button onclick="checkMCQ(1,'b')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="b">
+        (B) The nature and limits of the power society can legitimately exercise over the individual
+      </button>
+      <button onclick="checkMCQ(1,'c')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="c">
+        (C) The historical development of democracy in Greece, Rome, and England
+      </button>
+      <button onclick="checkMCQ(1,'d')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="d">
+        (D) The definition of tyranny in modern political philosophy
+      </button>
+    </div>
+    <div id="q1-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q2 MCQ -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q2">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-blue-900/60 text-blue-300 text-xs font-mono px-2 py-0.5 rounded">問2</span>
+      <span class="text-xs text-zinc-500">選択問題</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">According to the second paragraph, how was the struggle between Liberty and Authority characterised in ancient times?</p>
+    <div class="space-y-2" id="q2-choices">
+      <button onclick="checkMCQ(2,'a')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="a">
+        (A) As a philosophical debate among scholars about the nature of freedom
+      </button>
+      <button onclick="checkMCQ(2,'b')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="b">
+        (B) As a contest between different social classes competing for wealth
+      </button>
+      <button onclick="checkMCQ(2,'c')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="c">
+        (C) As a contest between subjects and government, where liberty meant protection from rulers' tyranny
+      </button>
+      <button onclick="checkMCQ(2,'d')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="d">
+        (D) As a war between nation-states for territorial sovereignty
+      </button>
+    </div>
+    <div id="q2-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q3 MCQ -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q3">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="bg-blue-900/60 text-blue-300 text-xs font-mono px-2 py-0.5 rounded">問3</span>
+      <span class="text-xs text-zinc-500">選択問題 — 語彙</span>
+    </div>
+    <p class="text-sm text-zinc-200 mb-4 leading-relaxed">The word <strong class="text-blue-300">"latent"</strong> in the phrase "its latent presence" (paragraph 1) most closely means:</p>
+    <div class="space-y-2" id="q3-choices">
+      <button onclick="checkMCQ(3,'a')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="a">
+        (A) powerful and widely acknowledged
+      </button>
+      <button onclick="checkMCQ(3,'b')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="b">
+        (B) historical and well-documented
+      </button>
+      <button onclick="checkMCQ(3,'c')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="c">
+        (C) present but not openly expressed or visible
+      </button>
+      <button onclick="checkMCQ(3,'d')" class="mcq-btn w-full text-left text-sm bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-zinc-300 hover:border-zinc-500 transition-colors" data-val="d">
+        (D) dangerous and potentially destructive
+      </button>
+    </div>
+    <div id="q3-result" class="hidden mt-4 text-sm"></div>
+  </div>
+
+  <!-- Q4 Written -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q4">
+    <div class="flex items-center gap-2 mb-1">
+      <span class="bg-indigo-900/60 text-indigo-300 text-xs font-mono px-2 py-0.5 rounded">問4</span>
+      <span class="text-xs text-zinc-500">記述問題 — AI採点</span>
+      <span class="text-xs text-zinc-600 ml-auto">10点満点</span>
+    </div>
+    <p class="text-xs text-zinc-500 mb-4 font-mono">暗黙の前提の言語化</p>
+    <p class="text-sm text-zinc-200 mb-2 leading-relaxed">ミルは第1段落で「自由の問題は新しいものではないが、文明の現段階では新たな条件下に置かれ、より根本的な取り扱いが必要だ」と述べています。この主張の背後に隠された<strong class="text-indigo-300">暗黙の前提（Missing Link）</strong>を、80字以内の日本語で言語化せよ。</p>
+    <p class="text-xs text-zinc-600 mb-4">※本文を単に訳してつなぎ合わせる解答は0点。「AだからB」の間の論理を明文化してください。</p>
+    <textarea id="q4-answer" rows="4" maxlength="400"
+      placeholder="（例）「文明が〜するにつれて、〜という前提がある」という形で書いてください..."
+      class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500 transition-colors"></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-xs text-zinc-600" id="q4-charcount">0 / 400字</span>
+      <button id="q4-btn" onclick="scoreWritten(4)"
+        class="btn-score text-white text-sm font-medium px-5 py-2 rounded-full">
+        AI採点する
+      </button>
+    </div>
+    <div id="q4-scoring-result" class="scoring-section mt-5"></div>
+  </div>
+
+  <!-- Q5 Written -->
+  <div class="question-card bg-zinc-900 border border-zinc-700 rounded-2xl p-6" id="q5">
+    <div class="flex items-center gap-2 mb-1">
+      <span class="bg-indigo-900/60 text-indigo-300 text-xs font-mono px-2 py-0.5 rounded">問5</span>
+      <span class="text-xs text-zinc-500">記述問題 — AI採点</span>
+      <span class="text-xs text-zinc-600 ml-auto">10点満点</span>
+    </div>
+    <p class="text-xs text-zinc-500 mb-4 font-mono">弁証法的要約</p>
+    <p class="text-sm text-zinc-200 mb-2 leading-relaxed">第2段落においてミルが描く「古代における自由と権力の関係」を、<strong class="text-indigo-300">対立する2つの側面を統合した形</strong>で120字以内の日本語で要約せよ。</p>
+    <p class="text-xs text-zinc-600 mb-4">※「〜である一方で、〜」という対立構造が欠落している解答は0点。単なる事実の羅列は不可。</p>
+    <textarea id="q5-answer" rows="4" maxlength="600"
+      placeholder="（例）「権力は〜である一方で、〜という二項対立が古代の自由概念の本質をなしていた」という形で..."
+      class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500 transition-colors"></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-xs text-zinc-600" id="q5-charcount">0 / 600字</span>
+      <button id="q5-btn" onclick="scoreWritten(5)"
+        class="btn-score text-white text-sm font-medium px-5 py-2 rounded-full">
+        AI採点する
+      </button>
+    </div>
+    <div id="q5-scoring-result" class="scoring-section mt-5"></div>
+  </div>
+
+</div>
+
+<!-- CTA Footer -->
+<div class="border-t border-zinc-800 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-5 py-10 text-center">
+    <p class="text-zinc-400 text-sm mb-2">これは本番の約10%の難易度です。</p>
+    <p class="text-zinc-300 text-base font-medium mb-6">より高度な英文・記述問題・詳細フィードバックはアプリで。</p>
+    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+       class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-3 rounded-full transition-colors text-sm">
+      EIGOモンを無料で始める →
+    </a>
+    <p class="text-xs text-zinc-600 mt-4">クレジットカード不要 · 初月無料</p>
+  </div>
+</div>
+
+<style>
+  @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+  .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+</style>
+
+<script>
+const SOURCE_TEXT = `The subject of this Essay is not the so-called Liberty of the Will, so unfortunately opposed in the old controversy of Philosophical Necessity; but Civil, or Social Liberty: the nature and limits of the power which can be legitimately exercised by society over the individual. A question seldom stated, and hardly ever discussed, in general terms, but which profoundly influences the practical controversies of the age by its latent presence, and is likely soon to make itself recognised as the vital question of the future. It is so far from being new, that, in a certain sense, it has divided mankind, almost from the remotest ages; but in the stage of progress into which the more civilised portions of the species have now entered, it presents itself under new conditions, and requires a different and more fundamental treatment.
+
+The struggle between Liberty and Authority is the most conspicuous feature in the portions of history with which we are earliest familiar, particularly in that of Greece, Rome, and England. But in old times this contest was between subjects and government. By liberty, was meant protection against the tyranny of the political rulers. The rulers were conceived (except in some of the popular governments of Greece) as in a necessarily antagonistic position to the people whom they ruled. They consisted of a governing One, or a governing tribe or caste, who derived their authority from inheritance or conquest, who, at all events, did not hold it at the pleasure of the governed, and whose supremacy men did not venture, or perhaps did not desire, to contest, whatever precautions might be taken against its oppressive exercise. Their power was felt to be necessary, but also to be highly dangerous; as the weapon of a powerful enemy: and precautions were accordingly taken to limit the power of the rulers.`
+
+const MCQ_ANSWERS = { 1: 'b', 2: 'c', 3: 'c' }
+const MCQ_EXPLANATIONS = {
+  1: {
+    b: '正解です。ミルはessayの主題を"Civil, or Social Liberty: the nature and limits of the power which can be legitimately exercised by society over the individual"と明示しています。',
+    wrong: '不正解です。ミルは冒頭で"the so-called Liberty of the Will"（意志の自由）ではなく、"Civil, or Social Liberty"（市民的・社会的自由）を主題とすると明言しています。',
+  },
+  2: {
+    c: '正解です。"in old times this contest was between subjects and government. By liberty, was meant protection against the tyranny of the political rulers."と直接述べられています。',
+    wrong: '不正解です。本文は"in old times this contest was between subjects and government"と述べており、個人対個人の争いや思想的論争ではなく、統治者と被統治者の間の政治的対立として描かれています。',
+  },
+  3: {
+    c: '正解です。"latent"は「潜在的な・表面に現れていない」という意味で、「自由問題は公言されることは少ないが水面下で政治的論争に深く影響している」という文意に合致します。',
+    wrong: '不正解です。"latent"は「潜在的な・表面下に存在する」という意味です。本文では「自由の問題が表立って論じられることは少ないが、水面下で時代の論争に深く影響している」という文脈で使われています。',
+  }
+}
+
+const WRITTEN_QUESTIONS = {
+  4: {
+    id: 4,
+    label: '暗黙の前提の言語化',
+    question: 'ミルは第1段落で「自由の問題は新しいものではないが、文明の現段階では新たな条件下に置かれ、より根本的な取り扱いが必要だ」と述べています。この主張の背後に隠された暗黙の前提（Missing Link）を、80字以内の日本語で言語化せよ。',
+    modelAnswer: '社会が文明的に進歩するにつれて、自由と権力の関係の性質そのものが変容するという前提——すなわち「文明の段階的発展は、自由問題の質的転換を必然的に伴う」という論理が背後に存在する。',
+    scoringCriteria: '「文明の進歩」と「問題の質的変化」という2軸の連関が言語化されているか。本文の直訳・言い換えではなく、隠れた論理的媒介が明示されているか。'
+  },
+  5: {
+    id: 5,
+    label: '弁証法的要約',
+    question: '第2段落においてミルが描く「古代における自由と権力の関係」を、対立する2つの側面を統合した形で120字以内の日本語で要約せよ。',
+    modelAnswer: '権力者は民衆にとって本来的に敵対的存在であり、その権力は「必要悪」として容認されていた一方で、その抑圧的行使に対しては制限が設けられていた——「権力の必要性」と「権力の危険性」という二項対立が、古代における自由概念の本質的構造をなしていた。',
+    scoringCriteria: '「必要性」と「危険性」という対立軸、および「必要悪としての権力」という概念が統合されているか。片面のみの記述は大幅減点。'
+  }
+}
+
+let scores = { mcq: 0, written: { 4: null, 5: null } }
+let mcqDone = {}
+
+function updateProgress() {
+  const mcqCount = Object.keys(mcqDone).length
+  const writtenCount = [4,5].filter(i => scores.written[i] !== null).length
+  const total = mcqCount + writtenCount
+  const pct = (total / 5) * 100
+  document.getElementById('progress-bar').style.width = pct + '%'
+  document.getElementById('progress-label').textContent = `問${Math.min(total+1,5)} / 5`
+
+  let pts = scores.mcq
+  ;[4,5].forEach(i => { if (scores.written[i]) pts += scores.written[i] })
+  document.getElementById('progress-score').textContent = pts + ' / 20 pts'
+}
+
+function checkMCQ(qNum, selected) {
+  if (mcqDone[qNum]) return
+  mcqDone[qNum] = true
+  const correct = MCQ_ANSWERS[qNum]
+  const btns = document.querySelectorAll(`#q${qNum}-choices .mcq-btn`)
+  btns.forEach(btn => {
+    btn.disabled = true
+    const val = btn.getAttribute('data-val')
+    if (val === correct) btn.classList.add('mcq-correct')
+    else if (val === selected && selected !== correct) btn.classList.add('mcq-wrong')
+  })
+
+  const resultEl = document.getElementById(`q${qNum}-result`)
+  resultEl.classList.remove('hidden')
+  const expl = MCQ_EXPLANATIONS[qNum]
+  if (selected === correct) {
+    resultEl.innerHTML = `<div class="text-emerald-400 font-medium mb-1">✓ 正解</div><p class="text-zinc-400">${expl[correct]}</p>`
+    scores.mcq += 2
+  } else {
+    resultEl.innerHTML = `<div class="text-red-400 font-medium mb-1">✗ 不正解</div><p class="text-zinc-400">${expl.wrong}</p><p class="text-zinc-500 mt-1 text-xs">正解：(${correct.toUpperCase()})</p>`
+  }
+  updateProgress()
+}
+
+async function scoreWritten(qNum) {
+  const answer = document.getElementById(`q${qNum}-answer`).value.trim()
+  if (!answer || answer.length < 10) {
+    alert('回答を入力してください（10字以上）')
+    return
+  }
+
+  const btn = document.getElementById(`q${qNum}-btn`)
+  const resultEl = document.getElementById(`q${qNum}-scoring-result`)
+
+  btn.disabled = true
+  btn.textContent = '採点中...'
+  resultEl.innerHTML = `
+    <div class="flex items-center gap-3 py-4">
+      <div class="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <span class="text-sm text-zinc-400">The Apex Cognitive Architect が診断中...</span>
+    </div>`
+  resultEl.classList.add('visible')
+
+  try {
+    const res = await fetch('/api/score-demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode: 'eigomon',
+        question: WRITTEN_QUESTIONS[qNum],
+        userAnswer: answer,
+        sourceText: SOURCE_TEXT
+      })
+    })
+
+    if (!res.ok) throw new Error('採点APIエラー: ' + res.status)
+    const data = await res.json()
+    if (data.error) throw new Error(data.error)
+
+    const scoreNum = parseInt((data.score || '0').replace(/[^0-9]/g, '')) || 0
+    scores.written[qNum] = scoreNum
+    updateProgress()
+
+    const rankClass = `rank-${data.rank || 'C'}`
+    resultEl.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center gap-4 pb-4 border-b border-zinc-800">
+          <div class="text-3xl font-black ${rankClass}">${data.rank || '—'}</div>
+          <div>
+            <div class="text-2xl font-bold text-zinc-100">${data.score || '—'}</div>
+            <div class="text-xs text-zinc-500">Score & Rank</div>
+          </div>
+          ${data.autopsyReport ? `<div class="ml-auto text-xs text-zinc-500 max-w-48 text-right italic">${data.autopsyReport}</div>` : ''}
+        </div>
+
+        ${data.positive ? `
+        <div>
+          <div class="text-xs font-mono text-emerald-400 mb-1">✓ 評価できる点</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.positive}</p>
+        </div>` : ''}
+
+        ${data.negativeLogic ? `
+        <div>
+          <div class="text-xs font-mono text-red-400 mb-1">✗ 論理の病巣</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.negativeLogic}</p>
+        </div>` : ''}
+
+        ${data.negativeConcept ? `
+        <div>
+          <div class="text-xs font-mono text-amber-400 mb-1">⚠ 語彙・概念の病巣</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.negativeConcept}</p>
+        </div>` : ''}
+
+        ${data.whyWrong ? `
+        <div class="bg-zinc-800/60 rounded-xl p-4">
+          <div class="text-xs font-mono text-zinc-400 mb-1">思考のバグ — 根本原因</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.whyWrong}</p>
+        </div>` : ''}
+
+        ${data.surgicalCorrection ? `
+        <div>
+          <div class="text-xs font-mono text-indigo-400 mb-1">✦ Surgical Correction</div>
+          <p class="text-sm text-zinc-300 leading-relaxed">${data.surgicalCorrection}</p>
+        </div>` : ''}
+
+        ${data.idealAnswer ? `
+        <div class="bg-blue-950/30 border border-blue-800/30 rounded-xl p-4">
+          <div class="text-xs font-mono text-blue-400 mb-2">The Architect's Model — 模範解答</div>
+          <p class="text-sm text-zinc-200 leading-relaxed">${data.idealAnswer}</p>
+        </div>` : ''}
+
+        ${data.cognitiveRule ? `
+        <div class="bg-indigo-950/20 border border-indigo-800/20 rounded-xl p-4">
+          <div class="text-xs font-mono text-indigo-300 mb-1">Cognitive Rule for the Future</div>
+          <p class="text-sm text-zinc-300 leading-relaxed italic">${data.cognitiveRule}</p>
+        </div>` : ''}
+
+        ${data.rewriteGuide ? `
+        <div>
+          <div class="text-xs font-mono text-zinc-400 mb-1">次回への処方箋</div>
+          <p class="text-sm text-zinc-400 leading-relaxed">${data.rewriteGuide}</p>
+        </div>` : ''}
+      </div>`
+
+    btn.textContent = '再採点する'
+    btn.disabled = false
+
+  } catch (err) {
+    resultEl.innerHTML = `<div class="text-red-400 text-sm py-2">エラー: ${err.message}</div>`
+    btn.textContent = 'AI採点する'
+    btn.disabled = false
+  }
+}
+
+// Character count
+;[4,5].forEach(qNum => {
+  const ta = document.getElementById(`q${qNum}-answer`)
+  const counter = document.getElementById(`q${qNum}-charcount`)
+  ta.addEventListener('input', () => {
+    counter.textContent = ta.value.length + ' / ' + ta.maxLength + '字'
+  })
+})
+</script>
+
+</body>
+</html>
