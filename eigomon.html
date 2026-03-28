@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EIGOモン — 英語を「読める」から「使える」へ。</title>
-  <meta name="description" content="毎日英字記事を読んでいるのに英語力が伸びない。それは読み方の問題です。EIGOモンは読んだ瞬間に演習に変え、アウトプットで実力を定着させます。" />
-  <meta property="og:title" content="EIGOモン — 英語を「読める」から「使える」へ。" />
-  <meta property="og:description" content="毎日英字記事を読んでいるのに英語力が伸びない。それは読み方の問題です。" />
+  <title>EIGOモン — スキマ時間の英語が、単語帳から読解演習に変わる。</title>
+  <meta name="description" content="大学受験生・大学生・社会人向け。手元にある英文を30秒で実戦演習に変える。英語長文参考書が尽きた受験生、スキマ時間に読解演習をしたい社会人・大学生に。" />
+  <meta property="og:title" content="EIGOモン — スキマ時間の英語が、単語帳から読解演習に変わる。" />
+  <meta property="og:description" content="手元にある英文を30秒で実戦演習に変える。英語の読解力を鍛えるすべての人へ。" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -66,14 +66,12 @@
     }
     .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
     .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
-    .pain-card {
-      transition: border-color .2s, background .2s;
-    }
+    .pain-card { transition: border-color .2s, background .2s; }
     .pain-card:hover { border-color: rgba(239,68,68,.3); background: rgba(239,68,68,.04); }
-    .solution-card {
+    .value-card {
       transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
     }
-    .solution-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(59,130,246,.1); }
+    .value-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(59,130,246,.1); }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #020617; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
@@ -111,19 +109,18 @@
 
     <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
       <span class="w-1.5 h-1.5 rounded-full bg-blue-400 pulse"></span>
-      英語を読む習慣があるあなたへ
+      大学受験生・大学生・社会人の英語学習へ
     </div>
 
-    <h1 class="fade-up-1 text-[clamp(2.4rem,8vw,4.6rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
-      「読める」と「使える」は、<br class="hidden sm:block" />
-      <span class="grad-e-soft">全然違う話だ。</span>
+    <h1 class="fade-up-1 text-[clamp(2.2rem,7.5vw,4.4rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
+      スキマ時間の英語が、<br class="hidden sm:block" />
+      <span class="grad-e-soft">単語帳から読解演習に変わる。</span>
     </h1>
 
-    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-md leading-[2] mb-6 font-light">
-      毎日英字記事を読んでいるのに、<br />
-      英語力が伸びている気がしない。<br />
-      それは読む量の問題ではなく、<br />
-      <strong class="text-white/70 font-semibold">読み方の問題です。</strong>
+    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-lg leading-[2] mb-6 font-light">
+      英文を読む機会はあった。<br />
+      でも読解の「演習」には、素材と時間と場所が必要だった。<br />
+      EIGOモンが、今手元にある英文を<strong class="text-white/70 font-semibold">30秒で実戦演習に変える。</strong>
     </p>
 
     <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center mt-6">
@@ -133,7 +130,7 @@
         <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">無料</span>
       </a>
       <a href="#why" class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
-        なぜ伸びないのか →
+        どう変わるのか →
       </a>
     </div>
 
@@ -150,7 +147,7 @@
     <div class="text-center mb-14">
       <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">思い当たる節はありますか？</p>
       <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
-        英語を「読んでいる人」に<br />多いパターン。
+        英語の「読解力」は、<br />鍛えにくいまま放置されてきた。
       </h2>
     </div>
 
@@ -159,9 +156,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">英字記事は読める。でも内容を英語で説明できない。</div>
+            <div class="text-[14px] font-bold mb-1.5">スキマ時間にできる英語の勉強が、単語と文法しかなかった。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              読んでいる最中は理解できている気がする。でも誰かに聞かれたとき、言葉が出てこない。それは「理解した気になっている」だけで、本当には定着していないサインです。
+              通勤電車、昼休みの10分。英語の隙間時間に開くのは単語帳かアプリだった。英文読解の演習は「まとまった時間と問題集」がないとできない——そういう前提がずっとあった。
             </div>
           </div>
         </div>
@@ -171,9 +168,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">TOEICの勉強をしているが、スコアが頭打ちになっている。</div>
+            <div class="text-[14px] font-bold mb-1.5">良質な英語長文の参考書を使い尽くしてしまった。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              参考書を解くだけでは実戦の英語に対応できない。生きた英語テキストから問題を解く経験が、スコアを次のステージへ引き上げます。
+              本当に良い英語長文の参考書は数が限られる。受験の後半、TOEIC・英検の追い込み期になるにつれ、難しい素材が枯渇していく。「もうやるものがない」という状態になる。
             </div>
           </div>
         </div>
@@ -183,9 +180,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">語彙は増えているはずなのに、いざとなると使えない。</div>
+            <div class="text-[14px] font-bold mb-1.5">解いた長文を読み直しても、理解したのか覚えたのかわからない。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              単語帳や記事で目にした語彙が、実際の文脈で出てこない。単語は「認識できる」と「使える」の間に大きな溝があります。
+              音読・読み直しの復習でスラスラ読める。でもそれは本当に英文を理解したから？それとも答えと展開を覚えているだけ？本物の読解力がついているか確かめる手段がなかった。
             </div>
           </div>
         </div>
@@ -197,14 +194,14 @@
   <!-- ════ ROOT CAUSE ════ -->
   <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto">
     <div class="bg-gradient-to-br from-blue-950/60 to-slate-900/60 border border-blue-500/20 rounded-3xl p-8 sm:p-10 text-center">
-      <div class="text-[10px] tracking-[.28em] uppercase text-blue-400/50 mb-4">なぜ伸びないのか</div>
+      <div class="text-[10px] tracking-[.28em] uppercase text-blue-400/50 mb-4">なぜ読解力は鍛えにくいのか</div>
       <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight leading-tight mb-5">
-        インプットだけでは、<br />記憶に残らない。
+        「英語の読解演習」には、<br />いつも3つの壁があった。
       </h2>
       <p class="text-[13px] sm:text-[14px] text-white/45 leading-[2] font-light max-w-lg mx-auto">
-        認知心理学の研究が示すとおり、<strong class="text-white/70 font-semibold">読むだけの学習は定着率が最も低い。</strong>
-        記憶に残るのは、問題を解き、答えを考え、間違えて直す——そのアウトプットのループがあるときだけです。<br /><br />
-        EIGOモンは、あなたが今読んでいる英文を<strong class="text-white/70 font-semibold">30秒でアウトプットの場に変えます。</strong>
+        <strong class="text-white/70 font-semibold">良い素材は有限で、演習には机と時間が必要で、本当の理解を測る手段がなかった。</strong>
+        だから単語・文法の暗記だけが積み上がり、読解力の実感が得られなかった。<br /><br />
+        EIGOモンはその3つを同時に解決する。今手元にある英文を素材に、30秒で、どこでも、問いを変えながら演習できる。
       </p>
     </div>
   </section>
@@ -228,7 +225,7 @@
         <div class="text-2xl">📷</div>
         <div>
           <div class="text-[13px] font-bold mb-1.5">スキャン</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">読んでいる英文を撮る。NYT紙面でも、スマホ画面でも。</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">英字記事でも、教科書でも、解いた過去問でも。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-blue-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
@@ -236,7 +233,7 @@
         <div class="text-2xl">⚡</div>
         <div>
           <div class="text-[13px] font-bold mb-1.5">即演習化</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">30秒でTOEIC・英検レベルの問題5問を自動生成。</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">30秒でTOEIC・英検・入試レベルの問題を自動生成。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-blue-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
@@ -249,7 +246,6 @@
       </div>
     </div>
 
-    <!-- Stat bar -->
     <div class="grid grid-cols-3 border border-white/[.06] rounded-2xl overflow-hidden bg-white/[.015]">
       <div class="py-5 text-center">
         <div class="text-[clamp(1.4rem,4vw,1.8rem)] font-black tracking-tight grad-e">30秒</div>
@@ -270,38 +266,90 @@
   <hr class="rule" />
 
 
-  <!-- ════ WHAT CHANGES ════ -->
+  <!-- ════ FOR ADULTS / UNIVERSITY STUDENTS ════ -->
   <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
 
     <div class="text-center mb-14">
-      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い続けると</p>
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">大学生・社会人へ</p>
       <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
-        「読んで終わり」が、<br /><span class="grad-e">実力に変わる。</span>
+        スキマ時間の英語が、<br /><span class="grad-e">本物の読解トレーニングになる。</span>
       </h2>
+      <p class="text-[14px] text-white/35 font-light mt-5 max-w-lg mx-auto leading-relaxed">
+        今まで単語帳を開いていたその時間に、読解の実力を鍛えられる。
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">1ヶ月後</div>
-        <div class="text-[14px] font-bold mb-2">弱点が見える</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="value-card bg-white/[.025] border border-blue-500/15 rounded-2xl p-7 hover:border-blue-500/30">
+        <div class="text-blue-400/60 text-[10px] font-mono tracking-widest mb-4">VALUE 01</div>
+        <div class="text-[15px] font-black mb-3 leading-snug">単語帳を開く代わりに、<br />読解演習ができる。</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          どの文法・語彙でミスするか可視化される。「なんとなく読めている」という錯覚が消える。
+          通勤の10分、昼休みの5分。英語学習の隙間時間に単語帳を開いていたあの時間が、英文読解の実戦演習に変わる。英字記事を読みながらそのまま演習できるから、素材を別で用意する必要もない。語彙の暗記から、読解力の養成へ。スキマ時間の「質」が変わる。
         </p>
       </div>
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">3ヶ月後</div>
-        <div class="text-[14px] font-bold mb-2">語彙が定着する</div>
+      <div class="value-card bg-white/[.025] border border-blue-500/15 rounded-2xl p-7 hover:border-blue-500/30">
+        <div class="text-blue-400/60 text-[10px] font-mono tracking-widest mb-4">VALUE 02</div>
+        <div class="text-[15px] font-black mb-3 leading-snug">読むだけでは鍛えられない<br />「論理力」まで鍛えられる。</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          FSRSで管理された苦手語が長期記憶に移行。読むだけのとき比べて、語彙の定着率が大きく変わる。
+          EIGOモンの独自プロトコルは、内容理解の問題にとどまらない。著者の論証構造・主張の根拠・文脈の推論——英語で「考える力」を問う問題まで生成する。英文を読む力と、英語で論じる力を同時に鍛える。英語が本物の思考ツールになる。
         </p>
       </div>
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">半年後</div>
-        <div class="text-[14px] font-bold mb-2">英語が「使える」</div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ FOR EXAM STUDENTS ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">大学受験生へ</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        英語長文演習の、<br /><span class="grad-e">上限をなくす。</span>
+      </h2>
+      <p class="text-[14px] text-white/35 font-light mt-5 max-w-lg mx-auto leading-relaxed">
+        良質な参考書が尽きても、読む英文すべてが高難易度の演習素材になる。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+      <div class="value-card bg-white/[.025] border border-blue-500/15 rounded-2xl p-7 hover:border-blue-500/30">
+        <div class="text-blue-400/60 text-[10px] font-mono tracking-widest mb-4">USE CASE 01</div>
+        <div class="text-[15px] font-black mb-3 leading-snug">良書を使い尽くしても、<br />高難易度の素材は尽きない。</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          記事を読んだあと、内容を自分の言葉で説明できるようになる。英語が道具として機能し始める。
+          本当に良い英語長文の参考書は数が限られる。受験後半になるにつれ「もうやることがない」状態になる。EIGOモンなら読む英文すべてが入試レベルの演習素材になる。難しい素材の枯渇は起きない。読む量だけ演習量が増える。
         </p>
       </div>
+      <div class="value-card bg-white/[.025] border border-blue-500/15 rounded-2xl p-7 hover:border-blue-500/30">
+        <div class="text-blue-400/60 text-[10px] font-mono tracking-widest mb-4">USE CASE 02</div>
+        <div class="text-[15px] font-black mb-3 leading-snug">長文の復習が「覚えた」<br />で終わらない。</div>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          解いた長文を読み直してスラスラ読める——でもそれは理解したから？答えと展開を覚えているだけかもしれない。EIGOモンは問いを変えて再出題するから、「覚えた」のか「理解した」のかをはっきり区別できる。最難関レベルの問いで、本物の読解力を確かめる。
+        </p>
+      </div>
+    </div>
+
+    <!-- 参考書との価格比較 -->
+    <div class="bg-gradient-to-br from-blue-950/50 to-slate-900/50 border border-blue-500/15 rounded-2xl p-6 sm:p-8">
+      <p class="text-[10px] tracking-[.25em] uppercase text-blue-400/50 text-center mb-6">参考書との比較</p>
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-white/[.03] rounded-xl p-5 text-center border border-white/[.06]">
+          <div class="text-[11px] text-white/30 mb-2 font-light">英語長文参考書 5冊</div>
+          <div class="text-[28px] font-black tracking-tight text-white/50 line-through decoration-red-400/60">¥7,500<span class="text-[14px]">〜</span></div>
+          <div class="text-[10px] text-white/20 mt-1 font-light">解ける問題数は固定</div>
+        </div>
+        <div class="bg-blue-900/20 rounded-xl p-5 text-center border border-blue-400/20">
+          <div class="text-[11px] text-blue-300/60 mb-2 font-light">EIGOモン MONパス</div>
+          <div class="text-[28px] font-black tracking-tight grad-e">¥680<span class="text-[14px] font-normal text-white/40">/月</span></div>
+          <div class="text-[10px] text-blue-300/40 mt-1 font-light">演習素材は無限に作れる</div>
+        </div>
+      </div>
+      <p class="text-center text-[12px] text-white/35 font-light leading-relaxed">
+        参考書1冊以下の値段で、読む英文すべてが練習素材になる。<br />
+        <span class="text-blue-300/60 font-semibold">問題数の上限が、なくなる。</span>
+      </p>
     </div>
   </section>
 
@@ -313,28 +361,28 @@
   <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto text-center">
     <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな人に</p>
     <h2 class="text-[clamp(1.5rem,4vw,2rem)] font-black tracking-tight mb-10">
-      英語と真剣に向き合う人のための、<span class="grad-e">道具です。</span>
+      英語の読解力を本気で鍛えたい人のための、<span class="grad-e">道具です。</span>
     </h2>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
-        <div class="text-xl mb-2">📰</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">NYT・英字紙を読む人</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">読んでいるのに伸びない悩みを解消</div>
-      </div>
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
-        <div class="text-xl mb-2">🏢</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">TOEIC 700→900を目指す人</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">実戦テキストで本番力を鍛える</div>
+        <div class="text-xl mb-2">✏️</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">英語長文を極めたい受験生</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">素材を無限に確保し、復習の質を上げたい</div>
       </div>
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
         <div class="text-xl mb-2">🎓</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">英検準1級・1級を目指す学生</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">記述採点で論述力を同時強化</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">英字記事を読む大学生</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">読むだけで終わらせず実力に変えたい</div>
       </div>
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
-        <div class="text-xl mb-2">✈️</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">海外業務が増えた社会人</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">通勤10分を最高の学習時間に</div>
+        <div class="text-xl mb-2">💼</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">スキマ時間に英語を鍛える社会人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">通勤10分を読解演習に変えたい</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">🏢</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">TOEIC・英検のスコアを上げたい人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">実戦テキストで本番力を鍛える</div>
       </div>
     </div>
   </section>
@@ -409,7 +457,7 @@
   <section class="relative z-10 px-5 py-24 max-w-sm mx-auto text-center">
     <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">まず、体感してみてください</p>
     <h2 class="text-[clamp(1.6rem,5vw,2.2rem)] font-black tracking-tight leading-tight mb-3">
-      次に読む記事から、<br /><span class="grad-e">演習に変えよう。</span>
+      次に読む英文から、<br /><span class="grad-e">演習に変えよう。</span>
     </h2>
     <p class="text-[13px] text-white/30 font-light leading-relaxed mb-10">
       3回無料。カード登録不要。<br />読んで終わりにしない、最初の一歩。
