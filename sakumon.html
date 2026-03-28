@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAKUモン — 「読んだ」を「わかった」に変える、日本語読解AI。</title>
-  <meta name="description" content="ビジネス書を毎週読んでいるのに内容を説明できない。それは読み方の問題です。SAKUモンは読んだ瞬間に問いを立て、アウトプットで理解を定着させます。" />
-  <meta property="og:title" content="SAKUモン — 「読んだ」を「わかった」に変える、日本語読解AI。" />
-  <meta property="og:description" content="ビジネス書を毎週読んでいるのに内容を説明できない。それは読み方の問題です。" />
+  <title>SAKUモン — 「わかった気」を、スコアで確かめる。</title>
+  <meta name="description" content="新書や実用書を読み終えたあと、本当に理解できているか確かめたことはありますか？SAKUモンは読んだページをスキャンするだけで、あなたの理解度をスコアで可視化します。" />
+  <meta property="og:title" content="SAKUモン — 「わかった気」を、スコアで確かめる。" />
+  <meta property="og:description" content="新書や実用書を読み終えたとき、本当に理解できているか、スコアで確かめる。" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -66,14 +66,10 @@
     }
     .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
     .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
-    .pain-card {
-      transition: border-color .2s, background .2s;
-    }
+    .pain-card { transition: border-color .2s, background .2s; }
     .pain-card:hover { border-color: rgba(239,68,68,.3); background: rgba(239,68,68,.04); }
-    .solution-card {
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
-    }
-    .solution-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(139,92,246,.1); }
+    .scene-card { transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+    .scene-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(139,92,246,.1); }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #020617; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
@@ -111,29 +107,28 @@
 
     <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
       <span class="w-1.5 h-1.5 rounded-full bg-violet-400 pulse"></span>
-      本を読む習慣があるあなたへ
+      新書・実用書・論文を読む、あなたへ
     </div>
 
     <h1 class="fade-up-1 text-[clamp(2.4rem,8vw,4.6rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
-      「読んだ」と「わかった」は、<br class="hidden sm:block" />
-      <span class="grad-s-soft">別の話だ。</span>
+      「わかった気」を、<br class="hidden sm:block" />
+      <span class="grad-s-soft">スコアで確かめる。</span>
     </h1>
 
     <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-md leading-[2] mb-6 font-light">
-      毎週ビジネス書を読んでいるのに、<br />
-      内容を人に説明できない。<br />
-      それは読む量の問題ではなく、<br />
-      <strong class="text-white/70 font-semibold">読み方の問題です。</strong>
+      新書を読み終えたとき、論文の難しい章を読んだとき。<br />
+      本当に理解できているか、<br />
+      確かめる手段が、これまでなかった。
     </p>
 
     <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center mt-6">
       <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
          class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-violet-600 shadow-[0_8px_32px_rgba(139,92,246,.4)] hover:bg-violet-500 hover:shadow-[0_12px_40px_rgba(139,92,246,.55)] hover:-translate-y-0.5 transition-all duration-200">
-        30秒で体験する
+        理解度を確かめてみる
         <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">無料</span>
       </a>
       <a href="#why" class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
-        なぜ定着しないのか →
+        そのモヤモヤの正体 →
       </a>
     </div>
 
@@ -148,9 +143,9 @@
   <section id="why" class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
 
     <div class="text-center mb-14">
-      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">思い当たる節はありますか？</p>
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんなモヤモヤ、ありませんか？</p>
       <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
-        本を「読んでいる人」に<br />多いパターン。
+        読めている。でも、<br />どこまで理解しているかわからない。
       </h2>
     </div>
 
@@ -159,9 +154,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">本を読み終わった。でも、著者の主張を一言で言えない。</div>
+            <div class="text-[14px] font-bold mb-1.5">この章の論点、人に説明できる自信がない。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              読んでいる最中は理解できた気がした。でも誰かに内容を聞かれると、言葉が出てこない。それは「わかった気になっている」だけで、本当には頭に入っていないサインです。
+              読んでいる最中はついていけていた。でも読み終えると、著者が何を言いたかったのか整理できていない。そのモヤモヤを抱えたまま次のページへ進んでいる。
             </div>
           </div>
         </div>
@@ -171,9 +166,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">年に20冊読んでいる。でも、仕事や会話に活かせていない。</div>
+            <div class="text-[14px] font-bold mb-1.5">読み返すべきか、先に進んでいいか、判断できない。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              読書量は増えているのに、知識として使えていない。インプットするだけでは思考の道具にならない。本棚だけが増え続けている。
+              理解度がわからないから、判断もできない。何度も同じページを読み返しても「なんとなくわかった」で終わる。そのループが続く。
             </div>
           </div>
         </div>
@@ -183,9 +178,9 @@
         <div class="flex items-start gap-4">
           <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
           <div>
-            <div class="text-[14px] font-bold mb-1.5">読んで感動した。でも、1週間後に内容をほぼ忘れている。</div>
+            <div class="text-[14px] font-bold mb-1.5">会議や話の場で使おうとしたら、理解が曖昧だったと気づく。</div>
             <div class="text-[12px] text-white/35 leading-relaxed font-light">
-              「良い本だった」で終わる読書は記憶に残らない。記憶に残るのは、問いを立て、自分の言葉で答えたときだけです。
+              ビジネス書や実用書を読んで「使える」と思っていたのに、いざ話そうとすると言葉が出てこない。読んだときの「わかった気」は、本物ではなかった。
             </div>
           </div>
         </div>
@@ -197,14 +192,14 @@
   <!-- ════ ROOT CAUSE ════ -->
   <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto">
     <div class="bg-gradient-to-br from-violet-950/60 to-slate-900/60 border border-violet-500/20 rounded-3xl p-8 sm:p-10 text-center">
-      <div class="text-[10px] tracking-[.28em] uppercase text-violet-400/50 mb-4">なぜ定着しないのか</div>
+      <div class="text-[10px] tracking-[.28em] uppercase text-violet-400/50 mb-4">問題の本質</div>
       <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight leading-tight mb-5">
-        アウトプットなしの読書は、<br />記憶に残らない。
+        読んでいるときは、<br />理解度を測れない。
       </h2>
       <p class="text-[13px] sm:text-[14px] text-white/45 leading-[2] font-light max-w-lg mx-auto">
-        認知科学の研究が示すとおり、<strong class="text-white/70 font-semibold">人は読んでいると「わかった気」になる。</strong>
-        しかし、自分の言葉で説明しようとして初めて、理解の穴が見える。問いを立て、考え、答える——そのアウトプットのループがあるときだけ、知識は定着します。<br /><br />
-        SAKUモンは、あなたが今読んでいるページを<strong class="text-white/70 font-semibold">30秒でアウトプットの場に変えます。</strong>
+        「わかった気」は、読んでいる最中に自然に生まれる感覚です。でも、<strong class="text-white/70 font-semibold">本当に理解しているかどうかは、問いに答えてみるまでわからない。</strong>
+        これまでは読後の理解度を確かめる方法がなかった。<br /><br />
+        SAKUモンは、読んだページをスキャンするだけで<strong class="text-white/70 font-semibold">あなたの理解度をスコアとして即座に可視化します。</strong>
       </p>
     </div>
   </section>
@@ -218,9 +213,9 @@
 
     <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い方</p>
     <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight mb-2">
-      読んだ瞬間に、<span class="grad-s">問いが始まる。</span>
+      気になったとき、<span class="grad-s">その場で確かめる。</span>
     </h2>
-    <p class="text-[13px] text-white/30 font-light mb-14">ブラウザで動く。インストール不要。通勤電車でも使える。</p>
+    <p class="text-[13px] text-white/30 font-light mb-14">毎日使う必要はない。理解が不安な箇所でだけ、使えばいい。</p>
 
     <div class="grid grid-cols-3 gap-3 sm:gap-5 mb-10">
       <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
@@ -228,23 +223,23 @@
         <div class="text-2xl">📷</div>
         <div>
           <div class="text-[13px] font-bold mb-1.5">スキャン</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">読んでいるページを撮る。新書でも、ビジネス書でも。</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">理解が不安なページを撮る。新書でも論文でも。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-violet-400/30 font-mono">STEP 02</div>
         <div class="text-2xl">🧠</div>
         <div>
-          <div class="text-[13px] font-bold mb-1.5">即問題化</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">AIが著者の論理を分解し、核心を突く問題を生成。</div>
+          <div class="text-[13px] font-bold mb-1.5">問題を解く</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">AIが論点を抽出し、理解度を問う問題を即生成。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-violet-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-violet-400/30 font-mono">STEP 03</div>
-        <div class="text-2xl">✍️</div>
+        <div class="text-2xl">📊</div>
         <div>
-          <div class="text-[13px] font-bold mb-1.5">回答・採点</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">記述で答え、AIが採点。「説明できる」を確かめる。</div>
+          <div class="text-[13px] font-bold mb-1.5">スコアで確認</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">理解できた部分・できていない部分が数字で見える。</div>
         </div>
       </div>
     </div>
@@ -270,36 +265,36 @@
   <hr class="rule" />
 
 
-  <!-- ════ WHAT CHANGES ════ -->
+  <!-- ════ WHEN TO USE ════ -->
   <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
 
     <div class="text-center mb-14">
-      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い続けると</p>
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんなときに使う</p>
       <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
-        「読んで終わり」が、<br /><span class="grad-s">使える知識に変わる。</span>
+        「確かめたい」と思った、<br /><span class="grad-s">その瞬間に。</span>
       </h2>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-violet-400/50 mb-3 font-mono">1ヶ月後</div>
-        <div class="text-[14px] font-bold mb-2">理解の穴が見える</div>
+      <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-violet-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 01</div>
+        <div class="text-[14px] font-bold mb-2">難しい章を読み終えたとき</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          AIに問われるたびに、なんとなく読んでいた部分の「なぜ」が明確になる。「わかった気」という錯覚が消える。
+          論点が複数あって整理しきれていないとき。スコアで、どこが抜けているかを即確認する。
         </p>
       </div>
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-violet-400/50 mb-3 font-mono">3ヶ月後</div>
-        <div class="text-[14px] font-bold mb-2">知識が定着する</div>
+      <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-violet-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 02</div>
+        <div class="text-[14px] font-bold mb-2">内容を誰かに話す前</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          本の内容を自分の言葉で説明できるようになる。読書が思考の道具として機能し始め、会話や仕事で活かせる。
+          会議や議論で使う前に、自分の理解が本物かを確かめる。「わかった気」のまま話すリスクを消す。
         </p>
       </div>
-      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
-        <div class="text-[10px] tracking-[.2em] uppercase text-violet-400/50 mb-3 font-mono">半年後</div>
-        <div class="text-[14px] font-bold mb-2">読書が武器になる</div>
+      <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-violet-500/20">
+        <div class="text-violet-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 03</div>
+        <div class="text-[14px] font-bold mb-2">読み返すか迷ったとき</div>
         <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          会議・小論文・面接で、読んできた知識を自然に引き出せるようになる。本棚の冊数ではなく、使える知識の量が増える。
+          先に進んでいいか、戻るべきか。スコアが判断の根拠になる。読み返す箇所も明確になる。
         </p>
       </div>
     </div>
@@ -313,28 +308,28 @@
   <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto text-center">
     <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな人に</p>
     <h2 class="text-[clamp(1.5rem,4vw,2rem)] font-black tracking-tight mb-10">
-      読書を活かしたい人のための、<span class="grad-s">道具です。</span>
+      「ちゃんと理解したい」人のための、<span class="grad-s">道具です。</span>
     </h2>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
         <div class="text-xl mb-2">💼</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">本を読んでも活かせない社会人</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">読書投資をリターンに変えたい</div>
-      </div>
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
-        <div class="text-xl mb-2">📚</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">年10冊以上読む読書家</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">「読んだ気」で終わらせたくない</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">新書・実用書を読む社会人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">仕事に活かすために正確に理解したい</div>
       </div>
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
         <div class="text-xl mb-2">🎓</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">小論文・面接を控えた学生</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">思考力を本番で発揮したい</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">論文を読む大学生・研究者</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">読解の精度を数値で確認したい</div>
       </div>
       <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
-        <div class="text-xl mb-2">🔬</div>
-        <div class="text-[11px] text-white/60 font-semibold mb-1">論文・専門書を読み込む研究者</div>
-        <div class="text-[10px] text-white/30 font-light leading-snug">読解の精度と記憶の定着を上げたい</div>
+        <div class="text-xl mb-2">📖</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">難しい本に挑戦している人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">どこまで理解できているか把握したい</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">🗣️</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">読んだ内容を話す機会が多い人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">曖昧な理解のまま発言するリスクを消したい</div>
       </div>
     </div>
   </section>
@@ -351,7 +346,7 @@
         <span class="w-4 h-px bg-violet-400/30"></span>プラン<span class="w-4 h-px bg-violet-400/30"></span>
       </div>
       <h2 class="text-[clamp(1.9rem,5.5vw,2.8rem)] font-black tracking-tight leading-tight mb-4">
-        まず体験して、<br /><span class="shimmer-s">違いを感じてください。</span>
+        まず体験して、<br /><span class="shimmer-s">その感覚を確かめてください。</span>
       </h2>
       <p class="text-[13px] text-white/35 font-light leading-relaxed">3回まで無料。カード登録不要。</p>
     </div>
@@ -363,10 +358,10 @@
         <div class="bg-white/[.04] border border-white/[.08] rounded-2xl p-6 mb-4">
           <div class="text-[11px] text-white/30 mb-1 font-light">まずは無料で</div>
           <div class="text-[36px] font-black tracking-tight leading-none text-white/80 mb-1">¥0</div>
-          <p class="text-[11px] text-white/30 mb-5 font-light">3回のトレーニングをお試しいただけます</p>
+          <p class="text-[11px] text-white/30 mb-5 font-light">3回のチェックをお試しいただけます</p>
           <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
              class="flex items-center justify-center w-full py-3.5 rounded-xl bg-violet-600/20 border border-violet-500/25 text-[13px] font-bold text-violet-300 hover:bg-violet-600/30 hover:border-violet-400/40 transition-all duration-200">
-            今すぐ体験する →
+            今すぐ試す →
           </a>
         </div>
 
@@ -409,10 +404,10 @@
   <section class="relative z-10 px-5 py-24 max-w-sm mx-auto text-center">
     <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">まず、体感してみてください</p>
     <h2 class="text-[clamp(1.6rem,5vw,2.2rem)] font-black tracking-tight leading-tight mb-3">
-      次に読むページから、<br /><span class="grad-s">知識に変えよう。</span>
+      次に読むページで、<br /><span class="grad-s">理解度を確かめよう。</span>
     </h2>
     <p class="text-[13px] text-white/30 font-light leading-relaxed mb-10">
-      3回無料。カード登録不要。<br />読んで終わりにしない、最初の一歩。
+      3回無料。カード登録不要。<br />「わかった気」のままにしない、最初の一歩。
     </p>
     <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener"
        class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px] bg-violet-600 text-white hover:bg-violet-500 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_32px_rgba(139,92,246,.35)]">
