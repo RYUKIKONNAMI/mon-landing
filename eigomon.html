@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EIGOモン — 英字記事を、最難関演習に変える。</title>
-  <meta name="description" content="ニューヨークタイムズをスキャンして30秒でTOEIC・英検レベルの問題を生成。AI記述採点で論理の穴を可視化。英語を「読んで終わり」から脱却する知的インフラ。" />
-  <meta property="og:title" content="EIGOモン — 英字記事を、最難関演習に変える。" />
-  <meta property="og:description" content="英語を消費から実力へ。OCRスキャン30秒で本格的な読解演習を自動生成するAI英語トレーニングアプリ。" />
+  <title>EIGOモン — 英語を「読める」から「使える」へ。</title>
+  <meta name="description" content="毎日英字記事を読んでいるのに英語力が伸びない。それは読み方の問題です。EIGOモンは読んだ瞬間に演習に変え、アウトプットで実力を定着させます。" />
+  <meta property="og:title" content="EIGOモン — 英語を「読める」から「使える」へ。" />
+  <meta property="og:description" content="毎日英字記事を読んでいるのに英語力が伸びない。それは読み方の問題です。" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,14 +26,12 @@
   <style>
     html { scroll-behavior: smooth; }
     body { -webkit-font-smoothing: antialiased; }
-
     .bg-grid {
       background-image:
         linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
       background-size: 64px 64px;
     }
-
     .grad-e {
       background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -46,10 +44,8 @@
       background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
     @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
     .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
-
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -58,8 +54,6 @@
     .fade-up-1 { animation: fade-up .7s .12s ease both; }
     .fade-up-2 { animation: fade-up .7s .24s ease both; }
     .fade-up-3 { animation: fade-up .7s .36s ease both; }
-    .fade-up-4 { animation: fade-up .7s .48s ease both; }
-
     @keyframes shimmer-blue {
       0%   { background-position: -200% center; }
       100% { background-position: 200% center; }
@@ -70,18 +64,16 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       animation: shimmer-blue 3s linear infinite;
     }
-
     .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
     .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
-
-    .feature-card {
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease;
+    .pain-card {
+      transition: border-color .2s, background .2s;
     }
-    .feature-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 48px rgba(59,130,246,.1);
+    .pain-card:hover { border-color: rgba(239,68,68,.3); background: rgba(239,68,68,.04); }
+    .solution-card {
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
     }
-
+    .solution-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(59,130,246,.1); }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: #020617; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
@@ -89,7 +81,6 @@
 </head>
 <body class="bg-slate-950 text-white font-sans selection:bg-blue-900/50">
 
-  <!-- Ambient glows -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
     <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-blue-900/[.18] rounded-full blur-3xl"></div>
     <div class="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-blue-800/[.10] rounded-full blur-3xl -translate-y-1/2"></div>
@@ -109,9 +100,7 @@
       </div>
     </div>
     <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
-       class="flex items-center gap-1.5 text-[12px] font-bold text-white
-              bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-500 transition-colors tracking-tight
-              shadow-[0_4px_16px_rgba(59,130,246,.35)]">
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-500 transition-colors tracking-tight shadow-[0_4px_16px_rgba(59,130,246,.35)]">
       無料で試す →
     </a>
   </nav>
@@ -120,42 +109,31 @@
   <!-- ════ HERO ════ -->
   <section class="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-24">
 
-    <div class="fade-up inline-flex items-center gap-2 text-[10px] tracking-[.22em] uppercase text-white/25 mb-8">
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
       <span class="w-1.5 h-1.5 rounded-full bg-blue-400 pulse"></span>
-      AI 英語読解トレーニング &nbsp;·&nbsp; 攻めのレンズ
+      英語を読む習慣があるあなたへ
     </div>
 
-    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
-       class="fade-up-1 inline-flex items-center gap-3 mb-10 px-6 py-3 rounded-full border border-blue-400/40 bg-blue-400/10 backdrop-blur-sm hover:bg-blue-400/18 hover:border-blue-400/70 transition-all duration-200">
-      <span class="text-blue-400 text-[16px]">✦</span>
-      <span class="text-[15px] sm:text-[17px] font-black tracking-[.04em] text-white">体験無料</span>
-      <span class="text-white/40 text-[12px] font-light">— クレジットカード不要</span>
-    </a>
-
-    <h1 class="fade-up-2 text-[clamp(2.4rem,8.5vw,4.8rem)] font-black tracking-[-0.055em] leading-[1.05] mb-8 max-w-3xl">
-      英字記事を、<br class="hidden sm:block" />
-      <span class="grad-e-soft">最難関演習</span>に変える。
+    <h1 class="fade-up-1 text-[clamp(2.4rem,8vw,4.6rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
+      「読める」と「使える」は、<br class="hidden sm:block" />
+      <span class="grad-e-soft">全然違う話だ。</span>
     </h1>
 
-    <p class="fade-up-2 text-[14px] sm:text-[15px] text-white/38 max-w-sm leading-[2] mb-14 font-light">
-      ニューヨークタイムズをスキャンして30秒。<br />
-      AIがTOEIC・英検レベルの問題を自動生成。<br />
-      読んで終わりの英語を、<br />
-      本物の実力へ変える知的インフラ。
+    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-md leading-[2] mb-6 font-light">
+      毎日英字記事を読んでいるのに、<br />
+      英語力が伸びている気がしない。<br />
+      それは読む量の問題ではなく、<br />
+      <strong class="text-white/70 font-semibold">読み方の問題です。</strong>
     </p>
 
-    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center">
+    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center mt-6">
       <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
-         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white
-                bg-blue-600 shadow-[0_8px_32px_rgba(59,130,246,.4)]
-                hover:bg-blue-500 hover:shadow-[0_12px_40px_rgba(59,130,246,.55)] hover:-translate-y-0.5 transition-all duration-200">
-        EIGOモンを無料で始める
-        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">3回無料</span>
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-blue-600 shadow-[0_8px_32px_rgba(59,130,246,.4)] hover:bg-blue-500 hover:shadow-[0_12px_40px_rgba(59,130,246,.55)] hover:-translate-y-0.5 transition-all duration-200">
+        30秒で体験する
+        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">無料</span>
       </a>
-      <a href="/#monpass"
-         class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium
-                hover:bg-white/[.05] hover:text-white/70 transition-all">
-        MONパスも見る ✦
+      <a href="#why" class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
+        なぜ伸びないのか →
       </a>
     </div>
 
@@ -166,89 +144,68 @@
   </section>
 
 
-  <!-- ════ STAT BAR ════ -->
-  <div class="relative z-10 border-y border-white/[.06] bg-white/[.015] backdrop-blur-sm">
-    <div class="max-w-3xl mx-auto px-5 py-6 grid grid-cols-4 text-center">
-      <div class="py-2">
-        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight grad-e">30秒</div>
-        <div class="text-[10px] text-white/25 mt-1 tracking-wide">問題生成まで</div>
-      </div>
-      <div class="py-2 stat-divider">
-        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight text-white/80">6</div>
-        <div class="text-[10px] text-white/25 mt-1 tracking-wide">学習モード</div>
-      </div>
-      <div class="py-2 stat-divider">
-        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight text-blue-300/80">5問</div>
-        <div class="text-[10px] text-white/25 mt-1 tracking-wide">毎セッション生成</div>
-      </div>
-      <div class="py-2 stat-divider">
-        <div class="text-[clamp(1.3rem,3.5vw,1.8rem)] font-black tracking-tight grad-gold">FSRS</div>
-        <div class="text-[10px] text-white/25 mt-1 tracking-wide">科学的復習管理</div>
-      </div>
-    </div>
-  </div>
+  <!-- ════ PAIN SECTION ════ -->
+  <section id="why" class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
 
-
-  <!-- ════ FEATURES ════ -->
-  <section class="relative z-10 px-5 py-24 max-w-4xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">できること</p>
-      <h2 class="text-[clamp(1.7rem,4.5vw,2.6rem)] font-black tracking-tight leading-tight">
-        読む英語を、<span class="grad-e">戦える英語</span>へ。
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">思い当たる節はありますか？</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        英語を「読んでいる人」に<br />多いパターン。
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">📷</div>
-        <h3 class="text-[14px] font-bold mb-2">OCRスキャン生成</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          紙の新聞でもスマホの画面でも。撮るだけで30秒後には本格的な読解問題が手元にある。
-        </p>
+    <div class="flex flex-col gap-3">
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">英字記事は読める。でも内容を英語で説明できない。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              読んでいる最中は理解できている気がする。でも誰かに聞かれたとき、言葉が出てこない。それは「理解した気になっている」だけで、本当には定着していないサインです。
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">🎯</div>
-        <h3 class="text-[14px] font-bold mb-2">6つの学習モード</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          TOEIC・英検・ニュース読解・語彙・文法・記述。目標に合わせて最適なモードを選択。
-        </p>
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">TOEICの勉強をしているが、スコアが頭打ちになっている。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              参考書を解くだけでは実戦の英語に対応できない。生きた英語テキストから問題を解く経験が、スコアを次のステージへ引き上げます。
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">✍️</div>
-        <h3 class="text-[14px] font-bold mb-2">AI記述採点</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          自由英作文をAIが採点。論理の穴・語彙力・文法ミスを精密に分析しスコア化する。
-        </p>
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">語彙は増えているはずなのに、いざとなると使えない。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              単語帳や記事で目にした語彙が、実際の文脈で出てこない。単語は「認識できる」と「使える」の間に大きな溝があります。
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">🧠</div>
-        <h3 class="text-[14px] font-bold mb-2">FSRSで苦手克服</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          間違えた単語・文法をFSRS（科学的間隔反復）で管理。忘れる直前に復習し長期記憶へ定着。
-        </p>
-      </div>
 
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">📊</div>
-        <h3 class="text-[14px] font-bold mb-2">偏差値・スコア分析</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          累積スコアから偏差値を算出。自分の英語力が全体のどこに位置するか可視化できる。
-        </p>
-      </div>
-
-      <div class="feature-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
-        <div class="text-2xl mb-4">📚</div>
-        <h3 class="text-[14px] font-bold mb-2">問題アーカイブ</h3>
-        <p class="text-[12px] text-white/38 leading-relaxed font-light">
-          過去のトレーニング記録がすべて残る。後から見直し、成長の軌跡を確認できる。
-        </p>
-      </div>
-
+  <!-- ════ ROOT CAUSE ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto">
+    <div class="bg-gradient-to-br from-blue-950/60 to-slate-900/60 border border-blue-500/20 rounded-3xl p-8 sm:p-10 text-center">
+      <div class="text-[10px] tracking-[.28em] uppercase text-blue-400/50 mb-4">なぜ伸びないのか</div>
+      <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight leading-tight mb-5">
+        インプットだけでは、<br />記憶に残らない。
+      </h2>
+      <p class="text-[13px] sm:text-[14px] text-white/45 leading-[2] font-light max-w-lg mx-auto">
+        認知心理学の研究が示すとおり、<strong class="text-white/70 font-semibold">読むだけの学習は定着率が最も低い。</strong>
+        記憶に残るのは、問題を解き、答えを考え、間違えて直す——そのアウトプットのループがあるときだけです。<br /><br />
+        EIGOモンは、あなたが今読んでいる英文を<strong class="text-white/70 font-semibold">30秒でアウトプットの場に変えます。</strong>
+      </p>
     </div>
   </section>
 
@@ -260,72 +217,124 @@
   <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto text-center">
 
     <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い方</p>
-    <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight mb-2">3ステップ、それだけ。</h2>
-    <p class="text-[13px] text-white/30 font-light mb-14">ブラウザで動く。インストール不要。今すぐ始められる。</p>
+    <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight mb-2">
+      読んだ瞬間に、<span class="grad-e">演習が始まる。</span>
+    </h2>
+    <p class="text-[13px] text-white/30 font-light mb-14">ブラウザで動く。インストール不要。通勤電車でも使える。</p>
 
-    <div class="grid grid-cols-3 gap-3 sm:gap-5">
+    <div class="grid grid-cols-3 gap-3 sm:gap-5 mb-10">
       <div class="bg-white/[.02] border border-blue-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-blue-400/30 font-mono">STEP 01</div>
         <div class="text-2xl">📷</div>
         <div>
           <div class="text-[13px] font-bold mb-1.5">スキャン</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">英文記事や教材を撮影するだけ。</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">読んでいる英文を撮る。NYT紙面でも、スマホ画面でも。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-blue-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-blue-400/30 font-mono">STEP 02</div>
         <div class="text-2xl">⚡</div>
         <div>
-          <div class="text-[13px] font-bold mb-1.5">即生成</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">30秒で5問。本格的な読解問題が生成。</div>
+          <div class="text-[13px] font-bold mb-1.5">即演習化</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">30秒でTOEIC・英検レベルの問題5問を自動生成。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-blue-500/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-blue-400/30 font-mono">STEP 03</div>
         <div class="text-2xl">🎯</div>
         <div>
-          <div class="text-[13px] font-bold mb-1.5">採点・復習</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">AIが弱点を指摘。FSRSで苦手を根絶。</div>
+          <div class="text-[13px] font-bold mb-1.5">弱点を直す</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">AI採点で穴を可視化。間違えた語彙はFSRSで自動管理。</div>
         </div>
       </div>
     </div>
 
+    <!-- Stat bar -->
+    <div class="grid grid-cols-3 border border-white/[.06] rounded-2xl overflow-hidden bg-white/[.015]">
+      <div class="py-5 text-center">
+        <div class="text-[clamp(1.4rem,4vw,1.8rem)] font-black tracking-tight grad-e">30秒</div>
+        <div class="text-[10px] text-white/25 mt-1">問題生成まで</div>
+      </div>
+      <div class="py-5 text-center stat-divider">
+        <div class="text-[clamp(1.4rem,4vw,1.8rem)] font-black tracking-tight text-white/80">6</div>
+        <div class="text-[10px] text-white/25 mt-1">学習モード</div>
+      </div>
+      <div class="py-5 text-center stat-divider">
+        <div class="text-[clamp(1.4rem,4vw,1.8rem)] font-black tracking-tight grad-gold">FSRS</div>
+        <div class="text-[10px] text-white/25 mt-1">科学的復習管理</div>
+      </div>
+    </div>
   </section>
 
 
   <hr class="rule" />
 
 
-  <!-- ════ WHO IT'S FOR ════ -->
-  <section class="relative z-10 px-5 py-20 max-w-3xl mx-auto">
-    <div class="text-center mb-12">
-      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな人に</p>
-      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">
-        英語と真剣に向き合う、<span class="grad-e">すべての人へ。</span>
+  <!-- ════ WHAT CHANGES ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">使い続けると</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        「読んで終わり」が、<br /><span class="grad-e">実力に変わる。</span>
       </h2>
     </div>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {[
-        ['🏢', 'TOEIC対策中の社会人'],
-        ['🎓', '英検を目指す学生'],
-        ['📰', 'NYT愛読者'],
-        ['✈️', '海外赴任を控えている人'],
-      ].map(_ => '')}
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
-        <div class="text-xl mb-2">🏢</div>
-        <div class="text-[11px] text-white/50 font-light leading-snug">TOEIC対策中<br/>の社会人</div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
+        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">1ヶ月後</div>
+        <div class="text-[14px] font-bold mb-2">弱点が見える</div>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          どの文法・語彙でミスするか可視化される。「なんとなく読めている」という錯覚が消える。
+        </p>
       </div>
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
-        <div class="text-xl mb-2">🎓</div>
-        <div class="text-[11px] text-white/50 font-light leading-snug">英検を目指す<br/>学生</div>
+      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
+        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">3ヶ月後</div>
+        <div class="text-[14px] font-bold mb-2">語彙が定着する</div>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          FSRSで管理された苦手語が長期記憶に移行。読むだけのとき比べて、語彙の定着率が大きく変わる。
+        </p>
       </div>
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+      <div class="solution-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-blue-500/20">
+        <div class="text-[10px] tracking-[.2em] uppercase text-blue-400/50 mb-3 font-mono">半年後</div>
+        <div class="text-[14px] font-bold mb-2">英語が「使える」</div>
+        <p class="text-[12px] text-white/38 leading-relaxed font-light">
+          記事を読んだあと、内容を自分の言葉で説明できるようになる。英語が道具として機能し始める。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ FOR WHO ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto text-center">
+    <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな人に</p>
+    <h2 class="text-[clamp(1.5rem,4vw,2rem)] font-black tracking-tight mb-10">
+      英語と真剣に向き合う人のための、<span class="grad-e">道具です。</span>
+    </h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
         <div class="text-xl mb-2">📰</div>
-        <div class="text-[11px] text-white/50 font-light leading-snug">英字紙を<br/>読む習慣がある人</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">NYT・英字紙を読む人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">読んでいるのに伸びない悩みを解消</div>
       </div>
-      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4 text-center">
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">🏢</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">TOEIC 700→900を目指す人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">実戦テキストで本番力を鍛える</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">🎓</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">英検準1級・1級を目指す学生</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">記述採点で論述力を同時強化</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
         <div class="text-xl mb-2">✈️</div>
-        <div class="text-[11px] text-white/50 font-light leading-snug">実践英語力を<br/>伸ばしたい人</div>
+        <div class="text-[11px] text-white/60 font-semibold mb-1">海外業務が増えた社会人</div>
+        <div class="text-[10px] text-white/30 font-light leading-snug">通勤10分を最高の学習時間に</div>
       </div>
     </div>
   </section>
@@ -339,41 +348,32 @@
 
     <div class="text-center mb-14">
       <div class="inline-flex items-center gap-2 text-[10px] tracking-[.25em] uppercase font-bold text-blue-400/70 mb-6">
-        <span class="w-4 h-px bg-blue-400/30"></span>
-        プラン
-        <span class="w-4 h-px bg-blue-400/30"></span>
+        <span class="w-4 h-px bg-blue-400/30"></span>プラン<span class="w-4 h-px bg-blue-400/30"></span>
       </div>
       <h2 class="text-[clamp(1.9rem,5.5vw,2.8rem)] font-black tracking-tight leading-tight mb-4">
-        まずは無料で、<br />
-        <span class="shimmer-e">本物の演習</span>を体感。
+        まず体験して、<br /><span class="shimmer-e">違いを感じてください。</span>
       </h2>
-      <p class="text-[13px] text-white/35 font-light leading-relaxed max-w-xs mx-auto">
-        3回まで無料。その後はサブスクリプションで<br />無制限にご利用いただけます。
-      </p>
+      <p class="text-[13px] text-white/35 font-light leading-relaxed">3回まで無料。カード登録不要。</p>
     </div>
 
     <div class="relative rounded-3xl overflow-hidden">
       <div class="absolute -inset-px rounded-3xl bg-gradient-to-br from-blue-500/30 via-cyan-500/15 to-blue-600/20 pointer-events-none"></div>
       <div class="relative bg-slate-900/90 border border-transparent rounded-3xl p-8 backdrop-blur-md">
 
-        <!-- Free -->
         <div class="bg-white/[.04] border border-white/[.08] rounded-2xl p-6 mb-4">
-          <div class="flex items-baseline gap-2 mb-1">
-            <span class="text-[36px] font-black tracking-tight leading-none text-white/80">無料</span>
-          </div>
+          <div class="text-[11px] text-white/30 mb-1 font-light">まずは無料で</div>
+          <div class="text-[36px] font-black tracking-tight leading-none text-white/80 mb-1">¥0</div>
           <p class="text-[11px] text-white/30 mb-5 font-light">3回のトレーニングをお試しいただけます</p>
           <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
-             class="flex items-center justify-center w-full py-3.5 rounded-xl bg-blue-600/20 border border-blue-500/25 text-[13px] font-bold text-blue-300
-                    hover:bg-blue-600/30 hover:border-blue-400/40 transition-all duration-200">
-            無料で始める →
+             class="flex items-center justify-center w-full py-3.5 rounded-xl bg-blue-600/20 border border-blue-500/25 text-[13px] font-bold text-blue-300 hover:bg-blue-600/30 hover:border-blue-400/40 transition-all duration-200">
+            今すぐ体験する →
           </a>
         </div>
 
-        <!-- MONパス -->
         <div class="relative mb-4">
           <div class="absolute -top-3.5 inset-x-0 flex justify-center z-10">
             <div class="bg-amber-400 text-slate-900 text-[9px] font-black tracking-[.18em] uppercase px-4 py-1 rounded-full shadow-[0_4px_16px_rgba(251,191,36,.4)]">
-              お得 &nbsp;·&nbsp; SAKUモンも使える
+              SAKUモンも同時に使える
             </div>
           </div>
           <div class="bg-gradient-to-br from-amber-950/60 to-yellow-950/40 border-2 border-amber-400/40 rounded-2xl pt-9 pb-7 px-6 text-center">
@@ -385,24 +385,20 @@
                 <div class="text-[9px] text-amber-400/50 font-mono">tax incl.</div>
               </div>
             </div>
-            <p class="text-[11px] text-amber-200/45 mb-6 font-light">EIGOモン + SAKUモン 両方 Pro が使い放題</p>
+            <p class="text-[11px] text-amber-200/45 mb-6 font-light">EIGOモン + SAKUモン 両方が無制限</p>
             <a href="https://sakumon-olive.vercel.app/billing" target="_blank" rel="noopener"
-               class="flex items-center justify-center w-full py-4 rounded-xl font-black text-[14px] tracking-tight text-slate-900
-                      bg-amber-400 shadow-[0_6px_24px_rgba(251,191,36,.4)]
-                      hover:bg-amber-300 hover:shadow-[0_10px_32px_rgba(251,191,36,.55)] hover:-translate-y-0.5 transition-all duration-200">
-              MONパスで始める &nbsp;→
+               class="flex items-center justify-center w-full py-4 rounded-xl font-black text-[14px] tracking-tight text-slate-900 bg-amber-400 shadow-[0_6px_24px_rgba(251,191,36,.4)] hover:bg-amber-300 hover:shadow-[0_10px_32px_rgba(251,191,36,.55)] hover:-translate-y-0.5 transition-all duration-200">
+              MONパスで始める →
             </a>
           </div>
         </div>
 
         <div class="flex items-center gap-2 justify-center text-[11px] text-white/25 font-light">
           <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse"></div>
-          クレジットカード不要 · いつでもキャンセル可
+          いつでもキャンセル可 · 縛りなし
         </div>
-
       </div>
     </div>
-
   </section>
 
 
@@ -411,18 +407,15 @@
 
   <!-- ════ FINAL CTA ════ -->
   <section class="relative z-10 px-5 py-24 max-w-sm mx-auto text-center">
-    <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">今すぐ始める</p>
+    <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">まず、体感してみてください</p>
     <h2 class="text-[clamp(1.6rem,5vw,2.2rem)] font-black tracking-tight leading-tight mb-3">
-      次の記事から、<br /><span class="grad-e">演習に変えよう。</span>
+      次に読む記事から、<br /><span class="grad-e">演習に変えよう。</span>
     </h2>
     <p class="text-[13px] text-white/30 font-light leading-relaxed mb-10">
-      3回無料。クレジットカード不要。<br />アカウント登録だけで今すぐ始められます。
+      3回無料。カード登録不要。<br />読んで終わりにしない、最初の一歩。
     </p>
     <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
-       class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px]
-              bg-blue-600 text-white
-              hover:bg-blue-500 hover:-translate-y-0.5 transition-all duration-200
-              shadow-[0_8px_32px_rgba(59,130,246,.35)]">
+       class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px] bg-blue-600 text-white hover:bg-blue-500 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_32px_rgba(59,130,246,.35)]">
       <div class="w-5 h-5 rounded bg-white/20 flex items-center justify-center text-[9px] font-black">E</div>
       EIGOモンを無料で試す
     </a>
