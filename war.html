@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>知の早慶戦 — 早稲田 vs 慶應、14日間の知性の決戦</title>
+  <meta name="description" content="英語読解AIで大学の誇りを賭けて戦え。小隊を組め。読解力で勝利を掴め。2026.4.13 - 4.26" />
+  <meta property="og:title" content="知の早慶戦 — 早稲田 vs 慶應、14日間の知性の決戦" />
+  <meta property="og:description" content="英語読解AIで大学の誇りを賭けて戦え。小隊を組め。読解力で勝利を掴め。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://mon-landing.vercel.app/mon-og.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://mon-landing.vercel.app/mon-og.png" />
+  <link rel="icon" type="image/png" href="/mon-icon.png" />
+  <link rel="apple-touch-icon" href="/mon-icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+            serif: ['Georgia','Hiragino Mincho ProN','Yu Mincho','serif'],
+            mono: ['SF Mono','Fira Code','monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .grad-war {
+      background: linear-gradient(135deg, #ef4444 0%, #a855f7 50%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-waseda {
+      background: linear-gradient(135deg, #fca5a5 0%, #ef4444 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-keio {
+      background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-gold {
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+    .fade-up-4 { animation: fade-up .7s .48s ease both; }
+    @keyframes shimmer-war {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-war {
+      background: linear-gradient(90deg, #ef4444 0%, #a855f7 25%, #3b82f6 50%, #a855f7 75%, #ef4444 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-war 4s linear infinite;
+    }
+    @keyframes vs-pulse {
+      0%,100% { transform: scale(1); opacity: .7; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+    .vs-pulse { animation: vs-pulse 2s ease-in-out infinite; }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
+    .war-card {
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, border-color .2s;
+    }
+    .war-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(168,85,247,.1); }
+    .event-row { transition: background .2s; }
+    .event-row:hover { background: rgba(255,255,255,.03); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white font-sans selection:bg-purple-900/50">
+
+  <!-- Background effects -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-red-900/[.12] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-blue-900/[.12] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-purple-900/[.08] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+
+  <!-- NAV -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+      <span class="text-white/[.08]">|</span>
+      <div class="flex items-center gap-2">
+        <span class="text-[16px]">⚔️</span>
+        <span class="text-[13px] font-black tracking-tight text-white/80">知の早慶戦</span>
+      </div>
+    </div>
+    <a href="https://eigomon.vercel.app/war" target="_blank" rel="noopener"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white bg-gradient-to-r from-red-600 to-blue-600 px-4 py-2 rounded-full hover:opacity-90 transition-opacity tracking-tight shadow-[0_4px_16px_rgba(168,85,247,.35)]">
+      今すぐ参戦 →
+    </a>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="relative z-10 min-h-[92vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-24">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
+      <span class="w-1.5 h-1.5 rounded-full bg-purple-400 pulse"></span>
+      2026.4.13 — 4.26 · 14 Days
+    </div>
+
+    <!-- VS visual -->
+    <div class="fade-up-1 flex items-center justify-center gap-5 sm:gap-8 mb-8">
+      <div class="text-center">
+        <div class="text-[40px] sm:text-[56px] mb-2">🦅</div>
+        <div class="text-[clamp(1.4rem,5vw,2.2rem)] font-black tracking-tight grad-waseda">早稲田</div>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="vs-pulse text-[clamp(1.2rem,4vw,1.8rem)] font-black text-white/20 tracking-widest">VS</div>
+      </div>
+      <div class="text-center">
+        <div class="text-[40px] sm:text-[56px] mb-2">🦁</div>
+        <div class="text-[clamp(1.4rem,5vw,2.2rem)] font-black tracking-tight grad-keio">慶應</div>
+      </div>
+    </div>
+
+    <h1 class="fade-up-2 text-[clamp(2.4rem,8vw,4.8rem)] font-black tracking-[-0.06em] leading-[1.05] mb-6 max-w-3xl">
+      <span class="shimmer-war">知の早慶戦</span>
+    </h1>
+
+    <p class="fade-up-3 text-[14px] sm:text-[16px] text-white/45 max-w-lg leading-[2] mb-4 font-light">
+      早稲田と慶應、どっちが賢い？<br />
+      <strong class="text-white/70 font-semibold">14日間で決着をつける。</strong>
+    </p>
+    <p class="fade-up-3 text-[12px] text-white/25 font-light mb-8">
+      友達3人と小隊を組め。お前の読解力が、大学の命運を握る。
+    </p>
+
+    <div class="fade-up-4 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center">
+      <a href="https://eigomon.vercel.app/war" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-gradient-to-r from-red-600 to-blue-600 shadow-[0_8px_32px_rgba(168,85,247,.4)] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-200">
+        今すぐ参戦する →
+      </a>
+      <a href="#how" class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
+        仕組みを見る →
+      </a>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/15">
+      <div class="text-[9px] tracking-[.25em] uppercase">Scroll</div>
+      <div class="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"></div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- HOW IT WORKS (DP) -->
+  <section id="how" class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">Domination Point</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        勝敗を決める、<span class="grad-war">DPの仕組み。</span>
+      </h2>
+    </div>
+
+    <!-- DP formula -->
+    <div class="bg-gradient-to-br from-purple-950/50 to-slate-900/50 border border-purple-500/20 rounded-3xl p-8 sm:p-10 text-center mb-8">
+      <div class="text-[10px] tracking-[.3em] uppercase text-purple-400/50 mb-6">FORMULA</div>
+      <div class="text-[clamp(1.1rem,3vw,1.5rem)] font-black leading-[2.2] tracking-tight">
+        <span class="text-white/60">DP</span>
+        <span class="text-white/20 mx-2">=</span>
+        <span class="grad-gold">平均ULEスコア</span><br />
+        <span class="text-white/15 text-[20px] mx-1">×</span>
+        <span class="text-white/70">アクティブユーザー数</span><br />
+        <span class="text-white/15 text-[20px] mx-1">×</span>
+        <span class="text-white/70">総スキャン枚数</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 mb-8">
+      <div class="bg-white/[.02] border border-white/[.08] rounded-2xl p-5 text-center">
+        <div class="text-[22px] mb-2">🧠</div>
+        <div class="text-[12px] font-bold mb-1.5">質</div>
+        <div class="text-[11px] text-white/30 font-light leading-relaxed">平均スコアが高いほど有利</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.08] rounded-2xl p-5 text-center">
+        <div class="text-[22px] mb-2">👥</div>
+        <div class="text-[12px] font-bold mb-1.5">人数</div>
+        <div class="text-[11px] text-white/30 font-light leading-relaxed">参加者を集めるほど有利</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.08] rounded-2xl p-5 text-center">
+        <div class="text-[22px] mb-2">📷</div>
+        <div class="text-[12px] font-bold mb-1.5">量</div>
+        <div class="text-[11px] text-white/30 font-light leading-relaxed">スキャン数が多いほど有利</div>
+      </div>
+    </div>
+
+    <div class="bg-white/[.02] border border-white/[.08] rounded-2xl p-6 text-center">
+      <p class="text-[13px] text-white/50 leading-relaxed font-light">
+        個人が強くても、参加人数が少なければ負ける。<br />
+        <strong class="text-white/70 font-semibold">「質 × 量 × 熱量」の総力戦。</strong>
+      </p>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- SQUAD SYSTEM -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">Squad System</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight mb-3">
+        小隊を組め。<span class="grad-war">3-5人で戦え。</span>
+      </h2>
+      <p class="text-[13px] text-white/35 font-light leading-relaxed max-w-md mx-auto">
+        一人で戦うな。友達3人と小隊を結成し、<br />チームで母校の勝利に貢献せよ。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="war-card bg-white/[.025] border border-purple-500/15 rounded-2xl p-6">
+        <div class="text-purple-400/60 text-[10px] font-mono tracking-widest mb-3">FORMATION BONUS</div>
+        <div class="text-[14px] font-bold mb-2">結成ボーナス</div>
+        <div class="flex items-baseline gap-2 mb-2">
+          <span class="text-[28px] font-black grad-gold">+3</span>
+          <span class="text-[12px] text-white/40">スキャン</span>
+        </div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">3人以上で小隊を結成した瞬間、全メンバーに即時付与。</p>
+      </div>
+
+      <div class="war-card bg-white/[.025] border border-purple-500/15 rounded-2xl p-6">
+        <div class="text-purple-400/60 text-[10px] font-mono tracking-widest mb-3">DAILY BOOST</div>
+        <div class="text-[14px] font-bold mb-2">小隊DPブースト</div>
+        <div class="flex items-baseline gap-2 mb-2">
+          <span class="text-[28px] font-black grad-gold">×1.3</span>
+          <span class="text-[12px] text-white/40">倍</span>
+        </div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">小隊全員がその日に1スキャン以上プレイすれば、小隊DPが1.3倍に。</p>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-br from-purple-950/40 to-slate-900/40 border border-purple-500/15 rounded-2xl p-6 text-center">
+      <p class="text-[13px] text-white/50 leading-relaxed">
+        小隊に入らなくても個人参加は可能。<br />
+        ただし<strong class="text-white/70 font-semibold">小隊ボーナスは小隊メンバーだけの特権。</strong>
+      </p>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- REWARDS -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">Rewards</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        勝者への<span class="grad-gold">褒章。</span>
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <!-- 団体報酬 -->
+      <div class="bg-white/[.02] border border-amber-500/20 rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-[24px]">🏆</span>
+          <div>
+            <div class="text-[13px] font-bold grad-gold">団体報酬 — 勝者総取り</div>
+            <div class="text-[10px] text-white/25 mt-0.5">Winner Takes All</div>
+          </div>
+        </div>
+        <div class="bg-amber-500/[.06] border border-amber-500/15 rounded-xl p-4 mb-3">
+          <div class="text-[15px] font-black text-white/80">MONパス 翌月分 無料</div>
+          <div class="text-[11px] grad-gold mt-1">¥1,980 相当</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">
+          勝利大学に所属し、期間中に<strong class="text-white/60 font-semibold">3セッション以上</strong>完了したユーザー全員が対象。
+        </p>
+      </div>
+
+      <!-- 個人報酬 -->
+      <div class="bg-white/[.02] border border-amber-500/20 rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-[24px]">🏅</span>
+          <div>
+            <div class="text-[13px] font-bold grad-gold">個人報酬 — トップドミネーター</div>
+            <div class="text-[10px] text-white/25 mt-0.5">各大学 上位3名 / 計6名</div>
+          </div>
+        </div>
+        <div class="bg-amber-500/[.06] border border-amber-500/15 rounded-xl p-4 mb-3">
+          <div class="text-[15px] font-black text-white/80">MONシリーズ 永久アンバサダー権</div>
+          <div class="text-[11px] grad-gold mt-1">一生無料</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">
+          大学の勝敗を問わず、個人スコア上位者に授与される特別称号。
+        </p>
+      </div>
+
+      <!-- 小隊報酬 -->
+      <div class="bg-white/[.02] border border-amber-500/20 rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-[24px]">🎖️</span>
+          <div>
+            <div class="text-[13px] font-bold grad-gold">上位小隊報酬</div>
+            <div class="text-[10px] text-white/25 mt-0.5">各大学 上位3小隊</div>
+          </div>
+        </div>
+        <div class="bg-amber-500/[.06] border border-amber-500/15 rounded-xl p-4 mb-3">
+          <div class="text-[15px] font-black text-white/80">MONパス 3ヶ月無料</div>
+          <div class="text-[11px] grad-gold mt-1">¥5,940 相当</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">
+          小隊DPランキング上位のチーム全メンバーに付与。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- DAILY EVENTS -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">14 Days Calendar</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight mb-3">
+        14日間の<span class="grad-war">戦場カレンダー。</span>
+      </h2>
+    </div>
+
+    <div class="bg-white/[.02] border border-white/[.08] rounded-2xl overflow-hidden mb-8">
+      <div class="grid grid-cols-[auto_1fr] text-[12px]">
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-red-400/70 font-bold text-[10px] pt-0.5">Day 1</div>
+          <div>
+            <span class="font-bold text-white/70">開幕</span>
+            <span class="text-white/30 font-light ml-2">小隊結成ラッシュ開始</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-white/40 font-bold text-[10px] pt-0.5">Day 2</div>
+          <div>
+            <span class="font-bold text-white/70">初日MVP発表</span>
+            <span class="text-white/30 font-light ml-2">各大学最高スコア者</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-white/40 font-bold text-[10px] pt-0.5">Day 4</div>
+          <div>
+            <span class="font-bold text-amber-400/80">ゴールデンタイムバトル</span>
+            <span class="text-white/30 font-light ml-2">19-22時 DP×2倍</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-white/40 font-bold text-[10px] pt-0.5">Day 7</div>
+          <div>
+            <span class="font-bold text-white/70">1週目レポート配信</span>
+            <span class="text-white/30 font-light ml-2">中間戦績の公開</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05] bg-red-500/[.03]">
+          <div class="text-red-400 font-bold text-[10px] pt-0.5">Day 8</div>
+          <div>
+            <span class="font-bold text-red-400">逆転の狼煙</span>
+            <span class="text-white/30 font-light ml-2">劣勢陣営 DP×1.5倍 自動発動</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-white/40 font-bold text-[10px] pt-0.5">Day 11</div>
+          <div>
+            <span class="font-bold text-white/70">ラスト72時間</span>
+            <span class="text-white/30 font-light ml-2">カウントダウン + 全員+1スキャン</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 border-b border-white/[.05]">
+          <div class="text-amber-400/80 font-bold text-[10px] pt-0.5">Day 13</div>
+          <div>
+            <span class="font-bold text-amber-400/80">ファイナルラッシュ</span>
+            <span class="text-white/30 font-light ml-2">終日 DP×2倍</span>
+          </div>
+        </div>
+
+        <div class="event-row col-span-2 grid grid-cols-[60px_1fr] gap-3 px-5 py-3 bg-purple-500/[.04]">
+          <div class="text-purple-400 font-bold text-[10px] pt-0.5">Day 14</div>
+          <div>
+            <span class="font-bold text-purple-300">決戦終了 23:59</span>
+            <span class="text-white/30 font-light ml-2">結果発表 → 勝利陣営に報酬付与</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Golden Time -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-amber-500/[.04] border border-amber-500/15 rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[16px]">🌙</span>
+          <span class="text-[12px] font-bold text-amber-300/80">ゴールデンタイム</span>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">
+          毎日19:00 - 22:00はDP×2倍。夜の3時間が勝負の分かれ目。
+        </p>
+      </div>
+      <div class="bg-red-500/[.04] border border-red-500/15 rounded-2xl p-5">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-[16px]">⚡</span>
+          <span class="text-[12px] font-bold text-red-300/80">逆転ボーナス</span>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">
+          8日目に劣勢陣営のDPが×1.5倍に。最終日まで逆転可能な緊張感。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- APPS -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">Battle Apps</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight mb-3">
+        2つのアプリで、<span class="grad-war">参戦せよ。</span>
+      </h2>
+      <p class="text-[13px] text-white/35 font-light leading-relaxed max-w-md mx-auto">
+        EIGOモン・SAKUモン、どちらのスキャンもDPに加算。<br />両方使えば、貢献は2倍。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      <!-- EIGOモン -->
+      <div class="war-card bg-white/[.025] border border-blue-500/15 rounded-2xl p-6 hover:border-blue-500/30">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center flex-shrink-0 shadow-[0_4px_16px_rgba(59,130,246,.3)]">
+            <span class="text-[16px] font-black text-white font-serif">E</span>
+          </div>
+          <div>
+            <div class="text-[14px] font-bold">EIGOモン</div>
+            <div class="text-[10px] text-blue-300/50">英語読解AI</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed mb-4">
+          英字記事・洋書・英語教材を撮影し、TOEIC/英検レベルの読解問題を自動生成。
+        </p>
+        <a href="https://eigomon.vercel.app/war" target="_blank" rel="noopener"
+           class="flex items-center justify-center w-full py-3 rounded-xl bg-blue-600/20 border border-blue-500/25 text-[12px] font-bold text-blue-300 hover:bg-blue-600/30 transition-all">
+          EIGOモンで参戦 →
+        </a>
+      </div>
+
+      <!-- SAKUモン -->
+      <div class="war-card bg-white/[.025] border border-purple-500/15 rounded-2xl p-6 hover:border-purple-500/30">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center flex-shrink-0 shadow-[0_4px_16px_rgba(147,51,234,.3)]">
+            <span class="text-[16px] font-black text-white font-serif">S</span>
+          </div>
+          <div>
+            <div class="text-[14px] font-bold">SAKUモン</div>
+            <div class="text-[10px] text-purple-300/50">日本語読解AI</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed mb-4">
+          書籍・参考書のページを撮影するだけで、AIが本質的な問いを自動生成。読書を知識定着へ。
+        </p>
+        <a href="https://sakumon-olive.vercel.app/war" target="_blank" rel="noopener"
+           class="flex items-center justify-center w-full py-3 rounded-xl bg-purple-600/20 border border-purple-500/25 text-[12px] font-bold text-purple-300 hover:bg-purple-600/30 transition-all">
+          SAKUモンで参戦 →
+        </a>
+      </div>
+    </div>
+
+    <div class="bg-white/[.02] border border-white/[.06] rounded-xl px-4 py-3 text-center">
+      <p class="text-[11px] text-white/30 font-light">
+        開戦中（4/13 - 4/26）は早稲田・慶應ユーザー全員に<strong class="text-white/50 font-semibold">毎日+1回の無料スキャン</strong>が付与されます。
+      </p>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- HOW TO JOIN -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">How to Join</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        参加方法
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-4 mb-10">
+      <div class="flex gap-4 bg-white/[.02] border border-white/[.08] rounded-2xl p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-red-600/20 to-blue-600/20 border border-purple-500/20 flex items-center justify-center">
+          <span class="text-[11px] font-black text-purple-300/80 font-mono">01</span>
+        </div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">大学メールでアカウント作成</div>
+          <div class="text-[11px] text-white/35 font-light leading-relaxed">
+            <strong class="text-white/55 font-semibold">@waseda.jp</strong> または <strong class="text-white/55 font-semibold">@keio.jp</strong> のメールアドレスで登録すると、自動的に陣営に配属。
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 bg-white/[.02] border border-white/[.08] rounded-2xl p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-red-600/20 to-blue-600/20 border border-purple-500/20 flex items-center justify-center">
+          <span class="text-[11px] font-black text-purple-300/80 font-mono">02</span>
+        </div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">EIGOモン or SAKUモンで問題を解く</div>
+          <div class="text-[11px] text-white/35 font-light leading-relaxed">
+            教材・書籍のページを撮影してAI問題を生成。回答・採点でセッション完了。スキャンがDPに加算される。
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 bg-white/[.02] border border-white/[.08] rounded-2xl p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-red-600/20 to-blue-600/20 border border-purple-500/20 flex items-center justify-center">
+          <span class="text-[11px] font-black text-purple-300/80 font-mono">03</span>
+        </div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">小隊を結成して仲間を集める</div>
+          <div class="text-[11px] text-white/35 font-light leading-relaxed">
+            3-5人の小隊を結成して結成ボーナス+3スキャンを獲得。全員プレイ日はDP×1.3倍のブースト。
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 bg-white/[.02] border border-white/[.08] rounded-2xl p-6">
+        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-gradient-to-br from-red-600/20 to-blue-600/20 border border-purple-500/20 flex items-center justify-center">
+          <span class="text-[11px] font-black text-purple-300/80 font-mono">04</span>
+        </div>
+        <div>
+          <div class="text-[13px] font-bold mb-1.5">14日間で頂点を目指す</div>
+          <div class="text-[11px] text-white/35 font-light leading-relaxed">
+            日次イベント、ゴールデンタイム、逆転ボーナスを活用し、母校を勝利に導け。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 無料枠 -->
+    <div class="bg-gradient-to-br from-purple-950/40 to-slate-900/40 border border-purple-500/15 rounded-2xl p-6 text-center">
+      <p class="text-[12px] text-white/40 leading-relaxed">
+        無料5回 + 早慶戦期間中は毎日+1回の無料スキャン。<br />
+        <strong class="text-white/60 font-semibold">カード登録不要で、すぐに参戦できる。</strong>
+      </p>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- FINAL CTA -->
+  <section class="relative z-10 px-5 py-28 max-w-sm mx-auto text-center">
+    <p class="text-[10px] tracking-[.28em] uppercase text-white/18 mb-4">2026.4.13 開戦</p>
+    <h2 class="text-[clamp(1.8rem,5.5vw,2.6rem)] font-black tracking-tight leading-tight mb-3">
+      母校の誇りを、<br /><span class="shimmer-war">読解力で証明せよ。</span>
+    </h2>
+    <p class="text-[13px] text-white/30 font-light leading-relaxed mb-10">
+      友達3人と小隊を組め。<br />14日間の知性の決戦が、始まる。
+    </p>
+
+    <div class="flex flex-col gap-3">
+      <a href="https://eigomon.vercel.app/war" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px] text-white bg-gradient-to-r from-red-600 to-blue-600 hover:opacity-90 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_32px_rgba(168,85,247,.35)]">
+        <div class="w-5 h-5 rounded bg-white/20 flex items-center justify-center text-[9px] font-black">E</div>
+        EIGOモンで参戦する
+      </a>
+      <a href="https://sakumon-olive.vercel.app/war" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px] text-white bg-purple-600 hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_8px_32px_rgba(147,51,234,.35)]">
+        <div class="w-5 h-5 rounded bg-white/20 flex items-center justify-center text-[9px] font-black">S</div>
+        SAKUモンで参戦する
+      </a>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-10">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+        <div class="flex items-center gap-2.5">
+          <span class="text-[16px]">⚔️</span>
+          <span class="text-[12px] font-bold text-white/40 tracking-tight">知の早慶戦</span>
+          <span class="text-white/15 text-[11px]">by MONシリーズ</span>
+        </div>
+        <nav class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-white/20">
+          <a href="/" class="hover:text-white/50 transition-colors">MONシリーズ TOP</a>
+          <a href="/eigomon" class="hover:text-white/50 transition-colors">EIGOモン</a>
+          <a href="/sakumon" class="hover:text-white/50 transition-colors">SAKUモン</a>
+          <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+          <a href="/tokushoho" class="hover:text-white/50 transition-colors">特定商取引法</a>
+        </nav>
+      </div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-5 border-t border-white/[.04]">
+        <p class="text-[10px] text-white/15">&copy; 2026 MONシリーズ. All rights reserved.</p>
+        <p class="text-[9px] text-white/12 font-mono tracking-wide">Powered by Gemini Flash &amp; Google Cloud Vision</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

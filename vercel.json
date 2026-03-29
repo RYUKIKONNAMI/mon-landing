@@ -6,6 +6,7 @@
     { "source": "/try",             "destination": "/try.html" },
     { "source": "/demo-eigomon",    "destination": "/demo-eigomon.html" },
     { "source": "/demo-sakumon",    "destination": "/demo-sakumon.html" },
+    { "source": "/war",             "destination": "/war.html" },
     { "source": "/privacy",         "destination": "/privacy.html" },
     { "source": "/((?!.*\\.html$).*)", "destination": "/index.html" }
   ]
