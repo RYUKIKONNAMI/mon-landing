@@ -8,6 +8,6 @@
     { "source": "/demo-sakumon",    "destination": "/demo-sakumon.html" },
     { "source": "/war",             "destination": "/war.html" },
     { "source": "/privacy",         "destination": "/privacy.html" },
-    { "source": "/((?!.*\\.html$).*)", "destination": "/index.html" }
+    { "source": "/((?!.*\\.(html|xml|txt)$).*)", "destination": "/index.html" }
   ]
 }
