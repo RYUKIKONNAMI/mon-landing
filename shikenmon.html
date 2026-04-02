@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHIKENモン — 先生のPDFで、試験対策を全自動化。</title>
+  <meta name="description" content="大学生・医療系学生向け。先生のスライドPDFを放り込むだけで、フラッシュカードと確認テストが自動生成される試験対策AIです。無料3回から。" />
+  <meta property="og:title" content="SHIKENモン — 先生のPDFで、試験対策を全自動化。" />
+  <meta property="og:description" content="スライドPDFを放り込むだけ。フラッシュカード＋確認テストが10秒で完成。試験前の「カード作り」に時間を使うのをやめよう。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://mon-landing-zeta.vercel.app/shikenmon-og.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://mon-landing-zeta.vercel.app/shikenmon-og.png" />
+  <link rel="canonical" href="https://mon-landing-zeta.vercel.app/shikenmon" />
+  <meta name="keywords" content="試験対策 AI, 大学 定期試験 アプリ, フラッシュカード 自動生成, PDF 暗記カード, 医学部 試験対策, 国試 勉強 アプリ, 大学生 勉強 効率化" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:url" content="https://mon-landing-zeta.vercel.app/shikenmon" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="MONシリーズ" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SHIKENモン",
+    "description": "大学の試験対策AI。先生のPDFを放り込むだけでフラッシュカードと確認テストが自動生成される。",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "description": "3回まで無料"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "どんなPDFでも使えますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "テキスト埋め込み型PDFに対応しています。先生のスライドや教科書PDF、自分でスキャンした資料など、文字が含まれていれば基本的に使えます。画像のみのPDFは現在対応準備中です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "無料で使えますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "月3回まで無料でPDF→カード生成ができます。それ以上使いたい場合は試験7日間パス（¥398）やライトプラン（¥490/月）からお選びいただけます。" }
+      },
+      {
+        "@type": "Question",
+        "name": "医学部・薬学部・看護学部でも使えますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい。国家試験対策にも対応予定です。現在は定期試験向けのPDF→カード生成機能をご利用いただけます。" }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+            serif: ['Georgia','Hiragino Mincho ProN','Yu Mincho','serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .grad-s {
+      background: linear-gradient(135deg, #fde68a 0%, #c9871a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-s-soft {
+      background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 50%, #c9871a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+    @keyframes shimmer-amber {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-s {
+      background: linear-gradient(90deg, #c9871a 0%, #fde68a 30%, #c9871a 60%, #f59e0b 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-amber 3s linear infinite;
+    }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .pain-card { transition: border-color .2s, background .2s; }
+    .pain-card:hover { border-color: rgba(239,68,68,.3); background: rgba(239,68,68,.04); }
+    .step-card { transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+    .step-card:hover { transform: translateY(-3px); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0c0a00; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+    .price-card { transition: transform .2s, border-color .2s; }
+    .price-card:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body class="bg-[#0c0a00] text-white font-sans selection:bg-amber-900/50">
+
+  <!-- 背景グロー -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-amber-900/[.15] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-yellow-900/[.08] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-orange-900/[.06] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+
+  <!-- ════ NAV ════ -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+      <span class="text-white/[.08]">|</span>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-amber-600/30 border border-amber-500/30 flex items-center justify-center text-[16px]">📚</div>
+        <span class="text-[13px] font-black tracking-tight text-white/80">SHIKENモン</span>
+      </div>
+    </div>
+    <a href="https://shikenmon.vercel.app" target="_blank" rel="noopener"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white bg-amber-600 px-4 py-2 rounded-full hover:bg-amber-500 transition-colors tracking-tight shadow-[0_4px_16px_rgba(201,135,26,.4)]">
+      無料で試す →
+    </a>
+  </nav>
+
+
+  <!-- ════ HERO ════ -->
+  <section class="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-24">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 pulse"></span>
+      大学生・医療系学生の試験対策へ
+    </div>
+
+    <h1 class="fade-up-1 text-[clamp(2.2rem,7.5vw,4.4rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
+      先生のPDFで、<br class="hidden sm:block" />
+      <span class="grad-s-soft">試験対策を全自動化。</span>
+    </h1>
+
+    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-lg leading-[2] mb-6 font-light">
+      スライドPDFを放り込むだけ。<br />
+      フラッシュカード＋確認テストが<strong class="text-white/70 font-semibold">10秒で完成する。</strong><br />
+      「カード作り」に使っていた時間を、「覚えること」に使おう。
+    </p>
+
+    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center mt-6">
+      <a href="https://shikenmon.vercel.app" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-amber-600 shadow-[0_8px_32px_rgba(201,135,26,.4)] hover:bg-amber-500 hover:shadow-[0_12px_40px_rgba(201,135,26,.55)] hover:-translate-y-0.5 transition-all duration-200">
+        PDFでカードを生成する
+        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">無料3回</span>
+      </a>
+      <a href="#how" class="px-5 py-3 rounded-xl border border-white/10 text-white/40 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
+        使い方を見る →
+      </a>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/15">
+      <div class="text-[9px] tracking-[.25em] uppercase">Scroll</div>
+      <div class="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"></div>
+    </div>
+  </section>
+
+
+  <!-- ════ PAIN ════ -->
+  <section id="why" class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">思い当たる節はありますか？</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight leading-tight">
+        試験対策の時間の<br />ほとんどは「準備」で消えている。
+      </h2>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">スライド100枚をAnkiに手入力するだけで試験前日が終わった。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              フラッシュカードが効果的なのは知っている。でもカードを作る時間で、覚える時間がなくなる。本末転倒の勉強サイクルから抜け出せないでいる。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">どこが出るかわからないから、全部やろうとして全部中途半端になる。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              先生のスライドを見ても、重要なポイントがわからない。先輩に「ここ出た」と聞けるなら聞きたいが、聞ける先輩がいない。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pain-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="flex items-start gap-4">
+          <div class="text-red-400/50 text-[18px] mt-0.5 flex-shrink-0">×</div>
+          <div>
+            <div class="text-[14px] font-bold mb-1.5">医学部・薬学部・看護学部は科目が多すぎて、全部手が回らない。</div>
+            <div class="text-[12px] text-white/35 leading-relaxed font-light">
+              解剖、生理、病理、薬理…毎週スライドが配布され、毎週試験がある。1科目に費やせる準備時間は現実的に1〜2時間が限界だ。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════ HOW IT WORKS ════ -->
+  <section id="how" class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+
+    <div class="text-center mb-16">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">3ステップで完了</p>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.6rem)] font-black tracking-tight leading-tight">
+        PDFを放り込むだけ。<br />
+        <span class="grad-s">準備は10秒で終わる。</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div class="step-card border border-white/[.08] rounded-2xl p-7 bg-white/[.025] text-center">
+        <div class="text-[40px] mb-4">📄</div>
+        <div class="text-[11px] tracking-[.2em] text-amber-400/60 mb-2 font-bold">STEP 1</div>
+        <div class="text-[15px] font-black mb-3">PDFをアップロード</div>
+        <div class="text-[12px] text-white/35 leading-relaxed font-light">
+          先生のスライド、教科書のPDF、自分のノート。どんな資料でも受け付けます。
+        </div>
+      </div>
+      <div class="step-card border border-amber-500/25 rounded-2xl p-7 bg-amber-900/[.06] text-center">
+        <div class="text-[40px] mb-4">🤖</div>
+        <div class="text-[11px] tracking-[.2em] text-amber-400/60 mb-2 font-bold">STEP 2</div>
+        <div class="text-[15px] font-black mb-3">AIが自動生成</div>
+        <div class="text-[12px] text-white/35 leading-relaxed font-light">
+          Gemini AIが重要度を判定し、表：問い / 裏：答えの形式でカードを自動作成。最大40枚。
+        </div>
+      </div>
+      <div class="step-card border border-white/[.08] rounded-2xl p-7 bg-white/[.025] text-center">
+        <div class="text-[40px] mb-4">🎴</div>
+        <div class="text-[11px] tracking-[.2em] text-amber-400/60 mb-2 font-bold">STEP 3</div>
+        <div class="text-[15px] font-black mb-3">学習＆テストで完成</div>
+        <div class="text-[12px] text-white/35 leading-relaxed font-light">
+          スワイプ式フラッシュカードで記憶を定着。4択テストで弱点を自動発見。
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════ FEATURES ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-3xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">できること</p>
+      <h2 class="text-[clamp(1.4rem,4vw,2.2rem)] font-black tracking-tight">試験に必要なものが、全部そろう。</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="border border-white/[.06] rounded-xl p-5 bg-white/[.02]">
+        <div class="text-amber-400 text-[20px] mb-3">🪄</div>
+        <div class="font-bold mb-1.5">PDF → フラッシュカード自動生成</div>
+        <div class="text-[12px] text-white/40 leading-relaxed">重要度スコア付きで最大40枚。カード作りにかける時間をゼロにする。</div>
+      </div>
+      <div class="border border-white/[.06] rounded-xl p-5 bg-white/[.02]">
+        <div class="text-amber-400 text-[20px] mb-3">✏️</div>
+        <div class="font-bold mb-1.5">4択・穴埋め確認テスト</div>
+        <div class="text-[12px] text-white/40 leading-relaxed">Gemini AIがカードから出題。苦手だったカードは自動的に復習キューへ。</div>
+      </div>
+      <div class="border border-white/[.06] rounded-xl p-5 bg-white/[.02]">
+        <div class="text-amber-400 text-[20px] mb-3">🌐</div>
+        <div class="font-bold mb-1.5">先輩のデッキをシェア・受け取り</div>
+        <div class="text-[12px] text-white/40 leading-relaxed">同じ大学・学部のデッキが自動で見つかる。先輩の知識をそのまま活用できる。</div>
+      </div>
+      <div class="border border-white/[.06] rounded-xl p-5 bg-white/[.02]">
+        <div class="text-amber-400 text-[20px] mb-3">📱</div>
+        <div class="font-bold mb-1.5">スワイプ操作 / スマホ完結</div>
+        <div class="text-[12px] text-white/40 leading-relaxed">通学中にスワイプで記憶定着。アプリインストール不要、ブラウザで即使える。</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════ PRICING ════ -->
+  <section id="pricing" class="relative z-10 px-5 py-24 max-w-4xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">料金プラン</p>
+      <h2 class="text-[clamp(1.4rem,4vw,2.2rem)] font-black tracking-tight">試験直前だけでも使える。</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- 無料 -->
+      <div class="price-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="text-[13px] font-bold mb-4 text-white/60">無料</div>
+        <div class="text-[32px] font-black mb-1">¥0</div>
+        <div class="text-[11px] text-white/30 mb-5">ずっと無料</div>
+        <ul class="text-[12px] text-white/45 space-y-2.5 mb-6">
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> PDF生成 3回/月</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> フラッシュカード学習</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 確認テスト</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> デッキ受け取り</li>
+        </ul>
+        <a href="https://shikenmon.vercel.app" target="_blank" rel="noopener"
+           class="block text-center py-2.5 rounded-xl border border-white/15 text-[13px] font-bold text-white/60 hover:bg-white/[.05] transition-colors">
+          無料で始める
+        </a>
+      </div>
+
+      <!-- 7日間パス -->
+      <div class="price-card border border-amber-500/20 rounded-2xl p-6 bg-amber-900/[.04]">
+        <div class="text-[13px] font-bold mb-4 text-amber-400">試験7日間パス</div>
+        <div class="text-[32px] font-black mb-1">¥398</div>
+        <div class="text-[11px] text-white/30 mb-5">7日間 買い切り</div>
+        <ul class="text-[12px] text-white/45 space-y-2.5 mb-6">
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> PDF生成 無制限</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 試験直前に最適</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> サブスク不要</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 全機能利用可</li>
+        </ul>
+        <a href="https://shikenmon.vercel.app/pricing" target="_blank" rel="noopener"
+           class="block text-center py-2.5 rounded-xl bg-amber-600/80 text-[13px] font-bold text-white hover:bg-amber-500 transition-colors">
+          試験前に購入
+        </a>
+      </div>
+
+      <!-- ライト -->
+      <div class="price-card border border-white/[.08] rounded-2xl p-6 bg-white/[.02]">
+        <div class="text-[13px] font-bold mb-4 text-white/60">ライト</div>
+        <div class="text-[32px] font-black mb-1">¥490<span class="text-[16px] text-white/40 font-normal">/月</span></div>
+        <div class="text-[11px] text-white/30 mb-5">月額サブスク</div>
+        <ul class="text-[12px] text-white/45 space-y-2.5 mb-6">
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> PDF生成 無制限</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 全テスト機能</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 学部内シェア</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> いつでも解約可</li>
+        </ul>
+        <a href="https://shikenmon.vercel.app/pricing" target="_blank" rel="noopener"
+           class="block text-center py-2.5 rounded-xl border border-white/15 text-[13px] font-bold text-white/60 hover:bg-white/[.05] transition-colors">
+          選択する
+        </a>
+      </div>
+
+      <!-- スタンダード -->
+      <div class="price-card border border-amber-400/35 rounded-2xl p-6 bg-amber-900/[.08] relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-[10px] font-black text-white px-3 py-1 rounded-full tracking-wide">おすすめ</div>
+        <div class="text-[13px] font-bold mb-4 text-amber-300">スタンダード</div>
+        <div class="text-[32px] font-black mb-1">¥980<span class="text-[16px] text-white/40 font-normal">/月</span></div>
+        <div class="text-[11px] text-white/30 mb-5">月額サブスク</div>
+        <ul class="text-[12px] text-white/45 space-y-2.5 mb-6">
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> ライトの全機能</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 的中率スコア（近日）</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 資格試験モード（近日）</li>
+          <li class="flex gap-2"><span class="text-amber-400">✓</span> 優先サポート</li>
+        </ul>
+        <a href="https://shikenmon.vercel.app/pricing" target="_blank" rel="noopener"
+           class="block text-center py-2.5 rounded-xl bg-amber-600 text-[13px] font-bold text-white hover:bg-amber-500 transition-colors shadow-[0_4px_16px_rgba(201,135,26,.35)]">
+          選択する
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-8">
+      <p class="text-[12px] text-white/25">3アプリ（SHIKENモン・SAKUモン・EIGOモン）をまとめて使うなら <a href="https://shikenmon.vercel.app/pricing" class="text-amber-400/60 underline underline-offset-2">MONパス ¥1,980/月</a> がお得</p>
+    </div>
+  </section>
+
+
+  <!-- ════ FAQ ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">よくある質問</p>
+      <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight">FAQ</h2>
+    </div>
+    <div class="flex flex-col gap-3">
+      <details class="border border-white/[.08] rounded-xl p-5 bg-white/[.02] group">
+        <summary class="text-[14px] font-bold cursor-pointer list-none flex justify-between items-center">
+          どんなPDFでも使えますか？
+          <span class="text-white/30 group-open:rotate-180 transition-transform text-[12px]">▼</span>
+        </summary>
+        <div class="mt-3 text-[13px] text-white/45 leading-relaxed">
+          テキスト埋め込み型PDFに対応しています。先生のスライド、教科書PDF、自分でデジタル作成した資料など、文字が含まれていれば基本的に使えます。スキャン画像型PDFは現在対応準備中です（近日リリース）。
+        </div>
+      </details>
+      <details class="border border-white/[.08] rounded-xl p-5 bg-white/[.02] group">
+        <summary class="text-[14px] font-bold cursor-pointer list-none flex justify-between items-center">
+          無料で使えますか？
+          <span class="text-white/30 group-open:rotate-180 transition-transform text-[12px]">▼</span>
+        </summary>
+        <div class="mt-3 text-[13px] text-white/45 leading-relaxed">
+          月3回まで無料でPDF→カード生成ができます。フラッシュカード学習・確認テスト・デッキ受け取りは無料で無制限に使えます。それ以上PDF生成したい場合は試験7日間パス（¥398）やライトプラン（¥490/月）からお選びください。
+        </div>
+      </details>
+      <details class="border border-white/[.08] rounded-xl p-5 bg-white/[.02] group">
+        <summary class="text-[14px] font-bold cursor-pointer list-none flex justify-between items-center">
+          医学部・薬学部・看護学部でも使えますか？
+          <span class="text-white/30 group-open:rotate-180 transition-transform text-[12px]">▼</span>
+        </summary>
+        <div class="mt-3 text-[13px] text-white/45 leading-relaxed">
+          はい。医療系学部の定期試験対策に特に有効です。解剖・生理・病理・薬理など、スライド枚数が多い科目ほど時間短縮効果が大きくなります。国家試験対策モードも近日リリース予定です。
+        </div>
+      </details>
+      <details class="border border-white/[.08] rounded-xl p-5 bg-white/[.02] group">
+        <summary class="text-[14px] font-bold cursor-pointer list-none flex justify-between items-center">
+          先輩のデッキはどうやって見つけますか？
+          <span class="text-white/30 group-open:rotate-180 transition-transform text-[12px]">▼</span>
+        </summary>
+        <div class="mt-3 text-[13px] text-white/45 leading-relaxed">
+          登録時に入力した「大学・学部」が同じ先輩が公開したデッキが自動で表示されます。シェアURLから直接受け取ることもできます。
+        </div>
+      </details>
+      <details class="border border-white/[.08] rounded-xl p-5 bg-white/[.02] group">
+        <summary class="text-[14px] font-bold cursor-pointer list-none flex justify-between items-center">
+          著作権は大丈夫ですか？
+          <span class="text-white/30 group-open:rotate-180 transition-transform text-[12px]">▼</span>
+        </summary>
+        <div class="mt-3 text-[13px] text-white/45 leading-relaxed">
+          アップロード時に「著作権を有するか、適切な許諾を得た資料のみアップロードします」への同意が必要です。自分が授業で配布された資料の個人的な学習利用については、私的使用の範囲で適法と考えられますが、詳しくは利用規約をご確認ください。
+        </div>
+      </details>
+    </div>
+  </section>
+
+
+  <!-- ════ FOOTER CTA ════ -->
+  <section class="relative z-10 px-5 py-24 text-center">
+    <div class="max-w-xl mx-auto">
+      <div class="text-[11px] tracking-[.2em] text-white/20 mb-5 uppercase">まず無料で試してみよう</div>
+      <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-black tracking-tight leading-tight mb-6">
+        次の試験、<br />
+        <span class="shimmer-s">カード作りから解放される。</span>
+      </h2>
+      <a href="https://shikenmon.vercel.app" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2.5 px-10 py-4 rounded-2xl font-black text-[15px] tracking-tight text-white bg-amber-600 shadow-[0_8px_32px_rgba(201,135,26,.4)] hover:bg-amber-500 hover:shadow-[0_12px_40px_rgba(201,135,26,.55)] hover:-translate-y-0.5 transition-all duration-200">
+        PDFでカードを生成する（無料）
+      </a>
+      <p class="text-[11px] text-white/20 mt-5">クレジットカード不要 · 3回まで無料 · いつでも解約可</p>
+    </div>
+  </section>
+
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="relative z-10 border-t border-white/[.05] px-5 py-10">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 text-[11px] text-white/20">
+      <div>
+        <div class="font-black text-white/40 mb-1">SHIKENモン</div>
+        <div>MONシリーズ · © 2026</div>
+      </div>
+      <div class="flex flex-wrap gap-5">
+        <a href="/" class="hover:text-white/40 transition-colors">MONシリーズ TOP</a>
+        <a href="/eigomon" class="hover:text-white/40 transition-colors">EIGOモン</a>
+        <a href="/sakumon" class="hover:text-white/40 transition-colors">SAKUモン</a>
+        <a href="https://shikenmon.vercel.app/pricing" target="_blank" rel="noopener" class="hover:text-white/40 transition-colors">料金</a>
+        <a href="/tokushoho" class="hover:text-white/40 transition-colors">特商法</a>
+        <a href="/privacy" class="hover:text-white/40 transition-colors">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
