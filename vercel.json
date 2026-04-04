@@ -10,6 +10,9 @@
     { "source": "/shikenmon",       "destination": "/shikenmon.html" },
     { "source": "/privacy",         "destination": "/privacy.html" },
     { "source": "/lp/toeic",        "destination": "/lp/toeic.html" },
+    { "source": "/lp/eiken",        "destination": "/lp/eiken.html" },
+    { "source": "/lp/juken",        "destination": "/lp/juken.html" },
+    { "source": "/lp/saiyou",       "destination": "/lp/saiyou.html" },
     { "source": "/((?!.*\\.(html|xml|txt)$).*)", "destination": "/index.html" }
   ]
 }

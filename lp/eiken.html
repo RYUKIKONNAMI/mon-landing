@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>英検の長文読解をAIが徹底分析 | EIGOモン — 英検2級・準1級・1級対策</title>
+  <meta name="description" content="英検2級・準1級・1級の長文読解・要約問題をAIが一文一文採点。弱点を即フィードバック。無料3回試せます。" />
+  <meta name="keywords" content="英検, 英検2級, 英検準1級, 英検1級, 英検対策, 長文読解, 英検 AI, 英検 添削" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="英検の長文読解をAIが徹底分析 | EIGOモン" />
+  <meta property="og:description" content="英検2級・準1級・1級の長文・要約問題をAIが一文一文採点。弱点を即フィードバック。無料3回試せます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mon-landing-zeta.vercel.app/lp/eiken" />
+  <meta property="og:image" content="https://mon-landing-zeta.vercel.app/eigomon-og.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="MONシリーズ" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://mon-landing-zeta.vercel.app/eigomon-og.png" />
+  <link rel="canonical" href="https://mon-landing-zeta.vercel.app/lp/eiken" />
+  <link rel="icon" type="image/png" href="/eigomon-icon.png" />
+  <link rel="apple-touch-icon" href="/eigomon-icon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "EIGOモン",
+    "description": "英検2級・準1級・1級の長文読解・要約問題をAIが一文一文採点。弱点を可視化し、合格に近づける英語学習アプリ。",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "description": "3回まで無料"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "英検のどの級に対応していますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "英検2級・準1級・1級に対応しています。長文読解・要約問題・英作文（自由英作文）など、記述式の問題をAIが一文一文フィードバックします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "英検1級の長文にも対応していますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。英検1級の長文・要約問題にも対応しています。高度な語彙・構文についてもAIが詳細な解説とフィードバックを提供します。英検1級合格者にも継続活用いただいています。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "無料で使えますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。毎月3回まで無料で利用できます。それ以上使いたい場合は¥398の7日間エントリーパスか、月額¥980のプランをご利用ください。"
+        }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .grad-e {
+      background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-e-soft {
+      background: linear-gradient(135deg, #bfdbfe 0%, #60a5fa 50%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+    @keyframes shimmer-blue {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-e {
+      background: linear-gradient(90deg, #3b82f6 0%, #93c5fd 30%, #3b82f6 60%, #60a5fa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-blue 3s linear infinite;
+    }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .card-hover { transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(59,130,246,.1); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white font-sans selection:bg-blue-900/50">
+
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-blue-900/[.18] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-blue-800/[.10] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-cyan-900/[.08] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+      <span class="text-white/[.08]">|</span>
+      <div class="flex items-center gap-2">
+        <img src="/eigomon-icon.png" alt="EIGOモン" class="w-8 h-8 rounded-xl object-cover shadow-[0_4px_16px_rgba(59,130,246,.3)]" />
+        <span class="text-[13px] font-black tracking-tight text-white/80">EIGOモン</span>
+      </div>
+    </div>
+    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white bg-blue-600 px-4 py-2 rounded-full hover:bg-blue-500 transition-colors tracking-tight shadow-[0_4px_16px_rgba(59,130,246,.35)]">
+      無料で試す →
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative z-10 min-h-[88vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-20">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
+      <span class="w-1.5 h-1.5 rounded-full bg-blue-400 pulse"></span>
+      英検2級・準1級・1級 合格を目指す方へ
+    </div>
+
+    <h1 class="fade-up-1 text-[clamp(2rem,7vw,4rem)] font-black tracking-[-0.05em] leading-[1.08] mb-7 max-w-3xl">
+      <span class="shimmer-e">英検の長文読解</span>、<br />
+      AIが弱点を徹底分析。<br class="hidden sm:block" />
+      <span class="grad-e-soft">一文一文、即フィードバック。</span>
+    </h1>
+
+    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-xl leading-[2] mb-4 font-light">
+      英検の長文・要約問題、どこで点を落としているか分かりますか？<br />
+      問題をそのままAIに送るだけ。採点基準に沿って一文一文解説し、<br />
+      <strong class="text-white/70 font-semibold">次に同じミスをしないための具体的な改善策まで示します。</strong>
+    </p>
+
+    <div class="fade-up-2 text-[12px] text-white/25 mb-8">毎月3回まで無料 · クレジットカード不要</div>
+
+    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center">
+      <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-blue-600 shadow-[0_8px_32px_rgba(59,130,246,.4)] hover:bg-blue-500 hover:-translate-y-0.5 transition-all duration-200">
+        無料で3回試す
+        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">登録不要</span>
+      </a>
+      <a href="https://eigomon.vercel.app/billing" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-[14px] tracking-tight text-white/60 border border-white/10 hover:border-white/20 hover:text-white/80 transition-all duration-200">
+        ¥398で7日間使い放題
+      </a>
+    </div>
+
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 他サービス比較 -->
+  <section class="relative z-10 max-w-4xl mx-auto px-5 py-20">
+    <div class="text-center mb-14">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Comparison</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">他の英検対策と比べると</h2>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-white/[.06]">
+            <th class="text-left py-4 px-4 text-white/30 font-normal text-[12px]">機能</th>
+            <th class="py-4 px-4 text-white/40 font-bold text-[13px] text-center">市販問題集</th>
+            <th class="py-4 px-4 text-blue-400 font-black text-[13px] text-center">EIGOモン</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-white/[.04]">
+            <td class="py-4 px-4 text-white/50 text-[13px]">フィードバックの即時性</td>
+            <td class="py-4 px-4 text-center text-white/35 text-[13px]">解答欄を見るだけ（理由なし）</td>
+            <td class="py-4 px-4 text-center text-white text-[13px] font-medium">一文一文AIが即時採点・解説</td>
+          </tr>
+          <tr class="border-b border-white/[.04]">
+            <td class="py-4 px-4 text-white/50 text-[13px]">弱点の特定</td>
+            <td class="py-4 px-4 text-center text-white/35 text-[13px]">自己分析が必要</td>
+            <td class="py-4 px-4 text-center text-white text-[13px] font-medium">AIが自動で弱点パターンを可視化</td>
+          </tr>
+          <tr class="border-b border-white/[.04]">
+            <td class="py-4 px-4 text-white/50 text-[13px]">要約問題の対応</td>
+            <td class="py-4 px-4 text-center text-white/35 text-[13px]">模範解答のみ</td>
+            <td class="py-4 px-4 text-center text-white text-[13px] font-medium">あなたの答案に沿って添削</td>
+          </tr>
+          <tr class="border-b border-white/[.04]">
+            <td class="py-4 px-4 text-white/50 text-[13px]">英検1級対応</td>
+            <td class="py-4 px-4 text-center text-white/35 text-[13px]">1級専用テキストが必要</td>
+            <td class="py-4 px-4 text-center text-white text-[13px] font-medium">2級〜1級まで同一プランで対応</td>
+          </tr>
+          <tr>
+            <td class="py-4 px-4 text-white/50 text-[13px]">価格</td>
+            <td class="py-4 px-4 text-center text-white/35 text-[13px]">1冊¥1,500〜¥3,000</td>
+            <td class="py-4 px-4 text-center text-blue-300 text-[13px] font-bold">¥398〜 / 月額¥980〜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 使い方3ステップ -->
+  <section class="relative z-10 max-w-4xl mx-auto px-5 py-20">
+    <div class="text-center mb-14">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">How it works</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">3ステップで英検対策</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-black text-lg mb-5">1</div>
+        <h3 class="font-bold text-[15px] mb-2">問題を送る</h3>
+        <p class="text-white/40 text-[13px] leading-relaxed">英検の長文・要約問題を写真で撮影、またはテキストで貼り付け。過去問でも予想問題でもOK。</p>
+      </div>
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-black text-lg mb-5">2</div>
+        <h3 class="font-bold text-[15px] mb-2">AIが一文一文採点</h3>
+        <p class="text-white/40 text-[13px] leading-relaxed">英検の採点基準に沿って一文ずつ評価。どの表現が正しく、どこを直せばよいかを具体的に示します。</p>
+      </div>
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-2xl p-6">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-black text-lg mb-5">3</div>
+        <h3 class="font-bold text-[15px] mb-2">弱点を克服して合格へ</h3>
+        <p class="text-white/40 text-[13px] leading-relaxed">フィードバックをもとに繰り返し練習。同じミスを繰り返さなくなり、英検合格に必要な力が身につく。</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 価格ラダー -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 py-20 text-center">
+    <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Pricing</div>
+    <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight mb-3">まずは無料から</h2>
+    <p class="text-white/35 text-[13px] mb-10">クレジットカード不要。登録30秒。</p>
+
+    <div class="space-y-3 text-left">
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-white/[.06] bg-slate-900/60">
+        <div>
+          <div class="font-semibold text-[14px]">無料プラン</div>
+          <div class="text-[12px] text-white/35 mt-0.5">3回/月</div>
+        </div>
+        <div class="font-bold text-[16px]">¥0</div>
+      </div>
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-blue-500/40 bg-blue-950/40">
+        <div>
+          <div class="font-bold text-[14px] text-blue-300">7日間エントリーパス <span class="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded-full ml-1">おすすめ</span></div>
+          <div class="text-[12px] text-blue-400/60 mt-0.5">7日間使い放題・一回払い</div>
+        </div>
+        <div class="font-bold text-[16px] text-blue-300">¥398</div>
+      </div>
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-white/[.06] bg-slate-900/60">
+        <div>
+          <div class="font-semibold text-[14px]">月額プラン</div>
+          <div class="text-[12px] text-white/35 mt-0.5">使い放題・毎月更新</div>
+        </div>
+        <div class="font-bold text-[16px]">¥980<span class="text-[12px] text-white/35 font-normal">/月</span></div>
+      </div>
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-white/[.06] bg-slate-900/60">
+        <div>
+          <div class="font-semibold text-[14px]">MONパス</div>
+          <div class="text-[12px] text-white/35 mt-0.5">EIGOモン + SAKUモン + SHIKENモン 全部</div>
+        </div>
+        <div class="font-bold text-[16px]">¥1,980<span class="text-[12px] text-white/35 font-normal">/月</span></div>
+      </div>
+    </div>
+
+    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 mt-10 px-10 py-4 rounded-2xl font-black text-[14px] text-white bg-blue-600 shadow-[0_8px_32px_rgba(59,130,246,.4)] hover:bg-blue-500 hover:-translate-y-0.5 transition-all duration-200">
+      今すぐ無料で始める →
+    </a>
+    <div class="text-[11px] text-white/20 mt-3">クレジットカード不要 · 登録30秒</div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FAQ -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 py-20">
+    <div class="text-center mb-12">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">FAQ</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">よくある質問</h2>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">英検のどの級に対応していますか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">英検2級・準1級・1級に対応しています。長文読解・要約問題・自由英作文など記述式の問題全般をAIが一文一文フィードバックします。</p>
+      </div>
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">英検1級の長文にも対応していますか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">はい。英検1級の高度な長文・要約問題にも対応しています。専門性の高い語彙・構文についてもAIが詳細に解説します。英検1級合格者にも継続活用いただいています。</p>
+      </div>
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">無料で使えますか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">はい。毎月3回まで無料で利用できます。まずは登録不要でお試しいただけます。試験直前の集中練習には¥398の7日間エントリーパスがおすすめです。</p>
+      </div>
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">スマホでも使えますか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">はい、スマートフォン・タブレット・PCのブラウザから使えます。アプリのインストール不要です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 pb-24 text-center">
+    <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight mb-4">
+      英検の長文で<span class="grad-e-soft">点を落とし続ける</span><br />前に、AIに任せてみませんか？
+    </h2>
+    <p class="text-white/35 text-[13px] mb-8">一文一文・即フィードバック。英検合格への最短ルート。</p>
+    <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 px-10 py-4 rounded-2xl font-black text-[15px] text-white bg-blue-600 shadow-[0_8px_32px_rgba(59,130,246,.4)] hover:bg-blue-500 hover:-translate-y-0.5 transition-all duration-200">
+      無料で3回試す →
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-8">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/20">
+      <div class="flex items-center gap-2">
+        <img src="/eigomon-icon.png" alt="EIGOモン" class="w-5 h-5 rounded-md opacity-50" />
+        <span>EIGOモン — MONシリーズ</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+        <a href="/tokushoho" class="hover:text-white/50 transition-colors">特定商取引法</a>
+        <a href="/" class="hover:text-white/50 transition-colors">MONシリーズ TOP</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
