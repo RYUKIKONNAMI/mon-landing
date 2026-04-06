@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>塾・学校向け学習管理システム | MONシリーズ B2Bプラン</title>
+  <meta name="description" content="AIを活用した作文・英語学習の学習管理システム。ZPDスコアで生徒の習熟度を可視化。塾・学校・個人指導に。無料トライアルあり。" />
+  <meta name="keywords" content="塾 学習管理, 英語教育 AI, 作文指導 システム, 個別指導 ツール, ZPD 教育" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="塾・学校向け学習管理システム | MONシリーズ B2Bプラン" />
+  <meta property="og:description" content="AIを活用した作文・英語学習の学習管理システム。ZPDスコアで生徒の習熟度を可視化。塾・学校・個人指導に。無料トライアルあり。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mon-landing-zeta.vercel.app/b2b" />
+  <meta property="og:image" content="https://mon-landing-zeta.vercel.app/sakumon-og.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="MONシリーズ" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://mon-landing-zeta.vercel.app/sakumon-og.png" />
+  <link rel="canonical" href="https://mon-landing-zeta.vercel.app/b2b" />
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+  <link rel="icon" type="image/png" href="/sakumon-icon.png" />
+  <link rel="apple-touch-icon" href="/sakumon-icon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MONシリーズ B2Bプラン",
+    "description": "AIを活用した作文・英語学習の学習管理システム。ZPDスコアで生徒の習熟度を可視化。塾・学校・個人指導に対応。",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "1980",
+      "priceCurrency": "JPY",
+      "description": "個人講師プラン ¥1,980/月・14日間無料トライアルあり"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "生徒のアカウントは必要ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不要です。講師のアカウントのみで生徒の学習状況を管理できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "既存の教材は使えますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。写真をスキャンするだけでAIが問題を生成します。既存のテキスト・プリント・問題集をそのまま活用できます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "契約期間は？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "月払いのため、いつでも解約可能です。最低利用期間はありません。"
+        }
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: false,
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+          },
+        }
+      },
+      plugins: []
+    }
+  </script>
+  <style>
+    /* Critical CSS: above-the-fold styles for LCP */
+    *,::before,::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background-color:#020617;color:#fff;-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif}
+    nav{position:relative;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;max-width:64rem;margin-left:auto;margin-right:auto}
+    nav img{width:2rem;height:2rem;border-radius:0.75rem;object-fit:cover}
+    section.hero{position:relative;z-index:10;min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.25rem 5rem}
+    h1{font-size:clamp(2rem,7vw,4rem);font-weight:900;letter-spacing:-0.05em;line-height:1.08;margin-bottom:1.75rem;max-width:48rem}
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .grad-b2b {
+      background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 50%, #10b981 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-saku {
+      background: linear-gradient(135deg, #fb923c 0%, #dc2626 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-eigo {
+      background: linear-gradient(135deg, #93c5fd 0%, #0891b2 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+    @keyframes shimmer-b2b {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-b2b {
+      background: linear-gradient(90deg, #60a5fa 0%, #8b5cf6 30%, #60a5fa 60%, #10b981 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer-b2b 3s linear infinite;
+    }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .card-hover { transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(139,92,246,.1); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+    input, select, textarea {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 0.75rem;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color .2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(139,92,246,.5);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
+    select option { background: #0f172a; color: #fff; }
+    label { display: block; font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 0.375rem; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white font-sans selection:bg-purple-900/50">
+
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-orange-900/[.12] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-cyan-900/[.10] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-purple-900/[.08] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+      <span class="text-white/[.08]">|</span>
+      <div class="flex items-center gap-2">
+        <span class="text-[13px] font-black tracking-tight text-white/80">MON B2B</span>
+        <span class="text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded-full">法人・教育機関向け</span>
+      </div>
+    </div>
+    <a href="https://sakumon.vercel.app/b2b/dashboard" target="_blank" rel="noopener"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-white bg-purple-600 px-4 py-2 rounded-full hover:bg-purple-500 transition-colors tracking-tight shadow-[0_4px_16px_rgba(139,92,246,.35)]">
+      無料で試す →
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero relative z-10 min-h-[88vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-20">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
+      <span class="w-1.5 h-1.5 rounded-full bg-purple-400 pulse"></span>
+      塾・学校・個人教師のための
+    </div>
+
+    <h1 class="fade-up-1 text-[clamp(2rem,7vw,4rem)] font-black tracking-[-0.05em] leading-[1.08] mb-7 max-w-3xl">
+      <span class="shimmer-b2b">AI学習管理</span>で、<br />
+      生徒の成長を<span class="grad-b2b">可視化する。</span>
+    </h1>
+
+    <p class="fade-up-2 text-[14px] sm:text-[16px] text-white/45 max-w-xl leading-[2] mb-4 font-light">
+      作文力と英語力を、AIがリアルタイムで分析。<br />
+      ZPDスコアで一人ひとりの習熟度を把握し、<br />
+      <strong class="text-white/70 font-semibold">最適なタイミングで指導できます。</strong>
+    </p>
+
+    <div class="fade-up-2 text-[12px] text-white/25 mb-8">14日間無料トライアル · クレジットカード不要</div>
+
+    <div class="fade-up-3 flex flex-col sm:flex-row items-center gap-3 w-full max-w-xs sm:max-w-none sm:justify-center">
+      <a href="https://sakumon.vercel.app/b2b/dashboard" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2.5 w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-white bg-purple-600 shadow-[0_8px_32px_rgba(139,92,246,.4)] hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200">
+        無料で試してみる →
+        <span class="bg-white/15 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-normal">14日間無料</span>
+      </a>
+      <a href="#contact"
+         class="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-[14px] tracking-tight text-white/60 border border-white/10 hover:border-white/20 hover:text-white/80 transition-all duration-200">
+        導入を相談する
+      </a>
+    </div>
+
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 対応サービス -->
+  <section class="relative z-10 max-w-4xl mx-auto px-5 py-20">
+    <div class="text-center mb-14">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Services</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">対応サービス</h2>
+      <p class="text-white/35 text-[13px] mt-3">2つのAIサービスを、ひとつの管理画面で。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- SAKUモン -->
+      <div class="card-hover bg-slate-900/60 border border-orange-500/20 rounded-2xl p-7 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-900/[.08] to-transparent pointer-events-none"></div>
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-orange-600/20 border border-orange-500/20 flex items-center justify-center">
+              <span class="text-orange-400 text-lg">✍️</span>
+            </div>
+            <div>
+              <div class="font-black text-[16px] tracking-tight">SAKUモン</div>
+              <div class="text-[11px] text-orange-400/70 font-medium">小論文・作文指導向け</div>
+            </div>
+          </div>
+          <p class="text-white/45 text-[13px] leading-relaxed mb-5">
+            AIが作文・小論文を自動採点し、ZPDスコアで習熟度を数値化。フェーズ別のフィードバックで、生徒一人ひとりに最適な指導ができます。
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-[11px] bg-orange-500/10 text-orange-300/70 border border-orange-500/15 px-3 py-1 rounded-full">小論文指導</span>
+            <span class="text-[11px] bg-orange-500/10 text-orange-300/70 border border-orange-500/15 px-3 py-1 rounded-full">作文添削</span>
+            <span class="text-[11px] bg-orange-500/10 text-orange-300/70 border border-orange-500/15 px-3 py-1 rounded-full">大学受験</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EIGOモン -->
+      <div class="card-hover bg-slate-900/60 border border-cyan-500/20 rounded-2xl p-7 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/[.08] to-transparent pointer-events-none"></div>
+        <div class="relative">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-cyan-600/20 border border-cyan-500/20 flex items-center justify-center">
+              <span class="text-cyan-400 text-lg">🌐</span>
+            </div>
+            <div>
+              <div class="font-black text-[16px] tracking-tight">EIGOモン</div>
+              <div class="text-[11px] text-cyan-400/70 font-medium">英語4技能・TOEIC/英検向け</div>
+            </div>
+          </div>
+          <p class="text-white/45 text-[13px] leading-relaxed mb-5">
+            写真1枚でAIが単語・問題を自動生成。SM-2アルゴリズムによる忘却曲線最適化で、TOEIC・英検対策を効率化。生徒の進捗をリアルタイムで把握。
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-[11px] bg-cyan-500/10 text-cyan-300/70 border border-cyan-500/15 px-3 py-1 rounded-full">TOEIC対策</span>
+            <span class="text-[11px] bg-cyan-500/10 text-cyan-300/70 border border-cyan-500/15 px-3 py-1 rounded-full">英検対策</span>
+            <span class="text-[11px] bg-cyan-500/10 text-cyan-300/70 border border-cyan-500/15 px-3 py-1 rounded-full">4技能</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 機能一覧 -->
+  <section class="relative z-10 max-w-4xl mx-auto px-5 py-20">
+    <div class="text-center mb-14">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Features</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">管理機能一覧</h2>
+      <p class="text-white/35 text-[13px] mt-3">指導に集中できる環境を、AIが整えます。</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/20 flex items-center justify-center text-purple-400 text-lg mb-4">📊</div>
+        <h3 class="font-bold text-[14px] mb-1.5">ZPDスコア管理</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">生徒ごとの習熟度を数値化。最近接発達領域を可視化し、最適な難易度の課題を提案します。</p>
+      </div>
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600/20 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg mb-4">🔄</div>
+        <h3 class="font-bold text-[14px] mb-1.5">フェーズ自動判定</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">3段階の学習フェーズ（基礎・発展・応用）を自動判定し、生徒のステージに合わせて移行します。</p>
+      </div>
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/20 flex items-center justify-center text-blue-400 text-lg mb-4">🗂️</div>
+        <h3 class="font-bold text-[14px] mb-1.5">生徒ダッシュボード</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">一画面で全生徒の学習状況・スコア推移・提出状況を一覧。指導準備の時間を大幅に削減できます。</p>
+      </div>
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-yellow-600/20 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-lg mb-4">📬</div>
+        <h3 class="font-bold text-[14px] mb-1.5">週次サマリー通知</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">毎週月曜日に全生徒の学習状況をメールで通知。授業前に状況を把握でき、指導の質が上がります。</p>
+      </div>
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-pink-600/20 border border-pink-500/20 flex items-center justify-center text-pink-400 text-lg mb-4">🔒</div>
+        <h3 class="font-bold text-[14px] mb-1.5">保護者同意管理</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">未成年生徒の保護者同意を記録・管理。個人情報の適切な取り扱いをシステムでサポートします。</p>
+      </div>
+
+      <div class="card-hover bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/20 flex items-center justify-center text-red-400 text-lg mb-4">🚨</div>
+        <h3 class="font-bold text-[14px] mb-1.5">SOP通知システム</h3>
+        <p class="text-white/40 text-[12px] leading-relaxed">学習が止まっている・スコアが急落した生徒を自動検知してアラート。早期フォローが可能になります。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 料金 -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 py-20 text-center">
+    <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Pricing</div>
+    <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight mb-3">シンプルな料金体系</h2>
+    <p class="text-white/35 text-[13px] mb-10">14日間の無料トライアル付き。クレジットカード不要で始められます。</p>
+
+    <div class="space-y-3 text-left">
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-white/[.06] bg-slate-900/60">
+        <div>
+          <div class="font-semibold text-[14px]">無料トライアル</div>
+          <div class="text-[12px] text-white/35 mt-0.5">全機能を14日間お試し</div>
+        </div>
+        <div class="font-bold text-[16px]">¥0 <span class="text-[11px] text-white/30 font-normal">14日間</span></div>
+      </div>
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-purple-500/40 bg-purple-950/40">
+        <div>
+          <div class="font-bold text-[14px] text-purple-300">個人講師プラン <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full ml-1">おすすめ</span></div>
+          <div class="text-[12px] text-purple-400/60 mt-0.5">生徒数無制限 · 全機能使い放題</div>
+        </div>
+        <div class="font-bold text-[16px] text-purple-300">¥1,980<span class="text-[12px] text-purple-400/60 font-normal">/月</span></div>
+      </div>
+      <div class="flex justify-between items-center px-5 py-4 rounded-xl border border-white/[.06] bg-slate-900/60">
+        <div>
+          <div class="font-semibold text-[14px]">教室プラン</div>
+          <div class="text-[12px] text-white/35 mt-0.5">複数講師対応 · カスタマイズ可能</div>
+        </div>
+        <div class="font-bold text-[14px] text-white/60">要問い合わせ</div>
+      </div>
+    </div>
+
+    <a href="https://sakumon.vercel.app/b2b/dashboard" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 mt-10 px-10 py-4 rounded-2xl font-black text-[14px] text-white bg-purple-600 shadow-[0_8px_32px_rgba(139,92,246,.4)] hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200">
+      14日間無料で始める →
+    </a>
+    <div class="text-[11px] text-white/20 mt-3">クレジットカード不要 · いつでも解約可能</div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FAQ -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 py-20">
+    <div class="text-center mb-12">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">FAQ</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">よくある質問</h2>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">生徒のアカウントは必要ですか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">不要です。講師のアカウントのみで生徒の学習状況を一元管理できます。生徒がアカウントを作成する手間がなく、導入のハードルが低くなっています。</p>
+      </div>
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">既存の教材は使えますか？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">はい。写真をスキャンするだけでAIが問題を生成します。テキスト・プリント・問題集をそのまま活用でき、教材の入れ替えは不要です。</p>
+      </div>
+      <div class="bg-slate-900/60 border border-white/[.06] rounded-xl p-5">
+        <div class="font-bold text-[14px] mb-2">契約期間は？</div>
+        <p class="text-white/40 text-[13px] leading-relaxed">月払いのため、いつでも解約可能です。最低利用期間や違約金は一切ありません。まずは14日間の無料トライアルでお試しください。</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- 問い合わせフォーム -->
+  <section id="contact" class="relative z-10 max-w-2xl mx-auto px-5 py-20">
+    <div class="text-center mb-12">
+      <div class="text-[11px] tracking-[.15em] text-white/25 mb-3 font-light uppercase">Contact</div>
+      <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight">導入のご相談・お問い合わせ</h2>
+      <p class="text-white/35 text-[13px] mt-3">お気軽にご連絡ください。3営業日以内にご返信します。</p>
+    </div>
+
+    <div class="bg-white/[.03] border border-white/[.06] rounded-2xl p-7 backdrop-blur-sm">
+      <form action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" class="space-y-5">
+        <input type="hidden" name="_subject" value="MON B2B 問い合わせ" />
+
+        <div>
+          <label for="name">お名前 <span class="text-red-400/70">*</span></label>
+          <input type="text" id="name" name="name" placeholder="山田 太郎" required />
+        </div>
+
+        <div>
+          <label for="organization">組織名（塾名・学校名など）</label>
+          <input type="text" id="organization" name="organization" placeholder="〇〇学習塾（任意）" />
+        </div>
+
+        <div>
+          <label for="email">メールアドレス <span class="text-red-400/70">*</span></label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required />
+        </div>
+
+        <div>
+          <label for="students">生徒数の目安</label>
+          <select id="students" name="students">
+            <option value="">選択してください</option>
+            <option value="~10">〜10名</option>
+            <option value="11~30">11〜30名</option>
+            <option value="31~100">31〜100名</option>
+            <option value="100+">100名以上</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message">お問い合わせ内容</label>
+          <textarea id="message" name="message" rows="5" placeholder="導入に関するご質問、トライアルのご希望など、お気軽にどうぞ。"></textarea>
+        </div>
+
+        <button type="submit"
+          class="w-full py-4 rounded-2xl font-black text-[14px] text-white bg-purple-600 shadow-[0_8px_32px_rgba(139,92,246,.35)] hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200">
+          送信する
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section class="relative z-10 max-w-2xl mx-auto px-5 pb-24 text-center">
+    <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight mb-4">
+      生徒の成長を、<span class="grad-b2b">データで見える化</span>しませんか？
+    </h2>
+    <p class="text-white/35 text-[13px] mb-8">14日間無料トライアル。今日から使い始められます。</p>
+    <a href="https://sakumon.vercel.app/b2b/dashboard" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 px-10 py-4 rounded-2xl font-black text-[15px] text-white bg-purple-600 shadow-[0_8px_32px_rgba(139,92,246,.4)] hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200">
+      無料で試してみる →
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-8">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/20">
+      <div class="flex items-center gap-4">
+        <span>MONシリーズ B2Bプラン</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+        <a href="/tokushoho" class="hover:text-white/50 transition-colors">特定商取引法</a>
+        <a href="/contact" class="hover:text-white/50 transition-colors">お問い合わせ</a>
+        <a href="/" class="hover:text-white/50 transition-colors">MONシリーズ TOP</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

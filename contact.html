@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>お問い合わせ | MONシリーズ</title>
+  <meta name="description" content="MONシリーズへのお問い合わせはこちらから。3営業日以内にご返信します。" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="お問い合わせ | MONシリーズ" />
+  <meta property="og:description" content="MONシリーズへのお問い合わせはこちらから。3営業日以内にご返信します。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mon-landing-zeta.vercel.app/contact" />
+  <meta property="og:image" content="https://mon-landing-zeta.vercel.app/sakumon-og.png" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="MONシリーズ" />
+  <link rel="canonical" href="https://mon-landing-zeta.vercel.app/contact" />
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+  <link rel="icon" type="image/png" href="/sakumon-icon.png" />
+  <link rel="apple-touch-icon" href="/sakumon-icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: false,
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+          },
+        }
+      },
+      plugins: []
+    }
+  </script>
+  <style>
+    /* Critical CSS */
+    *,::before,::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background-color:#020617;color:#fff;-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Noto Sans JP',sans-serif}
+    nav{position:relative;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;max-width:64rem;margin-left:auto;margin-right:auto}
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    input, select, textarea {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 0.75rem;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color .2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(139,92,246,.5);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,.25); }
+    label { display: block; font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 0.375rem; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-white font-sans selection:bg-purple-900/50">
+
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[600px] h-[600px] bg-purple-900/[.12] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 -right-48 w-[400px] h-[400px] bg-blue-900/[.08] rounded-full blur-3xl -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-1/3 w-[350px] h-[350px] bg-cyan-900/[.06] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-[11px] text-white/25 hover:text-white/50 transition-colors tracking-wide">← MONシリーズ</a>
+    </div>
+    <a href="/" class="flex items-center gap-1.5 text-[12px] font-bold text-white/60 border border-white/10 px-4 py-2 rounded-full hover:text-white/80 hover:border-white/20 transition-colors tracking-tight">
+      TOPへ戻る
+    </a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="relative z-10 min-h-[80vh] flex flex-col items-center justify-center px-5 py-20">
+
+    <div class="w-full max-w-lg">
+
+      <div class="text-center mb-10">
+        <div class="fade-up text-[11px] tracking-[.15em] text-white/25 mb-4 font-light uppercase">Contact</div>
+        <h1 class="fade-up-1 text-[clamp(1.8rem,5vw,2.8rem)] font-black tracking-[-0.04em] leading-[1.1] mb-3">
+          お問い合わせ
+        </h1>
+        <p class="fade-up-2 text-[13px] text-white/40 leading-relaxed">
+          ご質問・ご要望はお気軽にどうぞ。<br />
+          3営業日以内にご返信します。
+        </p>
+      </div>
+
+      <!-- 送信成功メッセージ（初期非表示） -->
+      <div id="success" class="hidden mb-6 px-5 py-4 rounded-xl border border-emerald-500/30 bg-emerald-900/20 text-emerald-300 text-[13px] text-center">
+        送信しました。3営業日以内にご返信します。
+      </div>
+
+      <div class="bg-white/[.03] border border-white/[.06] rounded-2xl p-7 backdrop-blur-sm">
+        <form id="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" class="space-y-5">
+          <input type="hidden" name="_subject" value="MON お問い合わせ" />
+
+          <div>
+            <label for="name">お名前 <span class="text-red-400/70">*</span></label>
+            <input type="text" id="name" name="name" placeholder="山田 太郎" required />
+          </div>
+
+          <div>
+            <label for="email">メールアドレス <span class="text-red-400/70">*</span></label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required />
+          </div>
+
+          <div>
+            <label for="subject">件名</label>
+            <input type="text" id="subject" name="subject" placeholder="お問い合わせの件名" />
+          </div>
+
+          <div>
+            <label for="message">お問い合わせ内容</label>
+            <textarea id="message" name="message" rows="6" placeholder="ご質問・ご要望など、お気軽にどうぞ。"></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn"
+            class="w-full py-4 rounded-2xl font-black text-[14px] text-white bg-purple-600 shadow-[0_8px_32px_rgba(139,92,246,.35)] hover:bg-purple-500 hover:-translate-y-0.5 transition-all duration-200">
+            送信する
+          </button>
+        </form>
+      </div>
+
+      <p class="text-center text-[11px] text-white/20 mt-6">
+        法人・教育機関のご相談は <a href="/b2b#contact" class="text-purple-400/60 hover:text-purple-300 transition-colors">B2Bお問い合わせページ</a> もご利用ください
+      </p>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-8">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/20">
+      <span>MONシリーズ</span>
+      <div class="flex items-center gap-5">
+        <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+        <a href="/tokushoho" class="hover:text-white/50 transition-colors">特定商取引法</a>
+        <a href="/" class="hover:text-white/50 transition-colors">MONシリーズ TOP</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var form = document.getElementById('contact-form');
+      var success = document.getElementById('success');
+      var btn = document.getElementById('submit-btn');
+
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.textContent = '送信中...';
+        btn.disabled = true;
+
+        var data = new FormData(form);
+
+        fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function(res) {
+          if (res.ok) {
+            form.style.display = 'none';
+            success.classList.remove('hidden');
+          } else {
+            btn.textContent = '送信する';
+            btn.disabled = false;
+            alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+          }
+        })
+        .catch(function() {
+          btn.textContent = '送信する';
+          btn.disabled = false;
+          alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

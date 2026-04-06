@@ -13,6 +13,8 @@
     { "source": "/lp/eiken",        "destination": "/lp/eiken.html" },
     { "source": "/lp/juken",        "destination": "/lp/juken.html" },
     { "source": "/lp/saiyou",       "destination": "/lp/saiyou.html" },
+    { "source": "/b2b",             "destination": "/b2b.html" },
+    { "source": "/contact",         "destination": "/contact.html" },
     { "source": "/((?!.*\\.(html|xml|txt)$).*)", "destination": "/index.html" }
   ]
 }
