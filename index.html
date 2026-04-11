@@ -107,8 +107,13 @@
 
     /* ── Lines ── */
     .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
-    .border-t-eigo { border-top: 2px solid rgba(196,144,96,.5); }
+    .border-t-eigo  { border-top: 2px solid rgba(196,144,96,.5); }
     .border-t-saku  { border-top: 2px solid rgba(185,92,42,.5); }
+    .border-t-shoron{ border-top: 2px solid rgba(82,183,136,.5); }
+    .grad-sh {
+      background: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
 
     /* ── Service card hover ── */
     .service-card {
@@ -206,6 +211,12 @@
           <img src="/sakumon-icon.png" alt="" class="w-4 h-4 rounded object-cover" />
           SAKUモン
         </a>
+        <a href="#services"
+           class="px-4 py-3 rounded-xl border border-green-700/25 text-green-300/60 text-[13px] font-medium
+                  hover:bg-green-700/10 hover:border-green-600/40 hover:text-green-300 transition-all flex items-center gap-1.5">
+          <span class="text-[14px]">🗒</span>
+          SHORONモン
+        </a>
         <!-- デモ選択ドロップダウン -->
         <div class="relative" id="demo-picker">
           <button onclick="toggleDemoPicker()"
@@ -280,7 +291,7 @@
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
       <!-- ── EIGOモン ── -->
       <div class="service-card border-t-eigo bg-white/[.025] border border-white/[.07] rounded-3xl p-8 flex flex-col gap-7
@@ -365,6 +376,95 @@
           </a>
           <a href="/eigomon.html"
              class="block text-center py-2 rounded-xl text-amber-400/40 text-[11px] font-medium hover:text-amber-300/70 transition-colors">
+            詳しく見る
+          </a>
+        </div>
+      </div>
+
+      <!-- ── SHORONモン ── -->
+      <div class="service-card border-t-shoron bg-white/[.025] border border-white/[.07] rounded-3xl p-8 flex flex-col gap-7
+                  hover:bg-green-950/30 hover:border-green-700/20 hover:shadow-[0_20px_60px_rgba(82,183,136,.10)]">
+
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-[20px] shadow-[0_4px_16px_rgba(82,183,136,.20)]"
+                 style="background:linear-gradient(135deg,#2d6a4f,#1a3d2e)">🗒</div>
+            <div>
+              <div class="text-[10px] tracking-[.18em] uppercase text-green-400/60">SHORONモン</div>
+              <div class="text-[9px] text-white/20 font-light">小論文 AI トレーニング</div>
+            </div>
+          </div>
+
+          <div class="inline-block text-[11px] font-mono text-green-400/50 border border-green-700/15 rounded-full px-3 py-1 mb-4 tracking-wide">
+            ZPD採点
+          </div>
+
+          <h3 class="text-[clamp(1.3rem,3.5vw,1.7rem)] font-black tracking-tight leading-tight mb-2">
+            小論は書けば書くほど、<br /><span class="grad-sh">強くなる。</span>
+          </h3>
+
+          <p class="text-[12px] text-green-300/50 font-light tracking-wide mb-3">
+            AI5軸採点で、論理の穴を可視化する。
+          </p>
+
+          <p class="text-[13px] text-white/40 leading-[1.95] font-light">
+            論理・根拠・表現・関連性・独自性の5軸でAIが即採点。ZPD（最近接発達領域）に合わせたフィードバックが、受験生の小論文力を最短で伸ばす。
+          </p>
+        </div>
+
+        <div class="space-y-3 flex-1">
+          <div class="flex items-start gap-3">
+            <span class="text-green-500/60 text-[11px] mt-0.5 flex-shrink-0 font-mono">01</span>
+            <span class="text-[12px] text-white/38 font-light leading-relaxed">テーマ・課題文・過去問から即お題生成</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-500/60 text-[11px] mt-0.5 flex-shrink-0 font-mono">02</span>
+            <span class="text-[12px] text-white/38 font-light leading-relaxed">AI5軸採点で弱点を数値で可視化</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-500/60 text-[11px] mt-0.5 flex-shrink-0 font-mono">03</span>
+            <span class="text-[12px] text-white/38 font-light leading-relaxed">ZPDフェーズ別フィードバックで段階的に成長</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-500/60 text-[11px] mt-0.5 flex-shrink-0 font-mono">04</span>
+            <span class="text-[12px] text-white/38 font-light leading-relaxed">塾・学校向けB2B機能（生徒管理・進捗共有）</span>
+          </div>
+        </div>
+
+        <!-- Standard plan -->
+        <div class="bg-green-950/40 border border-green-800/15 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3.5">
+            <div class="text-[10px] font-black tracking-[.15em] uppercase text-green-300/70 bg-green-500/15 px-2.5 py-1 rounded-full">Standard</div>
+            <span class="text-[12px] font-bold text-white/50">¥980 / 月</span>
+          </div>
+          <div class="space-y-2.5">
+            <div class="flex items-start gap-2.5">
+              <span class="text-green-400/50 text-[10px] mt-0.5 flex-shrink-0">◆</span>
+              <span class="text-[11px] text-white/40 font-light leading-relaxed">月30回採点（無料は月3回）</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-green-400/50 text-[10px] mt-0.5 flex-shrink-0">◆</span>
+              <span class="text-[11px] text-white/40 font-light leading-relaxed">ZPD批判的問いかけ + 知識フィードバック</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-green-400/50 text-[10px] mt-0.5 flex-shrink-0">◆</span>
+              <span class="text-[11px] text-white/40 font-light leading-relaxed">成長ダッシュボード・模範解答</span>
+            </div>
+          </div>
+          <a href="/shoronmon.html" class="block text-center mt-4 text-[10px] text-green-400/45 hover:text-green-300/70 transition-colors font-medium">
+            詳細を見る →
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <a href="https://shoronmon.vercel.app" target="_blank" rel="noopener"
+             class="block text-center py-3.5 rounded-2xl bg-green-800/15 border border-green-700/20 text-green-300 text-[13px] font-bold
+                    hover:bg-green-700/25 hover:border-green-600/35 hover:-translate-y-0.5 transition-all duration-200
+                    shadow-[0_4px_16px_rgba(82,183,136,.12)]">
+            SHORONモンを無料で試す →
+          </a>
+          <a href="/shoronmon.html"
+             class="block text-center py-2 rounded-xl text-green-400/40 text-[11px] font-medium hover:text-green-300/70 transition-colors">
             詳しく見る
           </a>
         </div>
@@ -707,6 +807,14 @@
         <img src="/sakumon-icon.png" alt="SAKUモン" class="w-5 h-5 rounded-md object-cover" />
         SAKUモン — 日本語読解
       </a>
+      <a href="https://shoronmon.vercel.app" target="_blank" rel="noopener"
+         class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-bold text-[14px]
+                bg-green-800/20 border border-green-700/25 text-green-300
+                hover:bg-green-700/30 hover:border-green-600/40 hover:-translate-y-0.5 transition-all duration-200
+                shadow-[0_4px_20px_rgba(82,183,136,.10)]">
+        <span class="text-[16px]">🗒</span>
+        SHORONモン — 小論文トレーニング
+      </a>
     </div>
 
   </section>
@@ -738,6 +846,7 @@
         <nav class="flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-white/20">
           <a href="https://eigomon.vercel.app" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">EIGOモン</a>
           <a href="https://sakumon-olive.vercel.app" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">SAKUモン</a>
+          <a href="https://shoronmon.vercel.app" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">SHORONモン</a>
           <a href="https://eigomon.vercel.app/terms" target="_blank" rel="noopener" class="hover:text-white/50 transition-colors">利用規約</a>
           <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
           <a href="/tokushoho.html" class="hover:text-white/50 transition-colors">特定商取引法</a>
