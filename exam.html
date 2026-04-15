@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大学受験生のためのMONシリーズ — 英語・現代文・小論文をAIで鍛える</title>
+  <meta name="description" content="早稲田政経・慶應SFC現役合格者が、教育格差に抗って作ったAI学習ツール。英語長文（EIGOモン）・現代文（SAKUモン）・小論文（SHORONモン）を手元の教材から演習に変える。月3回無料。" />
+  <meta name="keywords" content="大学受験, 小論文 AI, 英語長文 対策, 現代文 対策, AO入試, 総合型選抜, 推薦入試, 慶應SFC, 早稲田政経, 医学部小論文" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="大学受験生のためのMONシリーズ — 英語・現代文・小論文をAIで鍛える" />
+  <meta property="og:description" content="早稲田政経・慶應SFC現役合格者が、教育格差に抗って作ったAI学習ツール。手元の教材を演習に変える。月3回無料。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mon-landing-zeta.vercel.app/exam" />
+  <meta property="og:image" content="https://mon-landing-zeta.vercel.app/mon-og.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content="MONシリーズ" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://mon-landing-zeta.vercel.app/mon-og.png" />
+  <link rel="icon" type="image/png" href="/mon-icon.png" />
+  <link rel="apple-touch-icon" href="/mon-icon.png" />
+  <link rel="canonical" href="https://mon-landing-zeta.vercel.app/exam" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system','BlinkMacSystemFont','Hiragino Sans','Noto Sans JP','sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { -webkit-font-smoothing: antialiased; }
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    /* カラー */
+    .grad-gold {
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-e {
+      background: linear-gradient(135deg, #d4a060 0%, #a87040 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-s {
+      background: linear-gradient(135deg, #e8a87c 0%, #b85c2a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .grad-sh {
+      background: linear-gradient(135deg, #52b788 0%, #2d6a4f 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .shimmer-gold {
+      background: linear-gradient(90deg, #f59e0b 0%, #fde68a 30%, #f59e0b 60%, #fde68a 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .pulse { animation: pulse-dot 2.5s ease-in-out infinite; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up   { animation: fade-up .7s ease both; }
+    .fade-up-1 { animation: fade-up .7s .12s ease both; }
+    .fade-up-2 { animation: fade-up .7s .24s ease both; }
+    .fade-up-3 { animation: fade-up .7s .36s ease both; }
+    .rule { border: none; border-top: 1px solid rgba(255,255,255,.055); margin: 0; }
+    .stat-divider { border-left: 1px solid rgba(255,255,255,.08); }
+    .service-card { transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+    .service-card:hover { transform: translateY(-3px); }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #08090a; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+  </style>
+</head>
+<body class="bg-[#08090a] text-white font-sans selection:bg-amber-900/50">
+
+  <!-- 背景グロー -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 -left-32 w-[700px] h-[700px] bg-amber-900/[.12] rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-48 w-[600px] h-[600px] bg-green-900/[.08] rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-orange-900/[.09] rounded-full blur-3xl translate-y-1/3"></div>
+  </div>
+  <div class="fixed inset-0 bg-grid pointer-events-none" aria-hidden="true"></div>
+
+
+  <!-- ════ NAV ════ -->
+  <nav class="relative z-50 flex items-center justify-between px-5 py-4 max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 hover:opacity-70 transition-opacity">
+        <img src="/mon-icon.png" alt="MONシリーズ" class="w-7 h-7 rounded-lg object-cover" />
+        <span class="text-[12px] font-black tracking-tight text-white/50">MONシリーズ</span>
+      </a>
+      <span class="text-white/[.08]">|</span>
+      <span class="text-[11px] text-white/30">受験生ガイド</span>
+    </div>
+    <a href="#services"
+       class="flex items-center gap-1.5 text-[12px] font-bold text-slate-900 bg-amber-400 px-4 py-2 rounded-full hover:bg-amber-300 transition-colors tracking-tight shadow-[0_4px_16px_rgba(245,158,11,.3)]">
+      使える機能を見る →
+    </a>
+  </nav>
+
+
+  <!-- ════ HERO ════ -->
+  <section class="relative z-10 min-h-[92vh] flex flex-col items-center justify-center text-center px-5 pt-8 pb-24">
+
+    <div class="fade-up inline-flex items-center gap-2 text-[11px] tracking-[.15em] text-white/30 mb-8 font-light">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 pulse"></span>
+      大学受験生のためのAI学習ツール
+    </div>
+
+    <h1 class="fade-up-1 text-[clamp(2.2rem,7.5vw,4.4rem)] font-black tracking-[-0.055em] leading-[1.05] mb-7 max-w-3xl">
+      お金をかけなくても、<br class="hidden sm:block" />
+      <span class="shimmer-gold">受かれる世の中にしたい。</span>
+    </h1>
+
+    <p class="fade-up-2 text-[14px] sm:text-[15px] text-white/45 max-w-lg leading-[2] mb-8 font-light">
+      英語長文・現代文・小論文の対策が、<br />
+      高額な専門塾に通わなくても手元で完結する。<br />
+      <strong class="text-white/70 font-semibold">MONシリーズは、その一点のために作りました。</strong>
+    </p>
+
+    <!-- Stats -->
+    <div class="fade-up-3 grid grid-cols-3 gap-px mt-4 mb-10 w-full max-w-md border border-white/[.06] rounded-2xl overflow-hidden bg-white/[.015]">
+      <div class="py-4 text-center">
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight grad-e">EIGOモン</div>
+        <div class="text-[9px] text-white/25 mt-1">英語長文</div>
+      </div>
+      <div class="py-4 text-center stat-divider">
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight grad-s">SAKUモン</div>
+        <div class="text-[9px] text-white/25 mt-1">現代文</div>
+      </div>
+      <div class="py-4 text-center stat-divider">
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight grad-sh">SHORONモン</div>
+        <div class="text-[9px] text-white/25 mt-1">小論文</div>
+      </div>
+    </div>
+
+    <div class="fade-up-3 flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="#services"
+         class="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-black text-[14px] tracking-tight text-slate-900 bg-amber-400 shadow-[0_8px_32px_rgba(245,158,11,.35)] hover:bg-amber-300 hover:-translate-y-0.5 transition-all duration-200">
+        受験生向け機能を見る
+        <span class="bg-slate-900/20 rounded-full px-2.5 py-0.5 text-[10px] font-bold">全3サービス</span>
+      </a>
+      <a href="#developer"
+         class="px-6 py-4 rounded-2xl border border-white/10 text-white/50 text-[13px] font-medium hover:bg-white/[.05] hover:text-white/70 transition-all">
+        開発者について →
+      </a>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/15">
+      <div class="text-[9px] tracking-[.25em] uppercase">Scroll</div>
+      <div class="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"></div>
+    </div>
+  </section>
+
+
+  <!-- ════ DEVELOPER ════ -->
+  <section id="developer" class="relative z-10 px-5 py-24 max-w-2xl mx-auto">
+    <div class="bg-gradient-to-br from-white/[.03] to-white/[.01] border border-white/[.07] rounded-3xl p-8 sm:p-10">
+
+      <div class="text-[10px] tracking-[.28em] uppercase text-amber-400/50 mb-6 text-center">開発者について</div>
+
+      <div class="flex flex-col sm:flex-row items-start gap-6">
+        <div class="flex-shrink-0 mx-auto sm:mx-0">
+          <div class="w-16 h-16 rounded-2xl bg-amber-900/40 border border-amber-700/30 flex items-center justify-center text-2xl">🎓</div>
+        </div>
+        <div class="flex-1 text-center sm:text-left">
+          <div class="text-[18px] font-black mb-1">近並 琉暉</div>
+          <div class="text-[12px] text-white/35 font-light mb-4">MONシリーズ 開発者</div>
+
+          <!-- 合格実績 -->
+          <div class="flex flex-wrap gap-2 mb-5 justify-center sm:justify-start">
+            <span class="inline-flex items-center gap-1.5 bg-amber-900/30 border border-amber-700/30 rounded-full px-3 py-1.5 text-[11px] font-bold text-amber-300/80">
+              🏆 早稲田大学 政治経済学部 現役合格
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-amber-900/30 border border-amber-700/30 rounded-full px-3 py-1.5 text-[11px] font-bold text-amber-300/80">
+              🏆 早稲田大学 社会科学部 現役合格
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-green-900/30 border border-green-700/30 rounded-full px-3 py-1.5 text-[11px] font-bold text-green-300/80">
+              🏆 慶應義塾大学 総合政策学部 現役合格
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-1.5 mb-4 justify-center sm:justify-start">
+            <span class="text-[10px] text-white/25 bg-white/[.03] border border-white/[.06] rounded-full px-2.5 py-1">総合問題型</span>
+            <span class="text-[10px] text-white/25 bg-white/[.03] border border-white/[.06] rounded-full px-2.5 py-1">小論文型</span>
+            <span class="text-[10px] text-white/25 bg-white/[.03] border border-white/[.06] rounded-full px-2.5 py-1">塾講師経験あり</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-white/[.06] my-6" />
+
+      <p class="text-[13px] text-white/45 leading-[2.1] font-light">
+        塾講師アルバイトとして指導するなかで、現代文・英語読解・小論文を一学生アルバイトが教えることへの<strong class="text-white/65 font-semibold">限界</strong>を強く感じました。同時に、AO・総合型選抜の拡大に伴い小論文対策の需要が増す一方で、その対策が<strong class="text-white/65 font-semibold">高額な専門塾や地方では受けられない添削</strong>に頼らざるを得ない現状に疑問を持ちました。
+      </p>
+      <p class="text-[13px] text-white/45 leading-[2.1] font-light mt-4">
+        お金をかけられない受験生でも受かれる世の中にしたい——その一点がMONシリーズの出発点です。
+      </p>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ CONCEPT ════ -->
+  <section class="relative z-10 px-5 py-20 max-w-2xl mx-auto text-center">
+    <div class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-4">MONシリーズのコンセプト</div>
+    <h2 class="text-[clamp(1.5rem,4vw,2.2rem)] font-black tracking-tight leading-tight mb-5">
+      手元にある文章を、<br /><span class="grad-gold">そのまま演習に変える。</span>
+    </h2>
+    <p class="text-[13px] sm:text-[14px] text-white/40 leading-[2] font-light max-w-lg mx-auto">
+      教材を買い足す必要はありません。持っている参考書・問題集・課題文、志望校の過去問——<br />
+      <strong class="text-white/60 font-semibold">写真を撮るか、テキストを貼るだけ</strong>で、AIがその文章を演習問題・採点・フィードバックに変換します。
+    </p>
+
+    <div class="grid grid-cols-3 gap-3 mt-10 text-center text-[11px]">
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">📷</div>
+        <div class="font-semibold text-white/60 mb-1">写真を撮る</div>
+        <div class="text-white/25 font-light">教材・過去問をスマホで撮影</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">📄</div>
+        <div class="font-semibold text-white/60 mb-1">PDF読み取り</div>
+        <div class="text-white/25 font-light">授業プリント・電子教材をアップ</div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.06] rounded-xl p-4">
+        <div class="text-xl mb-2">✏️</div>
+        <div class="font-semibold text-white/60 mb-1">テキスト入力</div>
+        <div class="text-white/25 font-light">テーマや文章を直接入力</div>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ SERVICES ════ -->
+  <section id="services" class="relative z-10 px-5 py-24 max-w-4xl mx-auto">
+
+    <div class="text-center mb-16">
+      <div class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">3つのサービス</div>
+      <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight">
+        受験に必要な3科目を、<br /><span class="shimmer-gold">すべてカバーする。</span>
+      </h2>
+    </div>
+
+    <!-- EIGOモン -->
+    <div class="service-card bg-white/[.02] border border-amber-700/[.18] rounded-3xl p-7 sm:p-9 mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-start gap-5 mb-7">
+        <div class="flex-shrink-0">
+          <img src="/eigomon-icon.png" alt="EIGOモン" class="w-14 h-14 rounded-2xl object-cover" onerror="this.style.display='none'" />
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[10px] tracking-[.2em] uppercase text-amber-400/50 font-mono">英語長文</div>
+          </div>
+          <h3 class="text-[22px] font-black tracking-tight mb-2"><span class="grad-e">EIGOモン</span></h3>
+          <p class="text-[13px] text-white/40 font-light leading-relaxed">
+            手元の英語長文を、即座に読解演習へ変換。同じ英文から毎回違う問題を生成するため、本文理解が身についているか繰り返し確かめられます。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <div class="bg-white/[.025] border border-amber-700/[.12] rounded-xl p-4">
+          <div class="text-amber-400/60 text-[10px] font-mono tracking-widest mb-2">FEATURE 01</div>
+          <div class="text-[13px] font-bold mb-1.5">手持ち教材をそのまま演習化</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            教科書・参考書・過去問の英文を写真またはテキストで入力するだけ。学校や塾のプリントも使えます。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-amber-700/[.12] rounded-xl p-4">
+          <div class="text-amber-400/60 text-[10px] font-mono tracking-widest mb-2">FEATURE 02</div>
+          <div class="text-[13px] font-bold mb-1.5">同じ英文で問題を変えて復習</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            復習時に「問題を変えて再出題」できるため、暗記ではなく本物の読解力がついているか確認できます。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-amber-700/[.12] rounded-xl p-4">
+          <div class="text-amber-400/60 text-[10px] font-mono tracking-widest mb-2">FEATURE 03</div>
+          <div class="text-[13px] font-bold mb-1.5">スキマ時間に読解演習</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            英語学習アプリは単語暗記が中心でした。EIGOモンは読解演習をスマホで完結させます。通学時間にも。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-amber-700/[.12] rounded-xl p-4">
+          <div class="text-amber-400/60 text-[10px] font-mono tracking-widest mb-2">FEATURE 04</div>
+          <div class="text-[13px] font-bold mb-1.5">AI解説で即理解</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            不正解だった箇所をAIがその場で解説。「どこで読み違えたか」まで掘り下げます。
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-between pt-5 border-t border-white/[.06]">
+        <div class="text-[11px] text-white/25 font-light">早稲田・慶應・東大・共通テストの英語長文対策に</div>
+        <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+           class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-amber-700/30 border border-amber-600/30 text-amber-300/80 text-[12px] font-bold hover:bg-amber-700/50 transition-colors">
+          EIGOモンを試す →
+        </a>
+      </div>
+    </div>
+
+
+    <!-- SAKUモン -->
+    <div class="service-card bg-white/[.02] border border-orange-700/[.18] rounded-3xl p-7 sm:p-9 mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-start gap-5 mb-7">
+        <div class="flex-shrink-0">
+          <img src="/sakumon-icon.png" alt="SAKUモン" class="w-14 h-14 rounded-2xl object-cover" onerror="this.style.display='none'" />
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[10px] tracking-[.2em] uppercase text-orange-400/50 font-mono">現代文・記述</div>
+          </div>
+          <h3 class="text-[22px] font-black tracking-tight mb-2"><span class="grad-s">SAKUモン</span></h3>
+          <p class="text-[13px] text-white/40 font-light leading-relaxed">
+            現代文の長文を使った読解演習と記述採点。手元の教材・参考書・授業プリントから問題を生成し、解答を即採点します。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <div class="bg-white/[.025] border border-orange-700/[.12] rounded-xl p-4">
+          <div class="text-orange-400/60 text-[10px] font-mono tracking-widests mb-2">FEATURE 01</div>
+          <div class="text-[13px] font-bold mb-1.5">現代文の読解演習を即生成</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            評論文・小説・授業プリントを入力するだけ。内容理解問題・記述問題をAIが自動で作成します。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-orange-700/[.12] rounded-xl p-4">
+          <div class="text-orange-400/60 text-[10px] font-mono tracking-widests mb-2">FEATURE 02</div>
+          <div class="text-[13px] font-bold mb-1.5">記述解答をAIが即採点</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            自分の記述解答に対して採点基準を明示してフィードバック。「なぜ点数が取れないか」が分かります。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-orange-700/[.12] rounded-xl p-4">
+          <div class="text-orange-400/60 text-[10px] font-mono tracking-widests mb-2">FEATURE 03</div>
+          <div class="text-[13px] font-bold mb-1.5">復習に使える「問題変えて再演習」</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            同じ文章を題材に異なる切り口で問題を生成。一度解いた問題集を多角的な読解練習の素材にできます。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-orange-700/[.12] rounded-xl p-4">
+          <div class="text-orange-400/60 text-[10px] font-mono tracking-widests mb-2">FEATURE 04</div>
+          <div class="text-[13px] font-bold mb-1.5">志望校の過去問で実戦練習</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            志望校の現代文過去問を貼るだけで、その大学・学部の記述形式に合わせた演習ができます。
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-between pt-5 border-t border-white/[.06]">
+        <div class="text-[11px] text-white/25 font-light">早稲田・慶應・東大の現代文・総合問題対策に</div>
+        <a href="https://sakumon.vercel.app" target="_blank" rel="noopener"
+           class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-orange-700/30 border border-orange-600/30 text-orange-300/80 text-[12px] font-bold hover:bg-orange-700/50 transition-colors">
+          SAKUモンを試す →
+        </a>
+      </div>
+    </div>
+
+
+    <!-- SHORONモン -->
+    <div class="service-card bg-white/[.02] border border-green-700/[.18] rounded-3xl p-7 sm:p-9">
+      <div class="flex flex-col sm:flex-row sm:items-start gap-5 mb-7">
+        <div class="flex-shrink-0">
+          <img src="/shoronmon-icon.png" alt="SHORONモン" class="w-14 h-14 rounded-2xl object-cover" onerror="this.style.display='none'" />
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[10px] tracking-[.2em] uppercase text-green-400/50 font-mono">小論文</div>
+          </div>
+          <h3 class="text-[22px] font-black tracking-tight mb-2"><span class="grad-sh">SHORONモン</span></h3>
+          <p class="text-[13px] text-white/40 font-light leading-relaxed">
+            小論文を5軸でAI採点し、ZPD理論に基づいた段階別フィードバックを提供。志望校の過去問から予想問題も生成できます。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 01</div>
+          <div class="text-[13px] font-bold mb-1.5">5軸AI採点（約20秒）</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            論理構成・根拠の質・表現力・課題適合性・独自性を100点満点で採点。採点ブレをtemperature固定で技術的に排除。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 02</div>
+          <div class="text-[13px] font-bold mb-1.5">志望校の過去問→未来問生成</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            志望校の過去問1〜5年分をアップロードすると、AIが出題傾向を分析して「今年出そうな問題」を生成します。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 03</div>
+          <div class="text-[13px] font-bold mb-1.5">3つの練習モード</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            <strong class="text-white/50">Deep</strong>（全軸フル解説）/<strong class="text-white/50"> Sprint</strong>（時間制限＋軸集中）/<strong class="text-white/50"> Dialogue</strong>（ソクラテス対話）から今日の目的に合わせて選べます。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 04</div>
+          <div class="text-[13px] font-bold mb-1.5">ZPD適応フィードバック（4段階）</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            初心者には全軸の丁寧な解説、上級者には批判的問いかけで自立的思考へ。実力フェーズに応じてフィードバックが変化します。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 05</div>
+          <div class="text-[13px] font-bold mb-1.5">知識フィードバック・模範答案</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            論述に不足していた背景知識・論点の提示と、フェーズ別の模範答案を毎回生成。次に何を直せばいいかが具体的にわかります。
+          </p>
+        </div>
+        <div class="bg-white/[.025] border border-green-700/[.12] rounded-xl p-4">
+          <div class="text-green-400/50 text-[10px] font-mono tracking-widest mb-2">FEATURE 06</div>
+          <div class="text-[13px] font-bold mb-1.5">合否データ蓄積（実装予定）</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            ユーザーの合否データが蓄積次第、各大学・学部・入試方式における小論文の合格確率判定機能を実装予定。
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-between pt-5 border-t border-white/[.06]">
+        <div class="text-[11px] text-white/25 font-light">AO・総合型選抜・医学部・推薦・公務員論文に</div>
+        <a href="https://shoronmon.vercel.app" target="_blank" rel="noopener"
+           class="flex-shrink-0 px-5 py-2.5 rounded-xl bg-green-700/30 border border-green-600/30 text-green-300/80 text-[12px] font-bold hover:bg-green-700/50 transition-colors">
+          SHORONモンを試す →
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ USE CASES ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto text-center">
+    <div class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">こんな受験生に</div>
+    <h2 class="text-[clamp(1.6rem,4.5vw,2.4rem)] font-black tracking-tight mb-14">
+      どの入試方式でも、<br /><span class="grad-gold">MONシリーズで対策できる。</span>
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 hover:border-green-800/30 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="text-[13px] font-black grad-sh">SHORONモン</div>
+          <span class="text-[10px] text-white/20">+</span>
+          <div class="text-[13px] font-black grad-s">SAKUモン</div>
+        </div>
+        <div class="text-[13px] font-bold mb-1.5">AO入試・総合型選抜</div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">慶應SFC・早稲田政経・ICU等の総合問題は小論文＋読解が軸。SHORONモンで小論文を、SAKUモンで現代文読解を同時に鍛えられます。</p>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 hover:border-green-800/30 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="text-[13px] font-black grad-sh">SHORONモン</div>
+        </div>
+        <div class="text-[13px] font-bold mb-1.5">医学部・看護学部の小論文</div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">医療倫理・社会問題の論述に特化。「根拠の質」「課題適合性」を重点的に採点。志望校の過去問→未来問生成で実戦練習できます。</p>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 hover:border-amber-800/30 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="text-[13px] font-black grad-e">EIGOモン</div>
+          <span class="text-[10px] text-white/20">+</span>
+          <div class="text-[13px] font-black grad-s">SAKUモン</div>
+        </div>
+        <div class="text-[13px] font-bold mb-1.5">一般入試（英語・現代文の記述）</div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">早稲田・慶應・東大の記述問題対策に。手持ちの教材・過去問を使って、毎日スキマ時間に読解演習が回せます。</p>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 hover:border-green-800/30 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="text-[13px] font-black grad-sh">SHORONモン</div>
+        </div>
+        <div class="text-[13px] font-bold mb-1.5">学校推薦型・公務員論文</div>
+        <p class="text-[11px] text-white/30 font-light leading-relaxed">東大推薦・国公立の学校推薦・地方公務員論文にも対応。繰り返しの練習と採点ログで実力の変化を客観的に追えます。</p>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ FINAL CTA ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-2xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 text-[10px] tracking-[.25em] uppercase text-white/20 mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 pulse"></span>
+      全サービス、月3回まで永続無料
+    </div>
+    <h2 class="text-[clamp(2rem,6vw,3rem)] font-black tracking-[-0.04em] leading-[1.1] mb-6">
+      お金をかけなくても、<br />
+      <span class="shimmer-gold">受かれる。</span>
+    </h2>
+    <p class="text-[13px] text-white/35 font-light mb-10 leading-[2]">
+      クレジットカード不要。登録1分。<br />
+      3サービスそれぞれ月3回まで無料で試せます。
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto">
+      <a href="https://eigomon.vercel.app" target="_blank" rel="noopener"
+         class="flex flex-col items-center gap-2 px-4 py-4 rounded-2xl bg-amber-700/20 border border-amber-700/25 hover:bg-amber-700/35 transition-colors">
+        <span class="text-[13px] font-black grad-e">EIGOモン</span>
+        <span class="text-[10px] text-white/30">英語長文 →</span>
+      </a>
+      <a href="https://sakumon.vercel.app" target="_blank" rel="noopener"
+         class="flex flex-col items-center gap-2 px-4 py-4 rounded-2xl bg-orange-700/20 border border-orange-700/25 hover:bg-orange-700/35 transition-colors">
+        <span class="text-[13px] font-black grad-s">SAKUモン</span>
+        <span class="text-[10px] text-white/30">現代文 →</span>
+      </a>
+      <a href="https://shoronmon.vercel.app" target="_blank" rel="noopener"
+         class="flex flex-col items-center gap-2 px-4 py-4 rounded-2xl bg-green-700/20 border border-green-700/25 hover:bg-green-700/35 transition-colors">
+        <span class="text-[13px] font-black grad-sh">SHORONモン</span>
+        <span class="text-[10px] text-white/30">小論文 →</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="relative z-10 border-t border-white/[.055] px-5 py-10 max-w-5xl mx-auto">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <img src="/mon-icon.png" alt="MONシリーズ" class="w-6 h-6 rounded-lg object-cover" />
+        <span class="text-[12px] font-black tracking-tight text-white/40">MONシリーズ</span>
+        <span class="text-white/[.08] mx-2">|</span>
+        <a href="/" class="text-[11px] text-white/20 hover:text-white/40 transition-colors">トップページ</a>
+      </div>
+      <div class="flex items-center gap-5 text-[11px] text-white/25">
+        <a href="/shoronmon" class="hover:text-white/50 transition-colors">SHORONモン</a>
+        <a href="/eigomon" class="hover:text-white/50 transition-colors">EIGOモン</a>
+        <a href="/sakumon" class="hover:text-white/50 transition-colors">SAKUモン</a>
+        <a href="/privacy" class="hover:text-white/50 transition-colors">プライバシーポリシー</a>
+      </div>
+      <p class="text-[10px] text-white/15">© 2025 MONシリーズ</p>
+    </div>
+  </footer>
+
+</body>
+</html>
