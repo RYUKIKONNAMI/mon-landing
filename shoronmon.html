@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SHORONモン — 小論は書けば書くほど、強くなる。</title>
-  <meta name="description" content="AIが5軸で採点し、あなたの「今の実力」に合わせたフィードバックを届けます。採点ブレを技術で解決した、AI小論文学習サービス。" />
+  <meta name="description" content="AIが5軸で採点し、あなたの「今の実力」に合わせたフィードバックを届けます。Deep・Sprint・Dialogueの3モード、採点ブレを技術で解決した小論文学習サービス。" />
   <meta property="og:title" content="SHORONモン — 小論は書けば書くほど、強くなる。" />
-  <meta property="og:description" content="5軸AI採点・ZPD適応フィードバック・temperature 0.2固定で採点ブレを排除。AO入試・推薦・一般入試に対応した小論文学習サービス。" />
+  <meta property="og:description" content="5軸AI採点・ZPD適応フィードバック・3セッションモード・過去問予想問題生成。AO入試・医学部・推薦・公務員論文に対応した小論文学習サービス。月3回永続無料。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://mon-landing-zeta.vercel.app/mon-og.png" />
   <meta property="og:image:width" content="512" />
@@ -163,22 +163,26 @@
     </div>
 
     <!-- Stats bar -->
-    <div class="fade-up-3 grid grid-cols-4 gap-px mt-16 w-full max-w-lg border border-white/[.06] rounded-2xl overflow-hidden bg-white/[.015]">
+    <div class="fade-up-3 grid grid-cols-5 gap-px mt-16 w-full max-w-xl border border-white/[.06] rounded-2xl overflow-hidden bg-white/[.015]">
       <div class="py-4 text-center bg-transparent">
-        <div class="text-[clamp(1.1rem,3vw,1.4rem)] font-black tracking-tight grad-sh">5軸</div>
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight grad-sh">5軸</div>
         <div class="text-[9px] text-white/25 mt-1">採点指標</div>
       </div>
       <div class="py-4 text-center stat-divider">
-        <div class="text-[clamp(1.1rem,3vw,1.4rem)] font-black tracking-tight text-white/80">約20秒</div>
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight text-white/80">約20秒</div>
         <div class="text-[9px] text-white/25 mt-1">採点完了</div>
       </div>
       <div class="py-4 text-center stat-divider">
-        <div class="text-[clamp(1.1rem,3vw,1.4rem)] font-black tracking-tight grad-gold">4段階</div>
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight grad-gold">4段階</div>
         <div class="text-[9px] text-white/25 mt-1">フェーズ適応</div>
       </div>
       <div class="py-4 text-center stat-divider">
-        <div class="text-[clamp(1.1rem,3vw,1.4rem)] font-black tracking-tight text-white/80">全件</div>
-        <div class="text-[9px] text-white/25 mt-1">採点ログ保存</div>
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight text-white/80">3モード</div>
+        <div class="text-[9px] text-white/25 mt-1">練習スタイル</div>
+      </div>
+      <div class="py-4 text-center stat-divider">
+        <div class="text-[clamp(1rem,2.5vw,1.3rem)] font-black tracking-tight text-white/80">全件</div>
+        <div class="text-[9px] text-white/25 mt-1">ログ保存</div>
       </div>
     </div>
 
@@ -271,7 +275,7 @@
         <div class="text-2xl">🖊</div>
         <div>
           <div class="text-[13px] font-bold mb-1.5">お題を選んで書く</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">テーマ・課題文・手書き写真からAIがお題を生成。600〜800字で答案を提出。</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">テーマ・課題文・手書き写真OCR・過去問からAIがお題を生成。600〜800字で答案を提出。</div>
         </div>
       </div>
       <div class="bg-white/[.02] border border-green-700/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
@@ -284,10 +288,10 @@
       </div>
       <div class="bg-white/[.02] border border-green-700/[.12] rounded-2xl p-5 text-left flex flex-col gap-3">
         <div class="text-[8px] tracking-[.3em] text-green-400/30 font-mono">STEP 03</div>
-        <div class="text-2xl">📈</div>
+        <div class="text-2xl">💬</div>
         <div>
-          <div class="text-[13px] font-bold mb-1.5">フィードバックで伸びる</div>
-          <div class="text-[11px] text-white/30 leading-relaxed font-light">フェーズに合ったフィードバック・模範答案・批判的問いかけで、次の答案が変わる。</div>
+          <div class="text-[13px] font-bold mb-1.5">対話と反復で定着する</div>
+          <div class="text-[11px] text-white/30 leading-relaxed font-light">模範答案・批判的問いかけ・AIとの対話で思考を深め、2〜3日後の最適タイミングで再練習。</div>
         </div>
       </div>
     </div>
@@ -372,6 +376,56 @@
   <hr class="rule" />
 
 
+  <!-- ════ SESSION MODES ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">3つの練習モード</p>
+      <h2 class="text-[clamp(1.5rem,4vw,2.3rem)] font-black tracking-tight leading-tight">
+        目的に合わせて、<br /><span class="grad-sh">モードを選ぶ。</span>
+      </h2>
+      <p class="text-[13px] text-white/35 font-light max-w-xl mx-auto mt-4 leading-relaxed">
+        毎回同じ練習ではなく、今日の目的に合った形で学べる。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- Deep -->
+      <div class="bg-white/[.025] border border-green-700/[.18] rounded-2xl p-6 flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-green-900/60 border border-green-600/30 flex items-center justify-center text-[13px]">🌊</div>
+          <div class="text-[13px] font-black">Deepモード</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">全5軸フィードバック＋模範答案＋批判的問いかけ＋知識フィードバックをフルセットで受け取る。じっくり実力を底上げしたいときに。</p>
+        <div class="mt-auto pt-3 border-t border-white/[.05] text-[10px] text-green-400/40 font-mono tracking-wide">DEFAULT</div>
+      </div>
+
+      <!-- Sprint -->
+      <div class="bg-white/[.025] border border-orange-700/[.18] rounded-2xl p-6 flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-orange-900/40 border border-orange-600/30 flex items-center justify-center text-[13px]">⚡</div>
+          <div class="text-[13px] font-black">Sprintモード</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">10〜60分の時間制限＋特定軸（論理・根拠など）に集中した練習。弱点軸を速く集中的に鍛えたいときに。ボーナス採点あり。</p>
+        <div class="mt-auto pt-3 border-t border-white/[.05] text-[10px] text-orange-400/40 font-mono tracking-wide">時間制限 + 軸集中</div>
+      </div>
+
+      <!-- Dialogue -->
+      <div class="bg-white/[.025] border border-blue-700/[.18] rounded-2xl p-6 flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-blue-900/40 border border-blue-600/30 flex items-center justify-center text-[13px]">💬</div>
+          <div class="text-[13px] font-black">Dialogueモード</div>
+        </div>
+        <p class="text-[11px] text-white/35 font-light leading-relaxed">AIとのソクラテス式5問対話で自分の論述の前提や矛盾を掘り下げる。正答すると論理・根拠・独自性にボーナス点が加算される。</p>
+        <div class="mt-auto pt-3 border-t border-white/[.05] text-[10px] text-blue-400/40 font-mono tracking-wide">対話 + ボーナス採点</div>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
   <!-- ════ ZPD FEEDBACK ════ -->
   <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
 
@@ -421,6 +475,66 @@
   <hr class="rule" />
 
 
+  <!-- ════ FEEDBACK COMPONENTS ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] tracking-[.28em] uppercase text-white/20 mb-3">フィードバックの中身</p>
+      <h2 class="text-[clamp(1.5rem,4vw,2.3rem)] font-black tracking-tight leading-tight">
+        採点で終わらない。<br /><span class="grad-sh">次の一手が全部わかる。</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">📊</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">5軸レーダー＋コメント</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">各軸のスコアとコメントで「なぜその点数か」が一目で分かる。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">📝</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">模範答案（フェーズ別）</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">自分の実力フェーズに合わせた文字数・深度の模範答案を自動生成。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">🔍</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">批判的問いかけ＋知識フィードバック</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">論述の穴を突くソクラテス式の問いと、背景知識・論点の補足を提示。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">✏️</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">文章リライト例</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">表現力の弱い文章を「こう書き直せる」という具体例で示す。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">🪞</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">自己採点振り返り</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">「できていない→気づいた→実践した」の3段階でメタ認知力を養う。</div>
+        </div>
+      </div>
+      <div class="bg-white/[.02] border border-white/[.07] rounded-2xl p-5 flex items-start gap-4">
+        <div class="text-xl flex-shrink-0 mt-0.5">📈</div>
+        <div>
+          <div class="text-[13px] font-bold mb-1">スコアトレンド＋パターン分析</div>
+          <div class="text-[11px] text-white/30 font-light leading-relaxed">軸別の成長グラフと「主張型・解決型・省察型」などの論述パターン傾向を可視化。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
   <!-- ════ WHO IT'S FOR ════ -->
   <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto text-center">
 
@@ -429,21 +543,60 @@
       書いたら、すぐ確かめる。<br /><span class="grad-sh">その習慣が実力をつくる。</span>
     </h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-green-800/35 text-left">
         <div class="text-green-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 01</div>
-        <div class="text-[14px] font-bold mb-2">AO・推薦入試の直前期</div>
-        <p class="text-[12px] text-white/35 font-light leading-relaxed">添削の順番待ちをなくしたい。書いたその日に客観的なスコアとフィードバックを得て、PDCA を高速で回す。</p>
+        <div class="text-[14px] font-bold mb-2">AO・総合型選抜の直前期</div>
+        <p class="text-[12px] text-white/35 font-light leading-relaxed">添削の順番待ちをなくしたい。書いたその日に客観的なスコアとフィードバックを得て、PDCAを高速で回す。慶應SFC・早稲田・上智などの総合型対策に。</p>
       </div>
       <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-green-800/35 text-left">
         <div class="text-green-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 02</div>
-        <div class="text-[14px] font-bold mb-2">一般入試の論述対策</div>
-        <p class="text-[12px] text-white/35 font-light leading-relaxed">試験本番で「なんとなく」に頼らないために。5軸スコアで弱点を把握し、集中的に強化する。</p>
+        <div class="text-[14px] font-bold mb-2">医学部・看護学部の小論文</div>
+        <p class="text-[12px] text-white/35 font-light leading-relaxed">医療倫理・社会問題の論述で求められる「根拠の質」と「課題適合性」を重点的に鍛える。再受験・学士編入にも対応。</p>
       </div>
       <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-green-800/35 text-left">
         <div class="text-green-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 03</div>
-        <div class="text-[14px] font-bold mb-2">就職活動のES・作文</div>
-        <p class="text-[12px] text-white/35 font-light leading-relaxed">ESの論理構成と表現力を磨きたい社会人・大学生にも対応。自分の文章の癖を客観的に把握する。</p>
+        <div class="text-[14px] font-bold mb-2">学校推薦型・一般入試の論述対策</div>
+        <p class="text-[12px] text-white/35 font-light leading-relaxed">東大推薦・国公立の学校推薦・一般入試の論述。5軸スコアで弱点を数値化し、Sprintモードで集中的に強化する。</p>
+      </div>
+      <div class="scene-card bg-white/[.025] border border-white/[.07] rounded-2xl p-6 hover:border-green-800/35 text-left">
+        <div class="text-green-400/60 text-[11px] font-mono tracking-widest mb-3">SCENE 04</div>
+        <div class="text-[14px] font-bold mb-2">就職活動・公務員論文</div>
+        <p class="text-[12px] text-white/35 font-light leading-relaxed">ESの論理構成と表現力を磨きたい大学生・社会人にも対応。自分の文章の癖を客観的に把握し、地方公務員・国家公務員の論文対策にも。</p>
+      </div>
+    </div>
+  </section>
+
+
+  <hr class="rule" />
+
+
+  <!-- ════ FUTURE QUESTIONS ════ -->
+  <section class="relative z-10 px-5 py-24 max-w-3xl mx-auto">
+    <div class="bg-gradient-to-br from-[#060f0a]/80 to-slate-900/60 border border-green-800/25 rounded-3xl p-8 sm:p-10">
+      <div class="text-[10px] tracking-[.28em] uppercase text-green-400/50 mb-4 text-center">過去問 → 未来問生成</div>
+      <h2 class="text-[clamp(1.4rem,4vw,2rem)] font-black tracking-tight leading-tight mb-5 text-center">
+        志望校の過去問を撮って、<br /><span class="grad-sh">今年出そうな問題を作る。</span>
+      </h2>
+      <p class="text-[13px] sm:text-[14px] text-white/45 leading-[2] font-light max-w-lg mx-auto text-center mb-8">
+        志望校の過去問をスマホで撮るだけ。AIが大学・学部・試験種別・出題傾向を自動解析し、「今年出題されそうな問題」を生成します。
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="text-center">
+          <div class="text-2xl mb-2">📷</div>
+          <div class="text-[12px] font-bold mb-1">過去問を撮影</div>
+          <div class="text-[10px] text-white/30 font-light">写真アップロードでOCR自動解析。大学・学部・年度を自動抽出。</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">🧠</div>
+          <div class="text-[12px] font-bold mb-1">AIが傾向を分析</div>
+          <div class="text-[10px] text-white/30 font-light">複数年の出題パターン・テーマの変遷をAIが読み解く。</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">✨</div>
+          <div class="text-[12px] font-bold mb-1">未来問を生成</div>
+          <div class="text-[10px] text-white/30 font-light">「次に出そうな問題」を複数生成。志望校特化の実戦練習へ。</div>
+        </div>
       </div>
     </div>
   </section>
@@ -472,9 +625,11 @@
         </div>
         <ul class="flex flex-col gap-2 text-[12px] text-white/50 font-light">
           <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>月3回の5軸AI採点</li>
-          <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>ZPD適応フィードバック</li>
+          <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>ZPD適応フィードバック（全フェーズ）</li>
           <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>模範答案・批判的問いかけ</li>
-          <li class="flex items-center gap-2"><span class="text-white/20">✓</span>採点ログ保存</li>
+          <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>知識フィードバック・文章リライト</li>
+          <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>Deep / Sprint / Dialogueモード</li>
+          <li class="flex items-center gap-2"><span class="text-green-400/70">✓</span>採点ログ保存</li>
         </ul>
         <a href="https://shoronmon.vercel.app/auth" target="_blank" rel="noopener"
            class="mt-auto block text-center py-3 rounded-xl border border-white/15 text-white/60 text-[13px] font-semibold hover:bg-white/[.05] hover:text-white/80 transition-all">
@@ -492,11 +647,13 @@
         </div>
         <ul class="flex flex-col gap-2 text-[12px] text-white/60 font-light">
           <li class="flex items-center gap-2"><span class="text-green-400">✓</span>無制限の5軸AI採点</li>
-          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>ZPD適応フィードバック（全フェーズ）</li>
-          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>模範答案・批判的問いかけ</li>
-          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>過去問から予想問題生成</li>
-          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>採点ログ・成長グラフ</li>
-          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>習慣化バッジ（9種）</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>Deep / Sprint / Dialogueモード全解放</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>知識フィードバック・文章リライト</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>自己採点振り返り・メタ認知カード</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>過去問アップロード＋予想問題生成</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>合否結果の記録・コホート比較</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>採点ログ・成長グラフ・パターン分析</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span>習慣化バッジ（9種）＋ストリーク</li>
         </ul>
         <a href="https://shoronmon.vercel.app/pricing" target="_blank" rel="noopener"
            class="mt-auto block text-center py-3 rounded-xl bg-[#2d6a4f] text-white text-[13px] font-black shadow-[0_4px_16px_rgba(45,106,79,.4)] hover:bg-[#3d8a6a] transition-colors">
@@ -505,10 +662,27 @@
       </div>
     </div>
 
-    <p class="text-center text-[11px] text-white/20 mt-6 font-light">
-      法人・塾向けプランもあります。
-      <a href="https://shoronmon.vercel.app/b2b/pricing" class="text-green-400/50 hover:text-green-400/80 underline underline-offset-2 transition-colors">法人プランを見る →</a>
-    </p>
+    <!-- B2B -->
+    <div class="mt-8 bg-white/[.02] border border-green-700/[.15] rounded-2xl p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div class="flex-1">
+          <div class="text-[10px] tracking-[.2em] uppercase text-green-400/50 mb-1.5">塾・学校向けプラン</div>
+          <div class="text-[14px] font-black mb-1">教師・教室プラン</div>
+          <p class="text-[11px] text-white/30 font-light leading-relaxed">
+            生徒の採点履歴・5軸レーダー・弱点軸を一覧で管理。招待コードで生徒を追加し、クラス全体の進捗をリアルタイムで把握。複数教師での共同管理にも対応。
+          </p>
+          <div class="flex flex-wrap gap-3 mt-3 text-[10px] text-white/25">
+            <span>教師プラン ¥4,980/月（30名・100採点）</span>
+            <span class="text-white/[.08]">|</span>
+            <span>教室プラン ¥14,800/月（100名・500採点）</span>
+          </div>
+        </div>
+        <a href="https://shoronmon.vercel.app/b2b/pricing" target="_blank" rel="noopener"
+           class="flex-shrink-0 px-5 py-2.5 rounded-xl border border-green-700/30 text-green-300/70 text-[12px] font-bold hover:bg-green-900/[.2] hover:text-green-200 transition-all whitespace-nowrap">
+          法人プランを見る →
+        </a>
+      </div>
+    </div>
   </section>
 
 
